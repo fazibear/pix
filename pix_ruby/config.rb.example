@@ -1,0 +1,5 @@
+OWM_KEY= # Open weather map api key
+BIO_LETTER_1='A'
+BIO_BIRTH_1='YYYY-MM-DD'
+BIO_LETTER_2='B'
+BIO_BIRTH_2='YYYY-MM-DD'

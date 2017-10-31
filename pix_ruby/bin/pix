@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'daemons'
+
+Daemons.run("#{__dir__}/../lib/pix.rb")
