@@ -7,7 +7,7 @@ defmodule Pix.Features.Clock do
   @timeout 100
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, Draw.empty, name: __MODULE__)
+    GenStage.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   def init(state) do
@@ -17,13 +17,13 @@ defmodule Pix.Features.Clock do
   end
 
   def handle_info(:tick, state) do
-    state = Draw.empty
-            |> draw_time(current_time)
-            |> draw_dots(current_sec)
+    clock = Draw.empty
+            |> draw_time(current_time())
+            |> draw_dots(current_sec())
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{:clock, state}], state}
+    {:noreply, [{:clock, clock}], state}
   end
 
   def handle_demand(_demand, state), do: {:noreply, [], state}
@@ -43,14 +43,14 @@ defmodule Pix.Features.Clock do
   end
 
   defp current_time do
-    {{_,_,_}, {h, m, _}} = :calendar.universal_time()
+    {{_,_,_}, {h, m, _}} = :calendar.local_time()
 
     :io_lib.format("~2.10. B~2.10.0B", [h,m])
     |> String.Chars.to_string()
   end
 
   defp current_sec do
-    {{_,_,_}, {_, _, s}} = :calendar.universal_time()
+    {{_,_,_}, {_, _, s}} = :calendar.local_time()
     s
   end
 end

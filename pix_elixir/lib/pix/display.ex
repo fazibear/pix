@@ -13,7 +13,7 @@ defmodule Pix.Display do
     state = events
     |> Enum.reduce(state, &put_into_state/2)
 
-    {:noreply, [state.clock], state}
+    {:noreply, [state.random], state}
   end
 
   defp put_into_state({key, value}, state) do

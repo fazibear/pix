@@ -9,6 +9,7 @@ defmodule Pix.Application do
     import Supervisor.Spec, warn: false
 
     features = [
+      Features.Random,
       Features.Clock,
     ]
 

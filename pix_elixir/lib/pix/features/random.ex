@@ -3,7 +3,7 @@ defmodule Pix.Features.Random do
 
   alias Pix.Draw
 
-  @timeout 60 #0
+  @timeout 10 #0
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, Draw.empty, name: __MODULE__)
@@ -28,6 +28,6 @@ defmodule Pix.Features.Random do
 
   defp draw_random(state) do
     state
-    |> Draw.put(:rand.uniform(16)-1,:rand.uniform(16)-1,:rand.uniform(9)-1)
+    |> Draw.dot(:rand.uniform(16)-1,:rand.uniform(16)-1,:rand.uniform(9)-1)
   end
 end
