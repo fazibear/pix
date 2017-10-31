@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     colorize (0.8.1)
-    daemons (1.2.4)
+    daemons (1.2.5)
 
 PLATFORMS
   ruby
