@@ -21,7 +21,7 @@ defmodule Pix.Features.Random do
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{:random, state}], state}
+    {:noreply, [{__MODULE__, state}], state}
   end
 
   def handle_demand(_demand, state), do: {:noreply, [], state}

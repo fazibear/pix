@@ -9,8 +9,8 @@ defmodule Pix.Application do
     import Supervisor.Spec, warn: false
 
     features = [
-      Features.Random,
       Features.Clock,
+      Features.Random,
     ]
 
     # Define workers and child supervisors to be supervised

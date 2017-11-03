@@ -4,10 +4,10 @@ defmodule Pix.Features.Clock do
   alias Pix.Draw
   alias Pix.Draw.Digit
 
-  @timeout 100
+  @timeout 1000
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, [], name: __MODULE__)
+    GenStage.start_link(__MODULE__, Draw.empty, name: __MODULE__)
   end
 
   def init(state) do
@@ -23,7 +23,7 @@ defmodule Pix.Features.Clock do
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{:clock, clock}], state}
+    {:noreply, [{__MODULE__, clock}], state}
   end
 
   def handle_demand(_demand, state), do: {:noreply, [], state}
