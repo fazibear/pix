@@ -45,16 +45,10 @@ defmodule Pix.Display do
   end
 
   defp process_events({:data, key, value}, {events, state}) do
-    state = state.subscribers_data
-            |> put_in(update_subscribers_data(state.subscribers_data, key, value))
+    state = put_in(state.subscribers_data[key], value)
 
     events = events ++ if key == state.current_subscriber, do: [value], else: []
 
     {events, state}
-  end
-
-  defp update_subscribers_data(subscribers_data, key, value) do
-    subscribers_data
-    |> Map.put(key, value)
   end
 end
