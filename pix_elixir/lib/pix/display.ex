@@ -12,7 +12,7 @@ defmodule Pix.Display do
 
     state = %{
       subscribers: subscribers,
-      current_subscriber_index: -1,
+      #            current_subscriber_index: -1,
       screen: Draw.empty(),
       subscribers_data: %{},
       current_transition: nil
