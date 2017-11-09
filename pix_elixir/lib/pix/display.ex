@@ -30,12 +30,22 @@ defmodule Pix.Display do
 
     Process.send_after(self(), :change, @change_timeout)
 
+    send self(), :transition
+
+    {:noreply, [], state}
+  end
+
+  def handle_info(:transition, %{current_subscriber: {:transition, old, new}} = state) do
+    Process.send_after(self(), :transition, @transition_timeout)
+
+    state = state
+            |> Map.put(:current_subscriber, new)
+            |> IO.inspect
+
     {:noreply, [], state}
   end
 
   def handle_info(:transition, state) do
-    Process.send_after(self(), :transition, @transition_timeout)
-
     {:noreply, [], state}
   end
 

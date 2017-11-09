@@ -7,6 +7,18 @@ defmodule Pix.Display.Cycle do
     end
   end
 
+  def update_suscriber(%{current_subscriber: _} = state) do
+    Map.put(
+      state,
+      :current_subscriber,
+      {
+        :transition,
+        state.current_subscriber,
+        Enum.at(state.subscribers, state.current_subscriber_index)
+      }
+    )
+  end
+
   def update_suscriber(state) do
     Map.put(
       state,
