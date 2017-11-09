@@ -23,7 +23,7 @@ defmodule Pix.Features.Clock do
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{__MODULE__, clock}], state}
+    {:noreply, [{:data, __MODULE__, clock}], state}
   end
 
   def handle_demand(_demand, state), do: {:noreply, [], state}

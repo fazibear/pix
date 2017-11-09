@@ -3,7 +3,8 @@ defmodule Pix.Display do
 
   alias Pix.Draw
 
-  @timeout 5000
+  @change_timeout 5000
+  @transition_timeout 200
 
   def start_link(subscribers) do
     state = %{
@@ -11,25 +12,31 @@ defmodule Pix.Display do
       current_subscriber: Pix.Features.Random,
       screen: Draw.empty(),
       subscribers_data: %{},
+      current_transition: nil
     }
 
     GenStage.start_link(__MODULE__, state, name: __MODULE__)
   end
 
   def init(state) do
-    send self(), :random
+    send self(), :change
     {:producer_consumer, state, subscribe_to: state.subscribers}
   end
 
-  def handle_info(:random, state) do
+  def handle_info(:change, state) do
     state = state
     |> Map.put(:current_subscriber, Enum.random(state.subscribers))
 
-    Process.send_after(self(), :random, @timeout)
+    Process.send_after(self(), :change, @change_timeout)
 
     {:noreply, [], state}
   end
 
+  def handle_info(:transition, state) do
+    Process.send_after(self(), :transition, @transition_timeout)
+
+    {:noreply, [], state}
+  end
 
   def handle_events(events, _from, state) do
     {events, state} = Enum.reduce(events, {[], state}, &process_events/2)
@@ -37,9 +44,10 @@ defmodule Pix.Display do
     {:noreply, events, state}
   end
 
-  defp process_events({key, value}, {events, state}) do
+  defp process_events({:data, key, value}, {events, state}) do
+    state = state.subscribers_data
+            |> put_in(update_subscribers_data(state.subscribers_data, key, value))
 
-    state = Map.put(state, :subscribers_data, update_subscribers_data(state.subscribers_data, key, value))
     events = events ++ if key == state.current_subscriber, do: [value], else: []
 
     {events, state}
