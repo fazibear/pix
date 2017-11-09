@@ -4,7 +4,8 @@ defmodule Pix.Display do
   alias Pix.Draw
   alias Pix.Display.{
     Cycle,
-    Subscribers,
+    Subscriber,
+    Transition,
   }
 
   @change_timeout 5000
@@ -25,8 +26,8 @@ defmodule Pix.Display do
 
   def handle_info(:change, state) do
     state = state
-            |> Cycle.cycle_subscribers()
-            |> Cycle.update_suscriber()
+            |> Cycle.subscribers()
+            |> Transition.update()
 
     Process.send_after(self(), :change, @change_timeout)
 
@@ -35,12 +36,11 @@ defmodule Pix.Display do
     {:noreply, [], state}
   end
 
-  def handle_info(:transition, %{current_subscriber: {:transition, old, new}} = state) do
+  def handle_info(:transition, %{current_subscriber: :transition} = state) do
     Process.send_after(self(), :transition, @transition_timeout)
 
     state = state
-            |> Map.put(:current_subscriber, new)
-            |> IO.inspect
+            |> Transition.finish()
 
     {:noreply, [], state}
   end
@@ -50,7 +50,7 @@ defmodule Pix.Display do
   end
 
   def handle_events(events, _from, state) do
-    {events, state} = Subscribers.process_events(events, state)
+    {events, state} = Subscriber.process_events(events, state)
 
     {:noreply, events, state}
   end

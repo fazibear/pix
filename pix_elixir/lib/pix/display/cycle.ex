@@ -1,5 +1,5 @@
 defmodule Pix.Display.Cycle do
-  def cycle_subscribers(state) do
+  def subscribers(state) do
     if current_subscriber_index(state) == length(state.subscribers) - 1 do
       reset_index(state)
     else
@@ -7,27 +7,7 @@ defmodule Pix.Display.Cycle do
     end
   end
 
-  def update_suscriber(%{current_subscriber: _} = state) do
-    Map.put(
-      state,
-      :current_subscriber,
-      {
-        :transition,
-        state.current_subscriber,
-        Enum.at(state.subscribers, state.current_subscriber_index)
-      }
-    )
-  end
-
-  def update_suscriber(state) do
-    Map.put(
-      state,
-      :current_subscriber,
-      Enum.at(state.subscribers, state.current_subscriber_index)
-    )
-  end
-
-  def current_subscriber_index(state) do
+  defp current_subscriber_index(state) do
     Map.get(
       state,
       :current_subscriber_index,
@@ -35,7 +15,7 @@ defmodule Pix.Display.Cycle do
     )
   end
 
-  def reset_index(state) do
+  defp reset_index(state) do
     Map.put(
       state,
       :current_subscriber_index,
@@ -43,7 +23,7 @@ defmodule Pix.Display.Cycle do
     )
   end
 
-  def increment_index(state) do
+  defp increment_index(state) do
     Map.put(
       state,
       :current_subscriber_index,

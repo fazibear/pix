@@ -1,9 +1,9 @@
-defmodule Pix.Display.Subscribers do
+defmodule Pix.Display.Subscriber do
   def process_events(events, state) do
     Enum.reduce(events, {[], state}, &process_event/2)
   end
 
-  def process_event({:data, key, value}, {events, %{subscribers_data: _} = state}) do
+  defp process_event({:data, key, value}, {events, %{subscribers_data: _} = state}) do
     state = put_in(state.subscribers_data[key], value)
 
     events = events ++ if key == current_subscriber(state), do: [value], else: []
@@ -11,7 +11,7 @@ defmodule Pix.Display.Subscribers do
     {events, state}
   end
 
-  def process_event(event, {events, state}) do
+  defp process_event(event, {events, state}) do
     process_event(
       event,
       {
@@ -21,7 +21,7 @@ defmodule Pix.Display.Subscribers do
     )
   end
 
-  def current_subscriber(state) do
+  defp current_subscriber(state) do
     Map.get(
       state,
       :current_subscriber,
