@@ -1,4 +1,6 @@
 defmodule Pix.Display.Transition do
+
+  alias Pix.Draw
   alias Pix.Display.TransitionRules
 
   def update(%{current_subscriber: _} = state) do
@@ -7,6 +9,7 @@ defmodule Pix.Display.Transition do
     |> Map.put(:transition, %{
       old: state.current_subscriber,
       new: Enum.at(state.subscribers, state.current_subscriber_index),
+      type: Enum.random([:line, :column]),
       steps: Enum.random(TransitionRules.all())
     })
   end
@@ -19,37 +22,32 @@ defmodule Pix.Display.Transition do
     )
   end
 
-  def process(%{transition: transition} = state) do
-    [current | rest] = transition.steps
+  def process(%{transition: _} = state) do
+    [current | rest] = state.transition.steps
 
-    events = process_step(current, state)
-
+    events = process_steps(current, state)
     state = update_state(state, rest)
 
     {[events], state}
   end
 
-  defp process_step(step, state) do
-    Enum.map(step, &process_line(&1, state))
+  defp process_steps(steps, state) do
+    Enum.map(steps, &process_line(&1, state))
+    |> transpose?(state.transition.type)
   end
 
-  defp process_line("o" <> line, state) do
+  defp process_line(step, state) do
+    {from, line} = String.next_grapheme(step)
+    line = String.to_integer(line)
+
     Enum.at(
-      state.subscribers_data[state.transition.old],
-      String.to_integer(line)
+      from |> line_data(state) |> transpose?(state.transition.type),
+      line
     )
   end
 
-  defp process_line("n" <> line, state) do
-    Enum.at(
-      state.subscribers_data[state.transition.new],
-      String.to_integer(line)
-    )
-  end
-
-  defp process_line(_, state) do
-    []
-  end
+  defp line_data("o", state), do: state.subscribers_data[state.transition.old]
+  defp line_data(_, state), do: state.subscribers_data[state.transition.new]
 
   defp update_state(state, rest) do
     case rest do
@@ -61,4 +59,14 @@ defmodule Pix.Display.Transition do
         put_in(state.transition.steps, rest)
     end
   end
+
+  defp transpose?(data, :line), do: data
+  defp transpose?(data, :column), do: data |> transpose
+  defp transpose?(data, _), do: Draw.empty()
+
+  defp transpose([[x | xs] | xss]) do
+    [[x | (for [h | _] <- xss, do: h)] | transpose([xs | (for [_ | t] <- xss, do: t)])]
+  end
+  defp transpose([[] | xss]), do: transpose(xss)
+  defp transpose([]), do: []
 end
