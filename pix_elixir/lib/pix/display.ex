@@ -1,8 +1,11 @@
 defmodule Pix.Display do
   use GenStage
 
-  alias Pix.Display.Cycle
   alias Pix.Draw
+  alias Pix.Display.{
+    Cycle,
+    Subscribers,
+  }
 
   @change_timeout 5000
   @transition_timeout 200
@@ -12,7 +15,6 @@ defmodule Pix.Display do
 
     state = %{
       subscribers: subscribers,
-      #            current_subscriber_index: -1,
       screen: Draw.empty(),
       subscribers_data: %{},
       current_transition: nil
@@ -43,16 +45,8 @@ defmodule Pix.Display do
   end
 
   def handle_events(events, _from, state) do
-    {events, state} = Enum.reduce(events, {[], state}, &process_events/2)
+    {events, state} = Subscribers.process_events(events, state)
 
     {:noreply, events, state}
-  end
-
-  defp process_events({:data, key, value}, {events, state}) do
-    state = put_in(state.subscribers_data[key], value)
-
-    events = events ++ if key == state.current_subscriber, do: [value], else: []
-
-    {events, state}
   end
 end
