@@ -1,6 +1,7 @@
 defmodule Pix.Display do
   use GenStage
 
+  alias Pix.Display.Cycle
   alias Pix.Draw
 
   @change_timeout 5000
@@ -9,7 +10,8 @@ defmodule Pix.Display do
   def start_link(subscribers) do
     state = %{
       subscribers: subscribers,
-      current_subscriber: Pix.Features.Random,
+      current_subscriber_index: 0,
+      current_subscriber: Enum.at(subscribers, 0),
       screen: Draw.empty(),
       subscribers_data: %{},
       current_transition: nil
@@ -25,7 +27,8 @@ defmodule Pix.Display do
 
   def handle_info(:change, state) do
     state = state
-    |> Map.put(:current_subscriber, Enum.random(state.subscribers))
+            |> Cycle.cycle_subscribers()
+            |> Cycle.update_suscriber()
 
     Process.send_after(self(), :change, @change_timeout)
 
