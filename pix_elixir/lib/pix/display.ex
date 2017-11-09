@@ -8,10 +8,11 @@ defmodule Pix.Display do
   @transition_timeout 200
 
   def start_link(subscribers) do
+    IO.inspect subscribers
+
     state = %{
       subscribers: subscribers,
-      current_subscriber_index: 0,
-      current_subscriber: Enum.at(subscribers, 0),
+      current_subscriber_index: -1,
       screen: Draw.empty(),
       subscribers_data: %{},
       current_transition: nil
