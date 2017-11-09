@@ -9,7 +9,7 @@ defmodule Pix.Display do
   }
 
   @change_timeout 5000
-  @transition_timeout 200
+  @transition_timeout 20
 
   def start_link(subscribers) do
     state = %{
@@ -39,10 +39,9 @@ defmodule Pix.Display do
   def handle_info(:transition, %{current_subscriber: :transition} = state) do
     Process.send_after(self(), :transition, @transition_timeout)
 
-    state = state
-            |> Transition.finish()
+    {events, state} = Transition.process(state)
 
-    {:noreply, [], state}
+    {:noreply, events, state}
   end
 
   def handle_info(:transition, state) do
