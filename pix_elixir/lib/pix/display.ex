@@ -11,13 +11,8 @@ defmodule Pix.Display do
   @transition_timeout 200
 
   def start_link(subscribers) do
-    IO.inspect subscribers
-
     state = %{
       subscribers: subscribers,
-      screen: Draw.empty(),
-      subscribers_data: %{},
-      current_transition: nil
     }
 
     GenStage.start_link(__MODULE__, state, name: __MODULE__)
