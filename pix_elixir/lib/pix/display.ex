@@ -1,7 +1,6 @@
 defmodule Pix.Display do
   use GenStage
 
-  alias Pix.Draw
   alias Pix.Display.{
     Cycle,
     Subscriber,

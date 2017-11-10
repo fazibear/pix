@@ -2,7 +2,6 @@ defmodule Pix.Features.Clock do
   use GenStage
 
   alias Pix.Draw
-  alias Pix.Draw.Digit
 
   @timeout 1000
 

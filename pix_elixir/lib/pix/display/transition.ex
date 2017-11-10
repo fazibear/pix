@@ -62,7 +62,7 @@ defmodule Pix.Display.Transition do
 
   defp transpose?(data, :line), do: data
   defp transpose?(data, :column), do: data |> transpose
-  defp transpose?(data, _), do: Draw.empty()
+  defp transpose?(_, _), do: Draw.empty()
 
   defp transpose([[x | xs] | xss]) do
     [[x | (for [h | _] <- xss, do: h)] | transpose([xs | (for [_ | t] <- xss, do: t)])]
