@@ -3,7 +3,7 @@ ERL_PATH_INC = $(ERL_PATH)/usr/include
 ERL_PATH_LIB = $(ERL_PATH)/usr/lib
 
 CFLAGS = -g -I$(ERL_PATH_INC)
-LDFLAGS = -L$(ERL_PATH_LIB) -lei -lerl_interface
+LDFLAGS = -L$(ERL_PATH_LIB) -lerl_interface -lei -lerts -lpthread
 
 HEADER_FILES = src
 
@@ -14,7 +14,7 @@ OBJ = $(SRC:.c=.o)
 DEFAULT_TARGETS ?= priv priv/sysfs
 
 priv/sysfs: priv $(OBJ)
-	$(CC) -I $(HEADER_FILES) -o $@ $(LDFLAGS) $(OBJ) $(LDLIBS)
+	$(CC) -I $(HEADER_FILES) -o $@ $(OBJ) $(LDLIBS) $(LDFLAGS)
 
 priv:
 	mkdir -p priv
