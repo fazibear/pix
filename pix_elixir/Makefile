@@ -20,4 +20,4 @@ priv:
 	mkdir -p priv
 
 clean:
-	rm -f priv $(OBJ) $(BEAM_FILES)
+	rm -rf priv $(OBJ) $(BEAM_FILES)
