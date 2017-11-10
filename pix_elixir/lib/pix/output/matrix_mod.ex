@@ -9,8 +9,10 @@ defmodule Pix.Output.MatrixMod do
   end
 
   def init(state) do
-    state
-    |> Map.put(:file, File.open(@pix_file, [:write]))
+    {:ok, file} = File.open(@pix_file, [:write])
+
+    state = state
+    |> Map.put(:file, file)
 
     {:consumer, state, subscribe_to: [Pix.Display]}
   end
