@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "erl_comm.h"
+#include "erl_port.h"
 
 int main(void)
 {
@@ -19,6 +18,11 @@ int main(void)
     i = erl_encode(tuple, buf);
 
     write_cmd(buf, i);
+
+    erl_free_compound(tuple);
+    erl_free_term(tuple);
+    erl_free_term(arr[0]);
+    erl_free_term(arr[1]);
   }
 
   return 1;
