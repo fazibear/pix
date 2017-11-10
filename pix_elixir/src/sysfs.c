@@ -14,9 +14,9 @@ int main(void)
     {
       int x = i % 16;
       int y = i / 16;
-      int r = buf[i] & 0b001
-      int g = buf[i] & 0b010
-      int b = buf[i] & 0b100
+      int r = buf[i] & 0b001;
+      int g = buf[i] & 0b010;
+      int b = buf[i] & 0b100;
 
       fprintf(f, "%i %i %i %i %i\n", x, y, r, g, b);
       fflush(f);
