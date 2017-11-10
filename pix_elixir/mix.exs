@@ -24,6 +24,7 @@ defmodule Pix.Mixfile do
       aliases: aliases(@target),
       deps: deps(),
       output: output(@target),
+      compilers: [:elixir_make | Mix.compilers],
     ]
   end
 
@@ -46,6 +47,7 @@ defmodule Pix.Mixfile do
 
   def deps do
     [
+      {:elixir_make, "~> 0.4", runtime: false},
       {:gen_stage, "~> 0.12"},
     ] ++ deps(@target)
   end
