@@ -1,5 +1,4 @@
 #include "lib/erl_port.h"
-#include "lib/wiringPi/wiringPi/wiringPi.h"
 
 int main(void)
 {
