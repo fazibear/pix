@@ -2,7 +2,7 @@
 
 Pixel frame like the project, but with raspberry pi inside.
 
-## Ruby application [fazibear/pix_ruby_app](https://github.com/fazibear/pix_app_ruby)
+## Ruby application [fazibear/pix_ruby](https://github.com/fazibear/pix_ruby)
 
 Ruby application displays various things in LED matrix, using sysfs provided by the kernel module.
 
