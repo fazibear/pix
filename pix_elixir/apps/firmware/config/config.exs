@@ -16,6 +16,7 @@ use Mix.Config
 # Use bootloader to start the main application. See the bootloader
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
+
 config :bootloader,
   init: [:nerves_runtime],
   app: :firmware

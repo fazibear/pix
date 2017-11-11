@@ -1,9 +1,9 @@
 ERL_PATH = $(shell erl -eval "io:format(\"~s~n\", [code:root_dir()])" -s init stop -noshell)
-ERL_PATH_INC = $(ERL_PATH)/usr/include
-ERL_PATH_LIB = $(ERL_PATH)/usr/lib
+ERL_EI_INCLUDE_DIR ?= $(ERL_PATH)/usr/include
+ERL_EI_LIBDIR ?= $(ERL_PATH)/usr/lib
 
-CFLAGS = -g -I$(ERL_PATH_INC)
-LDFLAGS = -L$(ERL_PATH_LIB) -lerl_interface -lei -lerts -lpthread
+CFLAGS = -g -I$(ERL_EI_INCLUDE_DIR)
+LDFLAGS = -L$(ERL_EI_LIBDIR) -lerl_interface -lei -lerts -lpthread
 
 HEADER_FILES = src/lib
 

@@ -10,19 +10,21 @@ defmodule Firmware.Mixfile do
   """, :reset])
 
   def project do
-    [app: :firmware,
-     version: "0.1.0",
-     elixir: "~> 1.4",
-     target: @target,
-     archives: [nerves_bootstrap: "~> 0.6"],
-     deps_path: "../../deps/#{@target}",
-     build_path: "../../_build/#{@target}",
-     config_path: "../../config/config.exs",
-     lockfile: "../../mix.lock.#{@target}",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     aliases: aliases(@target),
-     deps: deps()]
+    [
+      app: :firmware,
+      version: "0.1.0",
+      elixir: "~> 1.4",
+      target: @target,
+      archives: [nerves_bootstrap: "~> 0.6"],
+      deps_path: "../../deps/#{@target}",
+      build_path: "../../_build/#{@target}",
+      config_path: "../../config/config.exs",
+      lockfile: "../../mix.lock.#{@target}",
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      aliases: aliases(@target),
+      deps: deps(@target)
+    ]
   end
 
   # Configuration for the OTP application.
@@ -51,17 +53,18 @@ defmodule Firmware.Mixfile do
   #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
   #
   # Type "mix help deps" for more examples and options
-  def deps do
-    [{:nerves, "~> 0.7", runtime: false}] ++
-    deps(@target)
-  end
 
   # Specify target specific dependencies
   def deps("host"), do: []
   def deps(target) do
     [
+      {:nerves, "~> 0.7", runtime: false},
       {:bootloader, "~> 0.1"},
-      {:nerves_runtime, "~> 0.4"}
+      {:nerves_runtime, "~> 0.4"},
+
+      {:matrix, in_umbrella: true},
+      {:clock, in_umbrella: true},
+      {:random, in_umbrella: true},
     ] ++ system(target)
   end
 
