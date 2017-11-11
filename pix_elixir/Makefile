@@ -7,15 +7,13 @@ LDFLAGS = -L$(ERL_PATH_LIB) -lerl_interface -lei -lerts -lpthread
 
 HEADER_FILES = src
 
-SRC = $(wildcard src/*.c)
+SRC = $(wildcard src/*.c src/**/*.c)
 
 OBJ = $(SRC:.c=.o)
 
-DEFAULT_TARGETS ?= priv priv/sysfs priv/matrix
+DEFAULT_TARGETS ?= priv priv/matrix
 
 priv/matrix: priv $(OBJ)
-
-priv/sysfs: priv $(OBJ)
 	$(CC) -I $(HEADER_FILES) -o $@ $(OBJ) $(LDLIBS) $(LDFLAGS)
 
 priv:
