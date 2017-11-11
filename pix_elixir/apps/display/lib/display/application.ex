@@ -8,7 +8,7 @@ defmodule Display.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      Display
+      {Display, []}
       # Starts a worker by calling: Display.Worker.start_link(arg)
       # {Display.Worker, arg},
     ]

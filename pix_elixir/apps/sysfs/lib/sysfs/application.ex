@@ -8,7 +8,7 @@ defmodule Sysfs.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      #Sysfs
+      # {Sysfs, []}
       # Starts a worker by calling: Sysfs.Worker.start_link(arg)
       # {Sysfs.Worker, arg},
     ]

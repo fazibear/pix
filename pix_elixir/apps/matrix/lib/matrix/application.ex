@@ -8,7 +8,7 @@ defmodule Matrix.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Matrix
+      # {Matrix, []}
       # Starts a worker by calling: Matrix.Worker.start_link(arg)
       # {Matrix.Worker, arg},
     ]

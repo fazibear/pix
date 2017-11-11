@@ -8,7 +8,7 @@ defmodule Clock.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      Clock
+      {Clock, []}
       # Starts a worker by calling: Clock.Worker.start_link(arg)
       # {Clock.Worker, arg},
     ]

@@ -4,6 +4,8 @@ defmodule Clock do
   alias Display.Draw
 
   @timeout 1000
+  @dot_color 3
+  @digits_color 7
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, Draw.empty, name: __MODULE__)
@@ -31,16 +33,16 @@ defmodule Clock do
 
   defp draw_time(state, time) do
     state
-    |> Draw.char(String.at(time, 0), 0, 0, 7)
-    |> Draw.char(String.at(time, 1), 4, 0, 7)
-    |> Draw.char(String.at(time, 2), 9, 9, 7)
-    |> Draw.char(String.at(time, 3), 13, 9, 7)
+    |> Draw.char(String.at(time, 0), 0, 0, @digits_color)
+    |> Draw.char(String.at(time, 1), 4, 0, @digits_color)
+    |> Draw.char(String.at(time, 2), 9, 9, @digits_color)
+    |> Draw.char(String.at(time, 3), 13, 9, @digits_color)
   end
 
   defp draw_dots(state, s) do
     state
-    |> Draw.char("dot#{rem(s, 2)}", 11, 2, 2)
-    |> Draw.char("dot#{rem(s, 2)}", 2, 11, 2)
+    |> Draw.char("dot#{rem(s, 2)}", 11, 2, @dot_color)
+    |> Draw.char("dot#{rem(s, 2)}", 2, 11, @dot_color)
   end
 
   defp current_time do
