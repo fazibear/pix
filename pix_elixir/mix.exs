@@ -85,5 +85,5 @@ defmodule Pix.Mixfile do
 
   #def output("host"), do: Pix.Output.MatrixModPort
   def output("host"), do: Pix.Output.Terminal
-  def output(_), do: Mix.raise "not implemented"
+  def output(_), do: []
 end

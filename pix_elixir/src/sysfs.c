@@ -2,7 +2,6 @@
 
 int main(void)
 {
-  erl_init(NULL, 0);
   byte buf[BUFSIZ];
 
   FILE *f = fopen("/sys/pix/dot", "w");
