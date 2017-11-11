@@ -4,11 +4,12 @@ defmodule Clock.Application do
   @moduledoc false
 
   use Application
+  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Clock, []}
+      worker(Clock, [nil])
       # Starts a worker by calling: Clock.Worker.start_link(arg)
       # {Clock.Worker, arg},
     ]

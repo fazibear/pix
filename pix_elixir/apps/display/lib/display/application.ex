@@ -4,11 +4,12 @@ defmodule Display.Application do
   @moduledoc false
 
   use Application
+  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Display, []}
+      worker(Display, [nil])
       # Starts a worker by calling: Display.Worker.start_link(arg)
       # {Display.Worker, arg},
     ]

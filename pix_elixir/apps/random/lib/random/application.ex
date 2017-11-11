@@ -4,11 +4,12 @@ defmodule Random.Application do
   @moduledoc false
 
   use Application
+  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Random, []}
+      worker(Random, [nil])
       # Starts a worker by calling: Random.Worker.start_link(arg)
       # {Random.Worker, arg},
     ]
