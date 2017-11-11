@@ -1,8 +1,8 @@
-# PIX PROJECT https://github.com/fazibear/pix_project
+# PIX PROJECT [fazibear/pix_project](https://github.com/fazibear/pix_project)
 
 Pixel frame like the project, but with raspberry pi inside.
 
-## Ruby application https://github.com/fazibear/pix_app_ruby
+## Ruby application [fazibear/pix_project](https://github.com/fazibear/pix_app_ruby)
 
 Ruby application displays various things in LED matrix, using sysfs provided by the kernel module.
 
