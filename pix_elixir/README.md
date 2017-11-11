@@ -2,6 +2,6 @@
 
 Pixel frame like the project, but with raspberry pi inside.
 
-## Elixir application [fazibear/pix_app_elixir](https://github.com/fazibear/pix_app_elixir)
+## Elixir application [fazibear/pix_elixir](https://github.com/fazibear/pix_elixir)
 
 WIP!
