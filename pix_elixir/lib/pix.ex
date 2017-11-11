@@ -1,3 +1,0 @@
-defmodule Pix do
-  
-end
