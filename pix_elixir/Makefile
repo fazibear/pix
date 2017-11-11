@@ -11,7 +11,9 @@ SRC = $(wildcard src/*.c)
 
 OBJ = $(SRC:.c=.o)
 
-DEFAULT_TARGETS ?= priv priv/sysfs
+DEFAULT_TARGETS ?= priv priv/sysfs priv/matrix
+
+priv/matrix: priv $(OBJ)
 
 priv/sysfs: priv $(OBJ)
 	$(CC) -I $(HEADER_FILES) -o $@ $(OBJ) $(LDLIBS) $(LDFLAGS)
