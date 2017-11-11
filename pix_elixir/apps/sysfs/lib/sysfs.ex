@@ -1,7 +1,7 @@
 defmodule Sysfs do
   use GenStage
 
-  @port_path Application.app_dir(:sysfs, "priv/sysfs") |> String.to_charlist
+  @port_path :sysfs |> Application.app_dir("priv/sysfs") |> String.to_charlist
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, %{}, name: __MODULE__)

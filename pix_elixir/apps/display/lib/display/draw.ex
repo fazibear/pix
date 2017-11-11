@@ -62,22 +62,22 @@ defmodule Display.Draw do
     |> Enum.reduce(matrix, &process_char(&1, &2, idx, data))
   end
 
-  defp process_char({char, idx}, matrix, line_idx, data) do
+  defp process_char({char, x}, matrix, y, data) do
     matrix
-    |> char_to_pix(char, idx, line_idx, data)
+    |> dot(data.x + x, data.y + y, char_to_color(char, data.c))
   end
 
-  defp char_to_pix(matrix, char, x, y, data) do
+  defp char_to_color(char, color) do
     case char do
-      ?c -> dot(matrix, data.x + x, data.y + y, data.c)
-      ?1 -> dot(matrix, data.x + x, data.y + y, 1)
-      ?2 -> dot(matrix, data.x + x, data.y + y, 2)
-      ?3 -> dot(matrix, data.x + x, data.y + y, 3)
-      ?4 -> dot(matrix, data.x + x, data.y + y, 4)
-      ?5 -> dot(matrix, data.x + x, data.y + y, 5)
-      ?6 -> dot(matrix, data.x + x, data.y + y, 6)
-      ?7 -> dot(matrix, data.x + x, data.y + y, 7)
-      _ -> matrix
+      ?c -> color
+      ?1 -> 1
+      ?2 -> 2
+      ?3 -> 3
+      ?4 -> 4
+      ?5 -> 5
+      ?6 -> 6
+      ?7 -> 7
+      _ -> 0
     end
   end
 end

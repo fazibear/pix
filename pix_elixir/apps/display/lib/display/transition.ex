@@ -43,7 +43,8 @@ defmodule Display.Transition do
   end
 
   defp process_steps(steps, state) do
-    Enum.map(steps, &process_line(&1, state))
+    steps
+    |> Enum.map(&process_line(&1, state))
     |> transpose?(state.transition.type)
   end
 

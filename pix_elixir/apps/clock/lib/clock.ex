@@ -48,12 +48,13 @@ defmodule Clock do
   defp current_time do
     {{_,_,_}, {h, m, _}} = :calendar.local_time()
 
-    :io_lib.format("~2.10. B~2.10.0B", [h,m])
+    "~2.10. B~2.10.0B"
+    |> :io_lib.format([h,m])
     |> String.Chars.to_string()
   end
 
   defp current_sec do
-    {{_,_,_}, {_, _, s}} = :calendar.local_time()
+    {{_, _, _}, {_, _, s}} = :calendar.local_time()
     s
   end
 end

@@ -15,6 +15,8 @@ defmodule Pix.Mixfile do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+    ]
   end
 end
