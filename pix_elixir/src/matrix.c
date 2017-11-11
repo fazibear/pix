@@ -1,8 +1,9 @@
 #include "lib/erl_port.h"
-#include "lib/wiringPi/wiringPi/wiringPi.h"
+#include "lib/bcm2835.h"
 
 int main(void)
 {
+  bcm2835_init();
   erl_init(NULL, 0);
   byte buf[BUFSIZ];
 

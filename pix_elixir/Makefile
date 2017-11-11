@@ -10,7 +10,7 @@ HEADER_FILES = src/lib
 SRC = $(wildcard src/*.c)
 OBJ = $(SRC:.c=.o)
 
-LIB_SRC = $(wildcard src/lib/*.c src/lib/wiringPi/wiringPi/*.c)
+LIB_SRC = $(wildcard src/lib/*.c)
 LIB_OBJ = $(LIB_SRC:.c=.o)
 
 all: priv/matrix priv/sysfs
