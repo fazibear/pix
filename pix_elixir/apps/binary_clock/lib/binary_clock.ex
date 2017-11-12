@@ -4,8 +4,6 @@ defmodule BinaryClock do
   alias Display.Draw
 
   @timeout 1000
-  @digits_color 7
-
   @on_color 6
   @off_color 4
   @dot_color 3
