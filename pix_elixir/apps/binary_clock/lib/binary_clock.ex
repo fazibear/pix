@@ -89,7 +89,7 @@ defmodule BinaryClock do
   defp current_time do
     {{_, _, _}, {h, m, _}} = :calendar.local_time()
 
-    "~2.10. B~2.10.0B"
+    "~2.10.0B~2.10.0B"
     |> :io_lib.format([h, m])
     |> String.Chars.to_string()
     |> String.split("", trim: true)
