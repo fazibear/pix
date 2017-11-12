@@ -14,4 +14,25 @@ defmodule Display.Draw.Symbol do
       'c c',
     ]
   end
+
+  def data_dot_2 do
+    [
+      'cc',
+      'cc',
+    ]
+  end
+
+  def data_dot_3 do
+    [
+      ' c',
+      'c ',
+    ]
+  end
+
+  def data_dot_4 do
+    [
+      'c ',
+      ' c',
+    ]
+  end
 end

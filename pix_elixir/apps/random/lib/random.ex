@@ -10,9 +10,9 @@ defmodule Random do
   end
 
   def init(state) do
-    send self(), :tick
-
     Display.subscribe(__MODULE__)
+
+    Process.send_after(self(), :tick, 100)
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
   end

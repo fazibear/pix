@@ -50,8 +50,11 @@ defmodule Display.Draw do
       "8" -> Digit.data_8()
       "9" -> Digit.data_9()
       "0" -> Digit.data_0()
-      "dot0" -> Symbol.data_dot_0()
-      "dot1" -> Symbol.data_dot_1()
+      "dot_0" -> Symbol.data_dot_0()
+      "dot_1" -> Symbol.data_dot_1()
+      "dot_2" -> Symbol.data_dot_2()
+      "dot_3" -> Symbol.data_dot_3()
+      "dot_4" -> Symbol.data_dot_4()
       _ -> []
     end
   end

@@ -8,28 +8,37 @@ defmodule Clock do
   @digits_color 7
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, Draw.empty, name: __MODULE__)
+    GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(state) do
-    send self(), :tick
-
     Display.subscribe(__MODULE__)
+
+    Process.send_after(self(), :tick, 100)
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
   end
 
   def handle_info(:tick, state) do
-    clock = Draw.empty
-            |> draw_time(current_time())
-            |> draw_dots(current_sec())
+    state = tick(state)
+
+    data = Draw.empty
+           |> draw_time(state.time)
+           |> draw_dots(state.dot)
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{:data, __MODULE__, clock}], state}
+    {:noreply, [{:data, __MODULE__, data}], state}
   end
 
   def handle_demand(_demand, state), do: {:noreply, [], state}
+
+  defp tick(state) do
+    %{
+      dot: (if Map.get(state, :dot) == "dot_0", do: "dot_1", else: "dot_0"),
+      time: current_time()
+    }
+  end
 
   defp draw_time(state, time) do
     state
@@ -39,22 +48,17 @@ defmodule Clock do
     |> Draw.char(String.at(time, 3), 13, 9, @digits_color)
   end
 
-  defp draw_dots(state, s) do
+  defp draw_dots(state, dot) do
     state
-    |> Draw.char("dot#{rem(s, 2)}", 11, 2, @dot_color)
-    |> Draw.char("dot#{rem(s, 2)}", 2, 11, @dot_color)
+    |> Draw.char(dot, 11, 2, @dot_color)
+    |> Draw.char(dot, 2, 11, @dot_color)
   end
 
   defp current_time do
-    {{_,_,_}, {h, m, _}} = :calendar.local_time()
+    {{_, _, _}, {h, m, _}} = :calendar.local_time()
 
     "~2.10. B~2.10.0B"
-    |> :io_lib.format([h,m])
+    |> :io_lib.format([h, m])
     |> String.Chars.to_string()
-  end
-
-  defp current_sec do
-    {{_, _, _}, {_, _, s}} = :calendar.local_time()
-    s
   end
 end
