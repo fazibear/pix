@@ -8,11 +8,15 @@ defmodule Matrix.Application do
 
   def start(_type, _args) do
     # List all child processes to be supervised
-    children = [
-      # worker(Matrix, [nil])
-      # Starts a worker by calling: Matrix.Worker.start_link(arg)
-      # {Matrix.Worker, arg},
-    ]
+
+    children = if Mix.env == :prod do
+      [worker(Matrix, [nil])]
+    else
+      [
+        # Starts a worker by calling: Matrix.Worker.start_link(arg)
+        # {Matrix.Worker, arg},
+      ]
+    end
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

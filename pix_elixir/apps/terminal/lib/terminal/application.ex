@@ -8,11 +8,16 @@ defmodule Terminal.Application do
 
   def start(_type, _args) do
     # List all child processes to be supervised
-    children = [
-      worker(Terminal, [nil])
-      # Starts a worker by calling: Terminal.Worker.start_link(arg)
-      # {Terminal.Worker, arg},
-    ]
+
+    children = if Mix.env == :dev do
+      [worker(Terminal, [nil])]
+    else
+      [
+        # Starts a worker by calling: Matrix.Worker.start_link(arg)
+        # {Matrix.Worker, arg},
+      ]
+    end
+    |> IO.inspect
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
