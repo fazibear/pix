@@ -1,3 +1,4 @@
+#include <sys/mman.h>
 #include <pthread.h>
 #include "lib/erl_port.h"
 #include "lib/bcm2835.h"
@@ -182,11 +183,21 @@ void * draw()
   }
 }
 
+void set_realtime(void){
+  struct sched_param sp;
+  memset(&sp, 0, sizeof(sp));
+  sp.sched_priority = sched_get_priority_max(SCHED_FIFO);
+  sched_setscheduler(0, SCHED_FIFO, &sp);
+  mlockall(MCL_CURRENT | MCL_FUTURE);
+}
+
+
 pthread_t matrix_thread;
 byte buf[BUFSIZ];
 
 int main(void)
 {
+  set_realtime();
   bcm2835_init();
   gpio_init();
 
