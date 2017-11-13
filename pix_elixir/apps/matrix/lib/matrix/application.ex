@@ -4,12 +4,12 @@ defmodule Matrix.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
 
     children = if Mix.env == :prod do
+      import Supervisor.Spec
       [worker(Matrix, [nil])]
     else
       [

@@ -4,12 +4,12 @@ defmodule Terminal.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
 
     children = if Mix.env == :dev do
+      import Supervisor.Spec
       [worker(Terminal, [nil])]
     else
       [
@@ -17,7 +17,6 @@ defmodule Terminal.Application do
         # {Matrix.Worker, arg},
       ]
     end
-    |> IO.inspect
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
