@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include <sched.h>
 #include "lib/erl_port.h"
 #include "lib/bcm2835.h"
 
@@ -12,7 +13,6 @@ void set_realtime(void){
   mlockall(MCL_CURRENT | MCL_FUTURE);
 }
 #endif
-
 
 #define A1  17 // 0
 #define A2  18 // 1
@@ -112,13 +112,15 @@ uint8_t matrix[LINES][PER_LINE] = {
   },
 };
 
-void set_line(uint8_t row){
+void set_line(uint8_t row)
+{
   SET_GPIO(A1, !(row & 0b00000001));
   SET_GPIO(A2, !(row & 0b00000010));
   SET_GPIO(A3, !(row & 0b00000100));
 }
 
-void gpio_init(void){
+void gpio_init(void)
+{
   SET_GPIO_OUT(A1);
   SET_GPIO_OUT(A2);
   SET_GPIO_OUT(A3);
@@ -129,7 +131,8 @@ void gpio_init(void){
   SET_GPIO_OUT(CLK);
 }
 
-void set_dot(int x, int y, int r, int g, int b) {
+void set_dot(int x, int y, int r, int g, int b)
+{
   uint8_t l,p,t;
 
   if(y % 2){
@@ -172,7 +175,7 @@ void set_dot(int x, int y, int r, int g, int b) {
 }
 
 
-void * draw()
+void* draw()
 {
   uint8_t line, pos, bit;
   while(1) {
@@ -194,22 +197,30 @@ void * draw()
   }
 }
 
+void draw_init(void)
+{
+  pthread_t draw_thread;
+  struct sched_param draw_prio;
+  int draw_policy = SCHED_FIFO;
 
-pthread_t matrix_thread;
-byte buf[BUFSIZ];
+  pthread_create(&draw_thread, NULL, draw, NULL);
+  draw_prio.sched_priority = 40;
+  pthread_setschedparam(draw_thread, draw_policy, &draw_prio);
+}
 
 int main(void)
 {
+  int len, i;
+  byte buf[BUFSIZ];
+
   #ifdef linux
   set_realtime();
   #endif
 
   bcm2835_init();
   gpio_init();
+  draw_init();
 
-  pthread_create(&matrix_thread, NULL, draw, NULL);
-
-  int len, i;
   while((len = read_cmd(buf)) > 0)
   {
     for(i=0; i<len; i++)
