@@ -24,7 +24,7 @@ defmodule SpaceCrab do
       y: :rand.uniform(9) - 1,
       dir_x: true,
       dir_y: true,
-      color: :rand.uniform(7)
+      color: rand_color()
     }
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
@@ -77,7 +77,7 @@ defmodule SpaceCrab do
     %{state |
       dir_x: !state.dir_x,
       x: 1,
-      color: :rand.uniform(7)
+      color: rand_color()
     }
   end
 
@@ -85,7 +85,7 @@ defmodule SpaceCrab do
     %{state |
       dir_x: !state.dir_x,
       x: 4,
-      color: :rand.uniform(7)
+      color: rand_color()
     }
   end
 
@@ -103,7 +103,7 @@ defmodule SpaceCrab do
     %{state |
       dir_y: !state.dir_y,
       y: 1,
-      color: :rand.uniform(1)
+      color: rand_color()
     }
   end
 
@@ -111,10 +111,13 @@ defmodule SpaceCrab do
     %{state |
       dir_y: !state.dir_y,
       y: 7,
-      color: :rand.uniform(1)
+      color: rand_color()
     }
   end
 
   def check_y(state), do: state
 
+  def rand_color do
+    :rand.uniform(7)
+  end
 end

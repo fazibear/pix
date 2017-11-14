@@ -104,7 +104,7 @@ defmodule BinaryClock do
     int
     |> Convertat.from_base(10)
     |> Convertat.to_base(2)
-    |> String.rjust(4, ?0)
+    |> String.pad_leading(4, "0")
     |> String.split("", trim: true)
   end
 end
