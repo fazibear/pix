@@ -49,11 +49,7 @@ defmodule SpaceCrab do
   end
 
   def change_color(state) do
-    if :rand.uniform(10) == 1 do
       %{state | color: :rand.uniform(7)}
-    else
-      state
-    end
   end
 
   def animate(state) do
@@ -73,15 +69,19 @@ defmodule SpaceCrab do
   end
 
   def check_x(%{x: x} = state) when x < 0 do
-    state
-    |> Map.put(:dir_x, !state.dir_x)
-    |> Map.put(:x, 1)
+    %{state |
+      dir_x: !state.dir_x,
+      x: 1,
+      color: :rand.uniform(7)
+    }
   end
 
   def check_x(%{x: x} = state) when x > 5 do
-    state
-    |> Map.put(:dir_x, !state.dir_x)
-    |> Map.put(:x, 4)
+    %{state |
+      dir_x: !state.dir_x,
+      x: 4,
+      color: :rand.uniform(7)
+    }
   end
 
   def check_x(state), do: state
@@ -95,15 +95,19 @@ defmodule SpaceCrab do
   end
 
   def check_y(%{y: y} = state) when y < 0 do
-    state
-    |> Map.put(:dir_y, !state.dir_y)
-    |> Map.put(:y, 1)
+    %{state |
+      dir_y: !state.dir_y,
+      y: 1,
+      color: :rand.uniform(1)
+    }
   end
 
   def check_y(%{y: y} = state) when y > 8 do
-    state
-    |> Map.put(:dir_y, !state.dir_y)
-    |> Map.put(:y, 7)
+    %{state |
+      dir_y: !state.dir_y,
+      y: 7,
+      color: :rand.uniform(1)
+    }
   end
 
   def check_y(state), do: state
