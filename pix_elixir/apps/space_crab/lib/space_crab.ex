@@ -4,7 +4,6 @@ defmodule SpaceCrab do
   alias Display.Draw
 
   @timeout 150
-  @crab_color 3
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
