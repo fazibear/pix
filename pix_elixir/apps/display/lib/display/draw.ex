@@ -3,10 +3,7 @@ defmodule Display.Draw do
   Helper functions for drawing symbols and chars
   """
 
-  alias Display.Draw.{
-    Char,
-    Symbol
-  }
+  alias Display.Draw.Char
 
   def empty do
     [
@@ -29,11 +26,12 @@ defmodule Display.Draw do
     ]
   end
 
-  def dot(matrix, x, y, color) do
+  def dot(matrix, x, y, color) when x >= 0 and x <= 15 and y >= 0 and y <= 15 do
     List.update_at(matrix, y, &List.replace_at(&1, x, color))
   end
+  def dot(matrix, _, _, _), do: matrix
 
-  def symbol(matrix, data, x, y, c \\ 1)
+  def symbol(matrix, data, x, y, c \\ 7)
 
   def symbol(matrix, {module, fun}, x, y, c) when is_binary(fun) do
     symbol(matrix, apply(module, String.to_atom(fun), []), x, y, c)
@@ -50,7 +48,9 @@ defmodule Display.Draw do
     |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
   end
 
-  def char(matrix, char, x, y, c \\ 1) do
+  def char(matrix, char, x, y, c \\ 7)
+  def char(matrix, " ", _, _, _), do: matrix
+  def char(matrix, char, x, y, c) do
     char
     |> char_to_data
     |> Enum.with_index
@@ -67,6 +67,7 @@ defmodule Display.Draw do
     |> Enum.reduce(matrix, &process_char(&1, &2, idx, data))
   end
 
+  defp process_char({?\s, _x}, matrix, _y, _data), do: matrix
   defp process_char({char, x}, matrix, y, data) do
     dot(matrix, data.x + x, data.y + y, char_to_color(char, data.c))
   end
