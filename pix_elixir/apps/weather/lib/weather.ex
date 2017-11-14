@@ -76,8 +76,8 @@ defmodule Weather do
     if Enum.member?(["01n", "02n", "10n"], symbol) do
       data
       |> Draw.symbol({Symbol, :moon}, 11, 0)
-      |> Draw.symbol({Symbol, "dot_#{tick}"}, 1, 4)
-      |> Draw.symbol({Symbol, "dot_#{tick}"}, 8, 1)
+      |> Draw.symbol({Symbol, "dot_#{tick}"}, 2, 4)
+      |> Draw.symbol({Symbol, "dot_#{tick}"}, 7, 1)
     else
       data
     end
