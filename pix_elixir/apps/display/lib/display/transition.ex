@@ -79,7 +79,10 @@ defmodule Display.Transition do
   defp transpose?(_, _), do: Draw.empty()
 
   defp transpose([[x | xs] | xss]) do
-    [[x | (for [h | _] <- xss, do: h)] | transpose([xs | (for [_ | t] <- xss, do: t)])]
+    [
+      [x | (for [h | _] <- xss, do: h)] |
+      transpose([xs | (for [_ | t] <- xss, do: t)])
+    ]
   end
   defp transpose([[] | xss]), do: transpose(xss)
   defp transpose([]), do: []

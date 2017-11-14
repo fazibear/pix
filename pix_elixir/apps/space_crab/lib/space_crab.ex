@@ -4,7 +4,7 @@ defmodule SpaceCrab do
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timeout 150
+  @timeout 350
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -41,16 +41,11 @@ defmodule SpaceCrab do
 
   defp tick(state) do
     state
-    |> change_color()
     |> animate()
     |> move_x()
     |> check_x()
     |> move_y()
     |> check_y()
-  end
-
-  def change_color(state) do
-      %{state | color: :rand.uniform(7)}
   end
 
   def animate(state) do
