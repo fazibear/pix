@@ -1,6 +1,6 @@
 # Display
 
-**TODO: Add description**
+Takes data from different features and generate output
 
 ## Installation
 
@@ -18,4 +18,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/display](https://hexdocs.pm/display).
-

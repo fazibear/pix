@@ -1,4 +1,8 @@
 defmodule Display.TransitionRules do
+  @moduledoc """
+  Data for transition animations
+  """
+
   def all do
      [
         [ # down

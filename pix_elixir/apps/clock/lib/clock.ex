@@ -1,7 +1,13 @@
 defmodule Clock do
+  @moduledoc """
+  Simple clock application
+  """
+
   use GenStage
 
+  alias String.Chars
   alias Display.Draw
+  alias Display.Draw.Symbol
 
   @timeout 1000
   @dot_color 3
@@ -50,8 +56,8 @@ defmodule Clock do
 
   defp draw_dots(state, dot) do
     state
-    |> Draw.char(dot, 11, 2, @dot_color)
-    |> Draw.char(dot, 2, 11, @dot_color)
+    |> Draw.symbol({Symbol, dot}, 11, 2, @dot_color)
+    |> Draw.symbol({Symbol, dot}, 2, 11, @dot_color)
   end
 
   defp current_time do
@@ -59,6 +65,6 @@ defmodule Clock do
 
     "~2.10. B~2.10.0B"
     |> :io_lib.format([h, m])
-    |> String.Chars.to_string()
+    |> Chars.to_string()
   end
 end

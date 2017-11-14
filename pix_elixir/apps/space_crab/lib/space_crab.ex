@@ -1,9 +1,14 @@
 defmodule SpaceCrab do
+  @moduledoc """
+  Walking crab from space invaders
+  """
+
   use GenStage
 
   alias Display.Draw
+  alias Display.Draw.Symbol
 
-  @timeout 150
+  @timeout 350
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -28,8 +33,13 @@ defmodule SpaceCrab do
   def handle_info(:tick, state) do
     state = tick(state)
 
-    data = Draw.empty
-           |> Draw.char(state.crab, state.x, state.y, state.color)
+    data = Draw.symbol(
+      Draw.empty,
+      {Symbol, state.crab},
+      state.x,
+      state.y,
+      state.color
+    )
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -40,16 +50,11 @@ defmodule SpaceCrab do
 
   defp tick(state) do
     state
-    |> change_color()
     |> animate()
     |> move_x()
     |> check_x()
     |> move_y()
     |> check_y()
-  end
-
-  def change_color(state) do
-      %{state | color: :rand.uniform(7)}
   end
 
   def animate(state) do

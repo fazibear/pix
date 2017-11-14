@@ -1,4 +1,8 @@
 defmodule Random do
+  @moduledoc """
+  Generates random pixels
+  """
+
   use GenStage
 
   alias Display.Draw
@@ -18,8 +22,7 @@ defmodule Random do
   end
 
   def handle_info(:tick, state) do
-    state = state
-            |> draw_random
+    state = draw_random(state)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -29,7 +32,11 @@ defmodule Random do
   def handle_demand(_demand, state), do: {:noreply, [], state}
 
   defp draw_random(state) do
-    state
-    |> Draw.dot(:rand.uniform(16) - 1, :rand.uniform(16) - 1, :rand.uniform(9) - 1)
+    Draw.dot(
+      state,
+      :rand.uniform(16) - 1,
+      :rand.uniform(16) - 1,
+      :rand.uniform(9) - 1
+    )
   end
 end

@@ -1,4 +1,8 @@
 defmodule Sysfs do
+  @moduledoc """
+  Takes data from display and send them to kernel module via sysfs
+  """
+
   use GenStage
 
   @port_path :sysfs |> Application.app_dir("priv/sysfs") |> String.to_charlist
@@ -10,8 +14,7 @@ defmodule Sysfs do
   def init(state) do
     port = Port.open({:spawn, @port_path}, [{:packet, 2}])
 
-    state = state
-    |> Map.put(:port, port)
+    state = Map.put(state, :port, port)
 
     {:consumer, state, subscribe_to: [Display]}
   end

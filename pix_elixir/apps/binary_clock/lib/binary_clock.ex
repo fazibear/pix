@@ -1,7 +1,13 @@
 defmodule BinaryClock do
+  @moduledoc """
+  Binary clock application
+  """
+
   use GenStage
 
+  alias String.Chars
   alias Display.Draw
+  alias Display.Draw.Symbol
 
   @timeout 1000
   @on_color 6
@@ -43,31 +49,31 @@ defmodule BinaryClock do
     ] = time
 
     data
-    |> Draw.char("dot_2", 1, 1, color(h11))
-    |> Draw.char("dot_2", 1, 5, color(h12))
-    |> Draw.char("dot_2", 1, 9, color(h13))
-    |> Draw.char("dot_2", 1, 13, color(h14))
+    |> Draw.symbol({Symbol, "dot_2"}, 1, 1, color(h11))
+    |> Draw.symbol({Symbol, "dot_2"}, 1, 5, color(h12))
+    |> Draw.symbol({Symbol, "dot_2"}, 1, 9, color(h13))
+    |> Draw.symbol({Symbol, "dot_2"}, 1, 13, color(h14))
 
-    |> Draw.char("dot_2", 4, 1, color(h21))
-    |> Draw.char("dot_2", 4, 5, color(h22))
-    |> Draw.char("dot_2", 4, 9, color(h23))
-    |> Draw.char("dot_2", 4, 13, color(h24))
+    |> Draw.symbol({Symbol, "dot_2"}, 4, 1, color(h21))
+    |> Draw.symbol({Symbol, "dot_2"}, 4, 5, color(h22))
+    |> Draw.symbol({Symbol, "dot_2"}, 4, 9, color(h23))
+    |> Draw.symbol({Symbol, "dot_2"}, 4, 13, color(h24))
 
-    |> Draw.char("dot_2", 10, 1, color(m11))
-    |> Draw.char("dot_2", 10, 5, color(m12))
-    |> Draw.char("dot_2", 10, 9, color(m13))
-    |> Draw.char("dot_2", 10, 13, color(m14))
+    |> Draw.symbol({Symbol, "dot_2"}, 10, 1, color(m11))
+    |> Draw.symbol({Symbol, "dot_2"}, 10, 5, color(m12))
+    |> Draw.symbol({Symbol, "dot_2"}, 10, 9, color(m13))
+    |> Draw.symbol({Symbol, "dot_2"}, 10, 13, color(m14))
 
-    |> Draw.char("dot_2", 13, 1, color(m21))
-    |> Draw.char("dot_2", 13, 5, color(m22))
-    |> Draw.char("dot_2", 13, 9, color(m23))
-    |> Draw.char("dot_2", 13, 13, color(m24))
+    |> Draw.symbol({Symbol, "dot_2"}, 13, 1, color(m21))
+    |> Draw.symbol({Symbol, "dot_2"}, 13, 5, color(m22))
+    |> Draw.symbol({Symbol, "dot_2"}, 13, 9, color(m23))
+    |> Draw.symbol({Symbol, "dot_2"}, 13, 13, color(m24))
   end
 
   defp draw_dots(data, dot) do
     data
-    |> Draw.char(dot, 7, 4, @dot_color)
-    |> Draw.char(dot, 7, 10, @dot_color)
+    |> Draw.symbol({Symbol, dot}, 7, 4, @dot_color)
+    |> Draw.symbol({Symbol, dot}, 7, 10, @dot_color)
   end
 
   defp color(value) do
@@ -89,7 +95,7 @@ defmodule BinaryClock do
 
     "~2.10.0B~2.10.0B"
     |> :io_lib.format([h, m])
-    |> String.Chars.to_string()
+    |> Chars.to_string()
     |> String.split("", trim: true)
     |> Enum.map(&to_bin/1)
   end

@@ -1,34 +1,53 @@
 defmodule Display.Draw do
+  @moduledoc """
+  Helper functions for drawing symbols and chars
+  """
 
   alias Display.Draw.{
-    Digit,
+    Char,
     Symbol
   }
 
   def empty do
     [
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
   end
 
   def dot(matrix, x, y, color) do
-    matrix
-    |> List.update_at(y, &List.replace_at(&1, x, color))
+    List.update_at(matrix, y, &List.replace_at(&1, x, color))
+  end
+
+  def symbol(matrix, data, x, y, c \\ 1)
+
+  def symbol(matrix, {module, fun}, x, y, c) when is_binary(fun) do
+    symbol(matrix, apply(module, String.to_atom(fun), []), x, y, c)
+
+  end
+
+  def symbol(matrix, {module, fun}, x, y, c) when is_atom(fun) do
+    symbol(matrix, apply(module, fun, []), x, y, c)
+  end
+
+  def symbol(matrix, data, x, y, c) do
+    data
+    |> Enum.with_index
+    |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
   end
 
   def char(matrix, char, x, y, c \\ 1) do
@@ -39,26 +58,7 @@ defmodule Display.Draw do
   end
 
   defp char_to_data(char) do
-    case char do
-      "1" -> Digit.data_1()
-      "2" -> Digit.data_2()
-      "3" -> Digit.data_3()
-      "4" -> Digit.data_4()
-      "5" -> Digit.data_5()
-      "6" -> Digit.data_6()
-      "7" -> Digit.data_7()
-      "8" -> Digit.data_8()
-      "9" -> Digit.data_9()
-      "0" -> Digit.data_0()
-      "dot_0" -> Symbol.data_dot_0()
-      "dot_1" -> Symbol.data_dot_1()
-      "dot_2" -> Symbol.data_dot_2()
-      "dot_3" -> Symbol.data_dot_3()
-      "dot_4" -> Symbol.data_dot_4()
-      "crab_0" -> Symbol.data_crab_0()
-      "crab_1" -> Symbol.data_crab_1()
-      _ -> []
-    end
+    apply(Char, String.to_atom("_#{char}"), [])
   end
 
   defp process_line({line, idx}, matrix, data) do
@@ -68,21 +68,16 @@ defmodule Display.Draw do
   end
 
   defp process_char({char, x}, matrix, y, data) do
-    matrix
-    |> dot(data.x + x, data.y + y, char_to_color(char, data.c))
+    dot(matrix, data.x + x, data.y + y, char_to_color(char, data.c))
   end
 
-  defp char_to_color(char, color) do
-    case char do
-      ?c -> color
-      ?1 -> 1
-      ?2 -> 2
-      ?3 -> 3
-      ?4 -> 4
-      ?5 -> 5
-      ?6 -> 6
-      ?7 -> 7
-      _ -> 0
-    end
-  end
+  defp char_to_color(?c, color), do: color
+  defp char_to_color(?1, _), do: 1
+  defp char_to_color(?2, _), do: 2
+  defp char_to_color(?3, _), do: 3
+  defp char_to_color(?4, _), do: 4
+  defp char_to_color(?5, _), do: 5
+  defp char_to_color(?6, _), do: 6
+  defp char_to_color(?7, _), do: 7
+  defp char_to_color(_, _), do: 0
 end

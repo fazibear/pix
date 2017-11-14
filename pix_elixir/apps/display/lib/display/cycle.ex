@@ -1,4 +1,8 @@
 defmodule Display.Cycle do
+  @moduledoc """
+  Helper funcions to cycle throu all subscribed features
+  """
+
   def subscribers(state) do
     if current_subscriber_index(state) >= length(state.subscribers) - 1 do
       reset_index(state)

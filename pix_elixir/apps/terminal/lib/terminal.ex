@@ -1,4 +1,8 @@
 defmodule Terminal do
+  @moduledoc """
+  Takes data from display and draw them on terminal
+  """
+
   use GenStage
   alias IO.ANSI
 
@@ -11,8 +15,7 @@ defmodule Terminal do
   end
 
   def handle_events(events, _from, state) do
-    events
-    |> Enum.each(&draw/1)
+    Enum.each(events, &draw/1)
 
     {:noreply, [], state}
   end

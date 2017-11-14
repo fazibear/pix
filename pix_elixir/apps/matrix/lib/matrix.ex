@@ -1,4 +1,8 @@
 defmodule Matrix do
+  @moduledoc """
+  Takes data from display, and draw them on GPIO matrix using port
+  """
+
   use GenStage
 
   @port_path :matrix |> Application.app_dir("priv/matrix") |> String.to_charlist
@@ -10,8 +14,7 @@ defmodule Matrix do
   def init(state) do
     port = Port.open({:spawn, @port_path}, [{:packet, 2}])
 
-    state = state
-    |> Map.put(:port, port)
+    state = Map.put(state, :port, port)
 
     {:consumer, state, subscribe_to: [Display]}
   end
