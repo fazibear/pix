@@ -2,6 +2,7 @@ defmodule SpaceCrab do
   use GenStage
 
   alias Display.Draw
+  alias Display.Draw.Symbol
 
   @timeout 150
 
@@ -29,7 +30,7 @@ defmodule SpaceCrab do
     state = tick(state)
 
     data = Draw.empty
-           |> Draw.char(state.crab, state.x, state.y, state.color)
+           |> Draw.symbol({Symbol, state.crab}, state.x, state.y, state.color)
 
     Process.send_after(self(), :tick, @timeout)
 

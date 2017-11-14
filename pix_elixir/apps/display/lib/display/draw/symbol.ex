@@ -1,5 +1,5 @@
 defmodule Display.Draw.Symbol do
-  def data_dot_0 do
+  def dot_0 do
     [
       ' c ',
       'ccc',
@@ -7,7 +7,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def data_dot_1 do
+  def dot_1 do
     [
       'c c',
       ' c ',
@@ -15,28 +15,28 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def data_dot_2 do
+  def dot_2 do
     [
       'cc',
       'cc',
     ]
   end
 
-  def data_dot_3 do
+  def dot_3 do
     [
       ' c',
       'c ',
     ]
   end
 
-  def data_dot_4 do
+  def dot_4 do
     [
       'c ',
       ' c',
     ]
   end
 
-  def data_crab_0 do
+  def crab_0 do
     [
       '  c     c  ',
       'c  c   c  c',
@@ -49,7 +49,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def data_crab_1 do
+  def crab_1 do
     [
       '  c     c  ',
       '   c   c   ',

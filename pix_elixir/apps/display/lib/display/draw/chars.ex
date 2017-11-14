@@ -1,5 +1,5 @@
-defmodule Display.Draw.Digit do
-  def data_1 do
+defmodule Display.Draw.Char do
+  def _1 do
     [
       '  c',
       ' cc',
@@ -11,7 +11,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_2 do
+  def _2 do
     [
       'ccc',
       '  c',
@@ -23,7 +23,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_3 do
+  def _3 do
     [
       'ccc',
       '  c',
@@ -35,7 +35,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_4 do
+  def _4 do
     [
       'c c',
       'c c',
@@ -47,7 +47,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_5 do
+  def _5 do
     [
       'ccc',
       'c  ',
@@ -59,7 +59,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_6 do
+  def _6 do
     [
       'ccc',
       'c  ',
@@ -71,7 +71,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_7 do
+  def _7 do
     [
       'ccc',
       '  c',
@@ -83,7 +83,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_8 do
+  def _8 do
     [
       'ccc',
       'c c',
@@ -95,7 +95,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_9 do
+  def _9 do
     [
       'ccc',
       'c c',
@@ -107,7 +107,7 @@ defmodule Display.Draw.Digit do
     ]
   end
 
-  def data_0 do
+  def _0 do
     [
       'ccc',
       'c c',
