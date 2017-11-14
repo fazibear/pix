@@ -125,7 +125,7 @@ defmodule Weather do
     }
   end
 
-  def move_cloud(pos) when pos < -6, do: 8
+  def move_cloud(pos) when pos < -9, do: 15
   def move_cloud(pos), do: pos - 1
 
   def fetch_weather do

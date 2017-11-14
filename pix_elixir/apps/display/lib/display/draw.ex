@@ -26,9 +26,10 @@ defmodule Display.Draw do
     ]
   end
 
-  def dot(matrix, x, y, color) do
+  def dot(matrix, x, y, color) when x >= 0 and x <= 15 and y >=0 and y <= 15 do
     List.update_at(matrix, y, &List.replace_at(&1, x, color))
   end
+  def dot(matrix, _, _, _), do: matrix
 
   def symbol(matrix, data, x, y, c \\ 7)
 
