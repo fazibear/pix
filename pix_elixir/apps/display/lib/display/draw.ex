@@ -3,10 +3,7 @@ defmodule Display.Draw do
   Helper functions for drawing symbols and chars
   """
 
-  alias Display.Draw.{
-    Char,
-    Symbol
-  }
+  alias Display.Draw.Char
 
   def empty do
     [
@@ -50,6 +47,8 @@ defmodule Display.Draw do
     |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
   end
 
+  def char(matrix, char, x, y, c)
+  def char(matrix, " ", _, _, _), do: matrix
   def char(matrix, char, x, y, c \\ 1) do
     char
     |> char_to_data
