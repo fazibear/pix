@@ -35,4 +35,30 @@ defmodule Display.Draw.Symbol do
       ' c',
     ]
   end
+
+  def data_crab_0 do
+    [
+      '  c     c  ',
+      'c  c   c  c',
+      'c ccccccc c',
+      'ccc ccc ccc',
+      'ccccccccccc',
+      ' ccccccccc ',
+      '  c     c  ',
+      ' c       c ',
+    ]
+  end
+
+  def data_crab_1 do
+    [
+      '  c     c  ',
+      '   c   c   ',
+      '  ccccccc  ',
+      ' cc ccc cc ',
+      'ccccccccccc',
+      'c ccccccc c',
+      'c c     c c',
+      '   cc cc   ',
+    ]
+  end
 end
