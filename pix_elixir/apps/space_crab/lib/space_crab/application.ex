@@ -4,10 +4,12 @@ defmodule SpaceCrab.Application do
   @moduledoc false
 
   use Application
+  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      worker(SpaceCrab, [nil])
       # Starts a worker by calling: SpaceCrab.Worker.start_link(arg)
       # {SpaceCrab.Worker, arg},
     ]

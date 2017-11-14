@@ -55,6 +55,8 @@ defmodule Display.Draw do
       "dot_2" -> Symbol.data_dot_2()
       "dot_3" -> Symbol.data_dot_3()
       "dot_4" -> Symbol.data_dot_4()
+      "crab_0" -> Symbol.data_crab_0()
+      "crab_1" -> Symbol.data_crab_1()
       _ -> []
     end
   end

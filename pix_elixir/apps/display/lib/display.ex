@@ -21,7 +21,13 @@ defmodule Display do
   end
 
   def subscribe(subscriber) do
-    GenStage.cast(__MODULE__, {:subscribe, subscriber})
+    if System.get_env("ONE") do
+      if "Elixir.#{System.get_env("ONE")}" == Atom.to_string(subscriber) do
+        GenStage.cast(__MODULE__, {:subscribe, subscriber})
+      end
+    else
+      GenStage.cast(__MODULE__, {:subscribe, subscriber})
+    end
   end
 
   def handle_cast({:subscribe, subscriber}, state) do
