@@ -79,7 +79,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def sun_0 do
+  def sun_1 do
     [
       '        ',
       '  3  3  ',
@@ -117,10 +117,24 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def rain do
+  def rain_0 do
     [
-      '6 6 6 ',
-      ' 6 6 6',
+      '6 6 6   ',
+      ' 6 6 6  ',
+      '        ',
+      '  6 6 6 ',
+      '   6 6 6'
+    ]
+  end
+
+  def rain_1 do
+    [
+      '        ',
+      '6 6 6   ',
+      ' 6 6 6  ',
+      '        ',
+      '  6 6 6 ',
+      '   6 6 6'
     ]
   end
 
@@ -129,6 +143,16 @@ defmodule Display.Draw.Symbol do
       '7    7 ',
       '   7   ',
       ' 7    7',
+    ]
+  end
+
+  def thunder do
+    [
+      '1       ',
+      ' 1   1  ',
+      '  1 1 1 ',
+      '   1   1',
+      '        1',
     ]
   end
 end

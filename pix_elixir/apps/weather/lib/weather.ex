@@ -8,7 +8,7 @@ defmodule Weather do
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timeout 1000
+  @timeout 200
   @fetch_timeout 1000 * 60 * 5
   @temp_color 2
 
@@ -16,11 +16,16 @@ defmodule Weather do
     GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
-  def init(state) do
+  def init(_state) do
     Display.subscribe(__MODULE__)
 
     send self(), :fetch
     Process.send_after(self(), :tick, 100)
+
+    state = %{
+      cloud_pos: 0,
+      tick: 0,
+    }
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
   end
@@ -29,8 +34,13 @@ defmodule Weather do
     state = tick(state)
 
     data = Draw.empty
+            |> draw_sun(state.symbol, state.tick)
+            |> draw_moon(state.symbol, state.tick)
+            |> draw_cloud(state.symbol, state.cloud_pos)
+            |> draw_rain(state.symbol, state.cloud_pos, state.tick)
+            |> draw_snow(state.symbol)
+            |> draw_thunder(state.symbol, state.cloud_pos, state.tick)
             |> draw_temp(state.temp)
-            |> draw_icon(state.symbol)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -54,66 +64,54 @@ defmodule Weather do
     |> Draw.char(String.at(temp, 2), 13, 9, @temp_color)
   end
 
-  defp draw_icon(data, ["0", "1", "d"]) do
-    data
-    |> Draw.symbol({Symbol, :sun_0}, 8, 0)
+  defp draw_sun(data, symbol, tick) do
+    if Enum.member?(["01d", "02d", "10d"], symbol) do
+      Draw.symbol(data, {Symbol, "sun_#{tick}"}, 8, 0)
+    else
+      data
+    end
   end
 
-  defp draw_icon(data, ["0", "1", "n"]) do
-    data
-    |> Draw.symbol({Symbol, :moon}, 11, 0)
+  defp draw_moon(data, symbol, tick) do
+    if Enum.member?(["01n", "02n", "10n"], symbol) do
+      data
+      |> Draw.symbol({Symbol, :moon}, 11, 0)
+      |> Draw.symbol({Symbol, "dot_#{tick}"}, 1, 4)
+      |> Draw.symbol({Symbol, "dot_#{tick}"}, 8, 1)
+    else
+      data
+    end
   end
 
-  defp draw_icon(data, ["0", "2", "d"]) do
-    data
-    |> Draw.symbol({Symbol, :sun_0}, 8, 0)
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
+  defp draw_cloud(data, symbol, pos) do
+    if !Enum.member?(["01d", "01n"], symbol) do
+      Draw.symbol(data, {Symbol, :cloud}, pos, 1)
+    else
+      data
+    end
   end
 
-  defp draw_icon(data, ["0", "2", "n"]) do
-    data
-    |> Draw.symbol({Symbol, :moon}, 11, 0)
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
+  defp draw_rain(data, symbol, pos, tick) do
+    if Enum.member?(["09d", "10d", "09n", "10n"], symbol) do
+      Draw.symbol(data, {Symbol, "rain_#{tick}"}, pos + 3, 8)
+    else
+      data
+    end
+  end
+  defp draw_snow(data, symbol) do
+    if Enum.member?(["13d", "13n"], symbol) do
+      Draw.symbol(data, {Symbol, :snow}, 2, 8)
+    else
+      data
+    end
   end
 
-  defp draw_icon(data, ["0", "3", _]) do
-    data
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
-  end
-
-  defp draw_icon(data, ["0", "4", _]) do
-    data
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
-  end
-
-  defp draw_icon(data, ["0", "9", _]) do
-    data
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
-    |> Draw.symbol({Symbol, :rain}, 3, 8)
-  end
-
-  defp draw_icon(data, ["1", "0", "d"]) do
-    data
-    |> Draw.symbol({Symbol, :sun_0}, 8, 0)
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
-    |> Draw.symbol({Symbol, :rain}, 3, 8)
-  end
-
-  defp draw_icon(data, ["1", "0", "n"]) do
-    data
-    |> Draw.symbol({Symbol, :sun_0}, 8, 0)
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
-    |> Draw.symbol({Symbol, :moon}, 3, 8)
-  end
-
-  defp draw_icon(data, ["1", "1", _]) do
-    data
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
-  end
-
-  defp draw_icon(data, ["1", "3", _]) do
-    data
-    |> Draw.symbol({Symbol, :cloud}, 0, 1)
+  defp draw_thunder(data, symbol, pos, tick) do
+    if Enum.member?(["11d", "11n"], symbol) and tick == 0 do
+      Draw.symbol(data, {Symbol, :thunder}, pos + 2, 8)
+    else
+      data
+    end
   end
 
   defp fetch(state) do
@@ -121,8 +119,14 @@ defmodule Weather do
   end
 
   defp tick(state) do
-    state
+    %{state |
+      cloud_pos: move_cloud(state.cloud_pos),
+      tick: (if state.tick == 0, do: 1, else: 0)
+    }
   end
+
+  def move_cloud(pos) when pos < -6, do: 8
+  def move_cloud(pos), do: pos - 1
 
   def fetch_weather do
     json = "https://api.openweathermap.org/data/2.5/weather"
@@ -157,6 +161,5 @@ defmodule Weather do
     |> Map.get("weather")
     |> List.first
     |> Map.get("icon")
-    |> String.split("", trim: true)
   end
 end
