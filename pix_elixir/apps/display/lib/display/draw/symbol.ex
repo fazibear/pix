@@ -138,11 +138,21 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def snow do
+  def snow_0 do
     [
-      '7    7 ',
-      '   7   ',
-      ' 7    7',
+      '7  7  7 ',
+      ' 7  7  7',
+      '7  7  7 ',
+      ' 7  7  7',
+    ]
+  end
+
+  def snow_1 do
+    [
+      '  7  7  7',
+      ' 7  7  7 ',
+      '  7  7  7',
+      ' 7  7  7 ',
     ]
   end
 

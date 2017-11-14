@@ -38,7 +38,7 @@ defmodule Weather do
             |> draw_moon(state.symbol, state.tick)
             |> draw_cloud(state.symbol, state.cloud_pos)
             |> draw_rain(state.symbol, state.cloud_pos, state.tick)
-            |> draw_snow(state.symbol)
+            |> draw_snow(state.symbol, state.cloud_pos, state.tick)
             |> draw_thunder(state.symbol, state.cloud_pos, state.tick)
             |> draw_temp(state.temp)
 
@@ -98,9 +98,9 @@ defmodule Weather do
       data
     end
   end
-  defp draw_snow(data, symbol) do
+  defp draw_snow(data, symbol, pos, tick) do
     if Enum.member?(["13d", "13n"], symbol) do
-      Draw.symbol(data, {Symbol, :snow}, 2, 8)
+      Draw.symbol(data, {Symbol, "snow_#{tick}"}, pos, 9)
     else
       data
     end
