@@ -84,10 +84,10 @@ defmodule Weather do
   end
 
   defp draw_cloud(data, symbol, pos) do
-    unless Enum.member?(["01d", "01n"], symbol) do
-      Draw.symbol(data, {Symbol, :cloud}, pos, 1)
-    else
+    if Enum.member?(["01d", "01n"], symbol) do
       data
+    else
+      Draw.symbol(data, {Symbol, :cloud}, pos, 1)
     end
   end
 
