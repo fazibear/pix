@@ -1,4 +1,8 @@
 defmodule Sysfs do
+  @moduledoc """
+  Takes data from display and send them to kernel module via sysfs
+  """
+
   use GenStage
 
   @port_path :sysfs |> Application.app_dir("priv/sysfs") |> String.to_charlist

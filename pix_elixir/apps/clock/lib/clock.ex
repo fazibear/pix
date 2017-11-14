@@ -1,4 +1,8 @@
 defmodule Clock do
+  @moduledoc """
+  Simple clock application
+  """
+
   use GenStage
 
   alias String.Chars

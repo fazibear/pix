@@ -1,4 +1,8 @@
 defmodule Random do
+  @moduledoc """
+  Generates random pixels
+  """
+
   use GenStage
 
   alias Display.Draw
@@ -30,6 +34,10 @@ defmodule Random do
 
   defp draw_random(state) do
     state
-    |> Draw.dot(:rand.uniform(16) - 1, :rand.uniform(16) - 1, :rand.uniform(9) - 1)
+    |> Draw.dot(
+      :rand.uniform(16) - 1,
+      :rand.uniform(16) - 1,
+      :rand.uniform(9) - 1
+    )
   end
 end

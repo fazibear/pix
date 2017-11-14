@@ -1,4 +1,8 @@
 defmodule Display.Draw.Char do
+  @moduledoc """
+  Char data for text
+  """
+
   def _1 do
     [
       '  c',

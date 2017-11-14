@@ -1,4 +1,7 @@
 defmodule Display.Draw do
+  @moduledoc """
+  Helper functions for drawing symbols and chars
+  """
 
   alias Display.Draw.{
     Char,

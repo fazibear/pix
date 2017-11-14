@@ -1,4 +1,8 @@
 defmodule Display.Subscriber do
+  @moduledoc """
+  Helper function related to subscriber
+  """
+
   def add(subscriber, state) do
     GenStage.async_subscribe(Display, to: subscriber)
     %{state |

@@ -1,4 +1,8 @@
 defmodule Terminal do
+  @moduledoc """
+  Takes data from display and draw them on terminal
+  """
+
   use GenStage
   alias IO.ANSI
 

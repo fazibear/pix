@@ -1,4 +1,8 @@
 defmodule Display.Draw.Symbol do
+  @moduledoc """
+  Various symbols
+  """
+
   def dot_0 do
     [
       ' c ',

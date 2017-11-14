@@ -1,4 +1,8 @@
 defmodule SpaceCrab do
+  @moduledoc """
+  Walking crab from space invaders
+  """
+
   use GenStage
 
   alias Display.Draw

@@ -1,4 +1,7 @@
 defmodule Display.Transition do
+  @moduledoc """
+  Animate between each feature
+  """
 
   alias Display.Draw
   alias Display.TransitionRules

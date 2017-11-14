@@ -1,4 +1,8 @@
 defmodule BinaryClock do
+  @moduledoc """
+  Binary clock application
+  """
+
   use GenStage
 
   alias String.Chars

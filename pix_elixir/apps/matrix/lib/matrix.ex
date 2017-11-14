@@ -1,4 +1,8 @@
 defmodule Matrix do
+  @moduledoc """
+  Takes data from display, and draw them on GPIO matrix using port
+  """
+
   use GenStage
 
   @port_path :matrix |> Application.app_dir("priv/matrix") |> String.to_charlist

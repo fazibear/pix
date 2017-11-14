@@ -1,4 +1,10 @@
 defmodule Display do
+  @moduledoc """
+  Display application
+
+  Subscribe to featrures apps, generates output
+  """
+
   use GenStage
 
   alias Display.{
