@@ -15,8 +15,7 @@ defmodule Display.Subscriber do
   end
 
   defp process_event({:data, key, value}, {events, %{subscribers_data: _} = state}) do
-    state = state.subscribers_data[key]
-            |> put_in(value)
+    state = put_in(state.subscribers_data[key], value)
 
     events = events ++ if key == current(state), do: [value], else: []
 

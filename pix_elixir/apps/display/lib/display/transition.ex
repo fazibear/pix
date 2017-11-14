@@ -3,8 +3,10 @@ defmodule Display.Transition do
   Animate between each feature
   """
 
-  alias Display.Draw
-  alias Display.TransitionRules
+  alias Display.{
+    Draw,
+    TransitionRules
+  }
 
   def update(%{current_subscriber: _} = state) do
     old = state.current_subscriber
@@ -12,8 +14,7 @@ defmodule Display.Transition do
 
     case {old, new} do
       {nil, new} ->
-        state
-        |> Map.put(:current_subscriber, new)
+        Map.put(state, :current_subscriber, new)
       {old, new} when old == new ->
         state
       _ ->
@@ -78,7 +79,7 @@ defmodule Display.Transition do
 
   defp transpose?(nil, _), do: nil
   defp transpose?(data, :line), do: data
-  defp transpose?(data, :column), do: data |> transpose
+  defp transpose?(data, :column), do: transpose(data)
   defp transpose?(_, _), do: Draw.empty()
 
   defp transpose([[x | xs] | xss]) do

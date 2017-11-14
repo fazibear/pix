@@ -30,8 +30,7 @@ defmodule Display.Draw do
   end
 
   def dot(matrix, x, y, color) do
-    matrix
-    |> List.update_at(y, &List.replace_at(&1, x, color))
+    List.update_at(matrix, y, &List.replace_at(&1, x, color))
   end
 
   def symbol(matrix, data, x, y, c \\ 1)
@@ -69,8 +68,7 @@ defmodule Display.Draw do
   end
 
   defp process_char({char, x}, matrix, y, data) do
-    matrix
-    |> dot(data.x + x, data.y + y, char_to_color(char, data.c))
+    dot(matrix, data.x + x, data.y + y, char_to_color(char, data.c))
   end
 
   defp char_to_color(?c, color), do: color

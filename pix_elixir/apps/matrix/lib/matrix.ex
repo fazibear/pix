@@ -14,8 +14,7 @@ defmodule Matrix do
   def init(state) do
     port = Port.open({:spawn, @port_path}, [{:packet, 2}])
 
-    state = state
-    |> Map.put(:port, port)
+    state = Map.put(state, :port, port)
 
     {:consumer, state, subscribe_to: [Display]}
   end

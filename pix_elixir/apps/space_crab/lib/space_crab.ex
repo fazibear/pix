@@ -33,8 +33,13 @@ defmodule SpaceCrab do
   def handle_info(:tick, state) do
     state = tick(state)
 
-    data = Draw.empty
-           |> Draw.symbol({Symbol, state.crab}, state.x, state.y, state.color)
+    data = Draw.symbol(
+      Draw.empty,
+      {Symbol, state.crab},
+      state.x,
+      state.y,
+      state.color
+    )
 
     Process.send_after(self(), :tick, @timeout)
 
