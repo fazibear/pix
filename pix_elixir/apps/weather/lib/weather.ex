@@ -19,12 +19,12 @@ defmodule Weather do
   def init(_state) do
     Display.subscribe(__MODULE__)
 
-    send self(), :fetch
+    send(self(), :fetch)
     Process.send_after(self(), :tick, 100)
 
     state = %{
       cloud_pos: 0,
-      tick: 0,
+      tick: 0
     }
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
@@ -33,14 +33,15 @@ defmodule Weather do
   def handle_info(:tick, state) do
     state = tick(state)
 
-    data = Draw.empty
-            |> draw_sun(state.symbol, state.tick)
-            |> draw_moon(state.symbol, state.tick)
-            |> draw_cloud(state.symbol, state.cloud_pos)
-            |> draw_rain(state.symbol, state.cloud_pos, state.tick)
-            |> draw_snow(state.symbol, state.cloud_pos, state.tick)
-            |> draw_thunder(state.symbol, state.cloud_pos, state.tick)
-            |> draw_temp(state.temp)
+    data =
+      Draw.empty()
+      |> draw_sun(state.symbol, state.tick)
+      |> draw_moon(state.symbol, state.tick)
+      |> draw_cloud(state.symbol, state.cloud_pos)
+      |> draw_rain(state.symbol, state.cloud_pos, state.tick)
+      |> draw_snow(state.symbol, state.cloud_pos, state.tick)
+      |> draw_thunder(state.symbol, state.cloud_pos, state.tick)
+      |> draw_temp(state.temp)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -98,6 +99,7 @@ defmodule Weather do
       data
     end
   end
+
   defp draw_snow(data, symbol, pos, tick) do
     if Enum.member?(["13d", "13n"], symbol) do
       Draw.symbol(data, {Symbol, "snow_#{tick}"}, pos, 9)
@@ -119,20 +121,18 @@ defmodule Weather do
   end
 
   defp tick(state) do
-    %{state |
-      cloud_pos: move_cloud(state.cloud_pos),
-      tick: (if state.tick == 0, do: 1, else: 0)
-    }
+    %{state | cloud_pos: move_cloud(state.cloud_pos), tick: if(state.tick == 0, do: 1, else: 0)}
   end
 
   def move_cloud(pos) when pos < -9, do: 15
   def move_cloud(pos), do: pos - 1
 
   def fetch_weather do
-    json = "https://api.openweathermap.org/data/2.5/weather"
-    |> HTTPotion.get(query: owm_query())
-    |> Map.get(:body)
-    |> Poison.decode!()
+    json =
+      "https://api.openweathermap.org/data/2.5/weather"
+      |> HTTPotion.get(query: owm_query())
+      |> Map.get(:body)
+      |> Poison.decode!()
 
     %{
       temp: get_temp(json),
@@ -152,14 +152,14 @@ defmodule Weather do
     response
     |> Map.get("main")
     |> Map.get("temp")
-    |> Kernel.inspect
+    |> Kernel.inspect()
     |> String.pad_leading(3, " ")
   end
 
   def get_symbol(response) do
     response
     |> Map.get("weather")
-    |> List.first
+    |> List.first()
     |> Map.get("icon")
   end
 end

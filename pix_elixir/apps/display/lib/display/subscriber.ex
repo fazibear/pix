@@ -5,9 +5,7 @@ defmodule Display.Subscriber do
 
   def add(subscriber, state) do
     GenStage.async_subscribe(Display, to: subscriber)
-    %{state |
-      subscribers: state.subscribers ++ [subscriber]
-    }
+    %{state | subscribers: state.subscribers ++ [subscriber]}
   end
 
   def process_events(events, state) do

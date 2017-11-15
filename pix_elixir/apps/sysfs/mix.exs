@@ -10,9 +10,9 @@ defmodule Sysfs.Mixfile do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
-      compilers: [:elixir_make | Mix.compilers],
+      compilers: [:elixir_make | Mix.compilers()],
       make_clean: ["clean"]
     ]
   end

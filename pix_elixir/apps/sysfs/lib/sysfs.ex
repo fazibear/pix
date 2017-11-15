@@ -5,7 +5,7 @@ defmodule Sysfs do
 
   use GenStage
 
-  @port_path :sysfs |> Application.app_dir("priv/sysfs") |> String.to_charlist
+  @port_path :sysfs |> Application.app_dir("priv/sysfs") |> String.to_charlist()
 
   def start_link(_opts) do
     GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -28,9 +28,10 @@ defmodule Sysfs do
   end
 
   def handle_event(event, port) do
-    data = event
-           |> List.flatten
-           |> :erlang.list_to_binary
+    data =
+      event
+      |> List.flatten()
+      |> :erlang.list_to_binary()
 
     Port.command(port, data)
   end

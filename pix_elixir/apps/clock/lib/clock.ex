@@ -28,9 +28,10 @@ defmodule Clock do
   def handle_info(:tick, state) do
     state = tick(state)
 
-    data = Draw.empty
-           |> draw_time(state.time)
-           |> draw_dots(state.dot)
+    data =
+      Draw.empty()
+      |> draw_time(state.time)
+      |> draw_dots(state.dot)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -41,7 +42,7 @@ defmodule Clock do
 
   defp tick(state) do
     %{
-      dot: (if Map.get(state, :dot) == "dot_0", do: "dot_1", else: "dot_0"),
+      dot: if(Map.get(state, :dot) == "dot_0", do: "dot_1", else: "dot_0"),
       time: current_time()
     }
   end
