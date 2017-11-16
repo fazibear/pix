@@ -24,7 +24,9 @@ defmodule Weather do
 
     state = %{
       cloud_pos: 0,
-      tick: 0
+      tick: 0,
+      temp: "666",
+      symbol: "01d",
     }
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
@@ -117,7 +119,11 @@ defmodule Weather do
   end
 
   defp fetch(state) do
-    Map.merge(state, fetch_weather())
+    try do
+      Map.merge(state, fetch_weather())
+    rescue
+      e -> state
+    end
   end
 
   defp tick(state) do
