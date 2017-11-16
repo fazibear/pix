@@ -122,7 +122,7 @@ defmodule Weather do
     try do
       Map.merge(state, fetch_weather())
     rescue
-      e -> state
+      _ -> state
     end
   end
 
