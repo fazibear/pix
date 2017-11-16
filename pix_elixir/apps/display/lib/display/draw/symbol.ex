@@ -7,7 +7,7 @@ defmodule Display.Draw.Symbol do
     [
       ' c ',
       'ccc',
-      ' c ',
+      ' c '
     ]
   end
 
@@ -15,28 +15,28 @@ defmodule Display.Draw.Symbol do
     [
       'c c',
       ' c ',
-      'c c',
+      'c c'
     ]
   end
 
   def dot_2 do
     [
       'cc',
-      'cc',
+      'cc'
     ]
   end
 
   def dot_3 do
     [
       ' c',
-      'c ',
+      'c '
     ]
   end
 
   def dot_4 do
     [
       'c ',
-      ' c',
+      ' c'
     ]
   end
 
@@ -49,7 +49,7 @@ defmodule Display.Draw.Symbol do
       'ccccccccccc',
       ' ccccccccc ',
       '  c     c  ',
-      ' c       c ',
+      ' c       c '
     ]
   end
 
@@ -62,7 +62,7 @@ defmodule Display.Draw.Symbol do
       'ccccccccccc',
       'c ccccccc c',
       'c c     c c',
-      '   cc cc   ',
+      '   cc cc   '
     ]
   end
 
@@ -75,7 +75,7 @@ defmodule Display.Draw.Symbol do
       '  3333  ',
       '3  33  3',
       '        ',
-      '  3  3  ',
+      '  3  3  '
     ]
   end
 
@@ -88,7 +88,7 @@ defmodule Display.Draw.Symbol do
       '  3333  ',
       ' 3 33 3 ',
       '  3  3  ',
-      '        ',
+      '        '
     ]
   end
 
@@ -101,7 +101,7 @@ defmodule Display.Draw.Symbol do
       '   77',
       '   77',
       '  77 ',
-      '777  ',
+      '777  '
     ]
   end
 
@@ -113,7 +113,7 @@ defmodule Display.Draw.Symbol do
       '7777777777',
       '7777777777',
       '777777777 ',
-      ' 77  77   ',
+      ' 77  77   '
     ]
   end
 
@@ -143,7 +143,7 @@ defmodule Display.Draw.Symbol do
       '7  7  7 ',
       ' 7  7  7',
       '7  7  7 ',
-      ' 7  7  7',
+      ' 7  7  7'
     ]
   end
 
@@ -152,7 +152,7 @@ defmodule Display.Draw.Symbol do
       '  7  7  7',
       ' 7  7  7 ',
       '  7  7  7',
-      ' 7  7  7 ',
+      ' 7  7  7 '
     ]
   end
 
@@ -162,7 +162,7 @@ defmodule Display.Draw.Symbol do
       ' 1   1  ',
       '  1 1 1 ',
       '   1   1',
-      '        1',
+      '        1'
     ]
   end
 end

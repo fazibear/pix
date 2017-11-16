@@ -29,9 +29,10 @@ defmodule BinaryClock do
   def handle_info(:tick, state) do
     state = tick(state)
 
-    data = Draw.empty
-           |> draw_time(state.time)
-           |> draw_dots(state.dot)
+    data =
+      Draw.empty()
+      |> draw_time(state.time)
+      |> draw_dots(state.dot)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -45,7 +46,7 @@ defmodule BinaryClock do
       [h11, h12, h13, h14],
       [h21, h22, h23, h24],
       [m11, m12, m13, m14],
-      [m21, m22, m23, m24],
+      [m21, m22, m23, m24]
     ] = time
 
     data
@@ -53,17 +54,14 @@ defmodule BinaryClock do
     |> Draw.symbol({Symbol, "dot_2"}, 1, 5, color(h12))
     |> Draw.symbol({Symbol, "dot_2"}, 1, 9, color(h13))
     |> Draw.symbol({Symbol, "dot_2"}, 1, 13, color(h14))
-
     |> Draw.symbol({Symbol, "dot_2"}, 4, 1, color(h21))
     |> Draw.symbol({Symbol, "dot_2"}, 4, 5, color(h22))
     |> Draw.symbol({Symbol, "dot_2"}, 4, 9, color(h23))
     |> Draw.symbol({Symbol, "dot_2"}, 4, 13, color(h24))
-
     |> Draw.symbol({Symbol, "dot_2"}, 10, 1, color(m11))
     |> Draw.symbol({Symbol, "dot_2"}, 10, 5, color(m12))
     |> Draw.symbol({Symbol, "dot_2"}, 10, 9, color(m13))
     |> Draw.symbol({Symbol, "dot_2"}, 10, 13, color(m14))
-
     |> Draw.symbol({Symbol, "dot_2"}, 13, 1, color(m21))
     |> Draw.symbol({Symbol, "dot_2"}, 13, 5, color(m22))
     |> Draw.symbol({Symbol, "dot_2"}, 13, 9, color(m23))
@@ -85,7 +83,7 @@ defmodule BinaryClock do
 
   defp tick(state) do
     %{
-      dot: (if Map.get(state, :dot) == "dot_3", do: "dot_4", else: "dot_3"),
+      dot: if(Map.get(state, :dot) == "dot_3", do: "dot_4", else: "dot_3"),
       time: current_time()
     }
   end

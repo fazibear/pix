@@ -10,7 +10,7 @@ defmodule Weather.Mixfile do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
@@ -27,9 +27,8 @@ defmodule Weather.Mixfile do
   defp deps do
     [
       {:display, in_umbrella: true},
-
       {:poison, "~> 3.0"},
-      {:httpotion, "~> 3.0"},
+      {:httpotion, "~> 3.0"}
     ]
   end
 end

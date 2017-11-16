@@ -3,11 +3,15 @@ defmodule Firmware.Mixfile do
 
   @target System.get_env("MIX_TARGET") || "host"
 
-  Mix.shell.info([:green, """
-  Mix environment
-    MIX_TARGET:   #{@target}
-    MIX_ENV:      #{Mix.env}
-  """, :reset])
+  Mix.shell().info([
+    :green,
+    """
+    Mix environment
+      MIX_TARGET:   #{@target}
+      MIX_ENV:      #{Mix.env()}
+    """,
+    :reset
+  ])
 
   def project do
     [
@@ -20,8 +24,8 @@ defmodule Firmware.Mixfile do
       build_path: "../../_build/#{@target}",
       config_path: "../../config/config.exs",
       lockfile: "../../mix.lock.#{@target}",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(@target),
       deps: deps(@target)
     ]
@@ -39,9 +43,9 @@ defmodule Firmware.Mixfile do
   def application("host") do
     [extra_applications: [:logger]]
   end
+
   def application(_target) do
-    [mod: {Firmware.Application, []},
-     extra_applications: [:logger]]
+    [mod: {Firmware.Application, []}, extra_applications: [:logger]]
   end
 
   # Dependencies can be Hex packages:
@@ -56,15 +60,15 @@ defmodule Firmware.Mixfile do
 
   # Specify target specific dependencies
   def deps("host"), do: []
+
   def deps(target) do
     [
       {:nerves, "~> 0.7", runtime: false},
       {:bootloader, "~> 0.1"},
       {:nerves_runtime, "~> 0.4"},
-
       {:matrix, in_umbrella: true},
       {:clock, in_umbrella: true},
-      {:random, in_umbrella: true},
+      {:random, in_umbrella: true}
     ] ++ system(target)
   end
 
@@ -76,13 +80,15 @@ defmodule Firmware.Mixfile do
   def system("linkit"), do: [{:nerves_system_linkit, ">= 0.0.0", runtime: false}]
   def system("ev3"), do: [{:nerves_system_ev3, ">= 0.0.0", runtime: false}]
   def system("qemu_arm"), do: [{:nerves_system_qemu_arm, ">= 0.0.0", runtime: false}]
-  def system(target), do: Mix.raise "Unknown MIX_TARGET: #{target}"
+  def system(target), do: Mix.raise("Unknown MIX_TARGET: #{target}")
 
   # We do not invoke the Nerves Env when running on the Host
   def aliases("host"), do: []
-  def aliases(_target) do
-    ["deps.precompile": ["nerves.precompile", "deps.precompile"],
-     "deps.loadpaths":  ["deps.loadpaths", "nerves.loadpaths"]]
-  end
 
+  def aliases(_target) do
+    [
+      "deps.precompile": ["nerves.precompile", "deps.precompile"],
+      "deps.loadpaths": ["deps.loadpaths", "nerves.loadpaths"]
+    ]
+  end
 end

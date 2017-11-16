@@ -15,17 +15,19 @@ defmodule Display.Transition do
     case {old, new} do
       {nil, new} ->
         Map.put(state, :current_subscriber, new)
+
       {old, new} when old == new ->
         state
+
       _ ->
         state
         |> Map.put(:current_subscriber, :transition)
         |> Map.put(:transition, %{
-          old: old,
-          new: new,
-          type: Enum.random([:line, :column]),
-          steps: Enum.random(TransitionRules.all())
-        })
+             old: old,
+             new: new,
+             type: Enum.random([:line, :column]),
+             steps: Enum.random(TransitionRules.all())
+           })
     end
   end
 
@@ -62,9 +64,13 @@ defmodule Display.Transition do
     )
   end
 
-  defp line_data("o", %{subscribers_data: subscribers_data, transition: transition}), do: subscribers_data[transition.old]
-  defp line_data(_, %{subscribers_data: subscribers_data, transition: transition}), do: subscribers_data[transition.new]
-  defp line_data(_, _), do: Draw.empty
+  defp line_data("o", %{subscribers_data: subscribers_data, transition: transition}),
+    do: subscribers_data[transition.old]
+
+  defp line_data(_, %{subscribers_data: subscribers_data, transition: transition}),
+    do: subscribers_data[transition.new]
+
+  defp line_data(_, _), do: Draw.empty()
 
   defp update_state(state, rest) do
     case rest do
@@ -72,6 +78,7 @@ defmodule Display.Transition do
         state
         |> Map.put(:current_subscriber, state.transition.new)
         |> Map.delete(:transition)
+
       rest ->
         put_in(state.transition.steps, rest)
     end
@@ -84,10 +91,11 @@ defmodule Display.Transition do
 
   defp transpose([[x | xs] | xss]) do
     [
-      [x | (for [h | _] <- xss, do: h)] |
-      transpose([xs | (for [_ | t] <- xss, do: t)])
+      [x | for([h | _] <- xss, do: h)]
+      | transpose([xs | for([_ | t] <- xss, do: t)])
     ]
   end
+
   defp transpose([[] | xss]), do: transpose(xss)
   defp transpose([]), do: []
 end

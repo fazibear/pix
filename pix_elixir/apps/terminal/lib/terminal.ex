@@ -23,9 +23,9 @@ defmodule Terminal do
   defp draw(state) do
     state
     |> Enum.map(&process_line/1)
-    |> ANSI.format
-    |> List.insert_at(0, [IO.ANSI.clear, IO.ANSI.home])
-    |> IO.puts
+    |> ANSI.format()
+    |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
+    |> IO.puts()
   end
 
   defp process_line(line) do
@@ -50,5 +50,4 @@ defmodule Terminal do
       _ -> :black
     end
   end
-
 end

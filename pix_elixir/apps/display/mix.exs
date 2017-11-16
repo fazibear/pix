@@ -10,7 +10,7 @@ defmodule Display.Mixfile do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
@@ -26,7 +26,7 @@ defmodule Display.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:gen_stage, "~> 0.12"},
+      {:gen_stage, "~> 0.12"}
     ]
   end
 end

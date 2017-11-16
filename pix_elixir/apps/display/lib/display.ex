@@ -10,7 +10,7 @@ defmodule Display do
   alias Display.{
     Cycle,
     Subscriber,
-    Transition,
+    Transition
   }
 
   @change_timeout 5000
@@ -41,13 +41,14 @@ defmodule Display do
   end
 
   def handle_info(:change, state) do
-    state = state
-            |> Cycle.subscribers()
-            |> Transition.update()
+    state =
+      state
+      |> Cycle.subscribers()
+      |> Transition.update()
 
     Process.send_after(self(), :change, @change_timeout)
 
-    send self(), :transition
+    send(self(), :transition)
 
     {:noreply, [], state}
   end

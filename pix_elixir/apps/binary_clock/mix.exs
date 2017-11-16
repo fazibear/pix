@@ -10,7 +10,7 @@ defmodule BinaryClock.Mixfile do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
@@ -28,7 +28,7 @@ defmodule BinaryClock.Mixfile do
     [
       {:gen_stage, "~> 0.12"},
       {:convertat, "~> 1.0"},
-      {:display, in_umbrella: true},
+      {:display, in_umbrella: true}
     ]
   end
 end

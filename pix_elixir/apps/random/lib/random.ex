@@ -7,10 +7,11 @@ defmodule Random do
 
   alias Display.Draw
 
-  @timeout 10 #0
+  # 0
+  @timeout 10
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, Draw.empty, name: __MODULE__)
+    GenStage.start_link(__MODULE__, Draw.empty(), name: __MODULE__)
   end
 
   def init(state) do

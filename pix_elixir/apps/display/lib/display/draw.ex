@@ -22,20 +22,20 @@ defmodule Display.Draw do
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
   end
 
   def dot(matrix, x, y, color) when x >= 0 and x <= 15 and y >= 0 and y <= 15 do
     List.update_at(matrix, y, &List.replace_at(&1, x, color))
   end
+
   def dot(matrix, _, _, _), do: matrix
 
   def symbol(matrix, data, x, y, c \\ 7)
 
   def symbol(matrix, {module, fun}, x, y, c) when is_binary(fun) do
     symbol(matrix, apply(module, String.to_atom(fun), []), x, y, c)
-
   end
 
   def symbol(matrix, {module, fun}, x, y, c) when is_atom(fun) do
@@ -44,16 +44,17 @@ defmodule Display.Draw do
 
   def symbol(matrix, data, x, y, c) do
     data
-    |> Enum.with_index
+    |> Enum.with_index()
     |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
   end
 
   def char(matrix, char, x, y, c \\ 7)
   def char(matrix, " ", _, _, _), do: matrix
+
   def char(matrix, char, x, y, c) do
     char
     |> char_to_data
-    |> Enum.with_index
+    |> Enum.with_index()
     |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
   end
 
@@ -63,11 +64,12 @@ defmodule Display.Draw do
 
   defp process_line({line, idx}, matrix, data) do
     line
-    |> Enum.with_index
+    |> Enum.with_index()
     |> Enum.reduce(matrix, &process_char(&1, &2, idx, data))
   end
 
   defp process_char({?\s, _x}, matrix, _y, _data), do: matrix
+
   defp process_char({char, x}, matrix, y, data) do
     dot(matrix, data.x + x, data.y + y, char_to_color(char, data.c))
   end

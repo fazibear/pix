@@ -11,7 +11,7 @@ defmodule Display.Draw.Char do
       '  c',
       '  c',
       '  c',
-      '  c',
+      '  c'
     ]
   end
 
@@ -23,7 +23,7 @@ defmodule Display.Draw.Char do
       'ccc',
       'c  ',
       'c  ',
-      'ccc',
+      'ccc'
     ]
   end
 
@@ -35,7 +35,7 @@ defmodule Display.Draw.Char do
       'ccc',
       '  c',
       '  c',
-      'ccc',
+      'ccc'
     ]
   end
 
@@ -47,7 +47,7 @@ defmodule Display.Draw.Char do
       'ccc',
       '  c',
       '  c',
-      '  c',
+      '  c'
     ]
   end
 
@@ -59,7 +59,7 @@ defmodule Display.Draw.Char do
       'ccc',
       '  c',
       '  c',
-      'ccc',
+      'ccc'
     ]
   end
 
@@ -71,7 +71,7 @@ defmodule Display.Draw.Char do
       'ccc',
       'c c',
       'c c',
-      'ccc',
+      'ccc'
     ]
   end
 
@@ -83,7 +83,7 @@ defmodule Display.Draw.Char do
       ' c ',
       ' c ',
       'c  ',
-      'c  ',
+      'c  '
     ]
   end
 
@@ -95,7 +95,7 @@ defmodule Display.Draw.Char do
       'ccc',
       'c c',
       'c c',
-      'ccc',
+      'ccc'
     ]
   end
 
@@ -107,7 +107,7 @@ defmodule Display.Draw.Char do
       'ccc',
       '  c',
       '  c',
-      'ccc',
+      'ccc'
     ]
   end
 
@@ -119,7 +119,7 @@ defmodule Display.Draw.Char do
       'c c',
       'c c',
       'c c',
-      'ccc',
+      'ccc'
     ]
   end
 end

@@ -18,6 +18,7 @@ defmodule SpaceCrab do
     Display.subscribe(__MODULE__)
 
     Process.send_after(self(), :tick, 100)
+
     state = %{
       crab: "crab_0",
       x: :rand.uniform(5) - 1,
@@ -33,13 +34,14 @@ defmodule SpaceCrab do
   def handle_info(:tick, state) do
     state = tick(state)
 
-    data = Draw.symbol(
-      Draw.empty,
-      {Symbol, state.crab},
-      state.x,
-      state.y,
-      state.color
-    )
+    data =
+      Draw.symbol(
+        Draw.empty(),
+        {Symbol, state.crab},
+        state.x,
+        state.y,
+        state.color
+      )
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -59,9 +61,9 @@ defmodule SpaceCrab do
 
   def animate(state) do
     if state.crab == "crab_0" do
-     %{state | crab: "crab_1"}
+      %{state | crab: "crab_1"}
     else
-     %{state | crab: "crab_0"}
+      %{state | crab: "crab_0"}
     end
   end
 
@@ -74,19 +76,11 @@ defmodule SpaceCrab do
   end
 
   def check_x(%{x: x} = state) when x < 0 do
-    %{state |
-      dir_x: !state.dir_x,
-      x: 1,
-      color: rand_color()
-    }
+    %{state | dir_x: !state.dir_x, x: 1, color: rand_color()}
   end
 
   def check_x(%{x: x} = state) when x > 5 do
-    %{state |
-      dir_x: !state.dir_x,
-      x: 4,
-      color: rand_color()
-    }
+    %{state | dir_x: !state.dir_x, x: 4, color: rand_color()}
   end
 
   def check_x(state), do: state
@@ -100,19 +94,11 @@ defmodule SpaceCrab do
   end
 
   def check_y(%{y: y} = state) when y < 0 do
-    %{state |
-      dir_y: !state.dir_y,
-      y: 1,
-      color: rand_color()
-    }
+    %{state | dir_y: !state.dir_y, y: 1, color: rand_color()}
   end
 
   def check_y(%{y: y} = state) when y > 8 do
-    %{state |
-      dir_y: !state.dir_y,
-      y: 7,
-      color: rand_color()
-    }
+    %{state | dir_y: !state.dir_y, y: 7, color: rand_color()}
   end
 
   def check_y(state), do: state
