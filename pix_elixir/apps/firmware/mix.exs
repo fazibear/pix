@@ -3,15 +3,17 @@ defmodule Firmware.Mixfile do
 
   @target System.get_env("MIX_TARGET") || "host"
 
-  Mix.shell().info([
-    :green,
-    """
-    Mix environment
-      MIX_TARGET:   #{@target}
-      MIX_ENV:      #{Mix.env()}
-    """,
-    :reset
-  ])
+  unless @target == "host" do
+    Mix.shell().info([
+      :green,
+      """
+      Mix environment
+        MIX_TARGET:   #{@target}
+        MIX_ENV:      #{Mix.env()}
+      """,
+      :reset
+    ])
+  end
 
   def project do
     [
