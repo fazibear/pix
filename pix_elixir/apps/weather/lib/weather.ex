@@ -136,7 +136,7 @@ defmodule Weather do
   def fetch_weather do
     json =
       "https://api.openweathermap.org/data/2.5/weather"
-      |> HTTPotion.get(query: owm_query())
+      |> HTTPotion.get!(query: owm_query())
       |> Map.get(:body)
       |> Poison.decode!()
 
