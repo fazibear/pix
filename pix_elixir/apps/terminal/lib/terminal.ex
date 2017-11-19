@@ -15,16 +15,16 @@ defmodule Terminal do
   end
 
   def handle_cast({:data, data}, state) do
-    Enum.each(data, &draw/1)
+    draw(data)
 
     {:noreply, state}
   end
 
   defp draw(state) do
-    # |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
     state
     |> Enum.map(&process_line/1)
     |> ANSI.format()
+    |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
     |> IO.puts()
   end
 
