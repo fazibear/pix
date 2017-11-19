@@ -5,7 +5,7 @@ defmodule Display do
   Subscribe to featrures apps, generates output
   """
 
-  use GenStage
+  use GenServer
 
   alias Display.{
     Cycle,
@@ -26,18 +26,8 @@ defmodule Display do
     {:producer_consumer, state}
   end
 
-  def subscribe(subscriber) do
-    if System.get_env("ONE") do
-      if "Elixir.#{System.get_env("ONE")}" == Atom.to_string(subscriber) do
-        GenStage.cast(__MODULE__, {:subscribe, subscriber})
-      end
-    else
-      GenStage.cast(__MODULE__, {:subscribe, subscriber})
-    end
-  end
-
   def handle_cast({:subscribe, subscriber}, state) do
-    {:noreply, [], Subscriber.add(subscriber, state)}
+    {:noreply, Subscriber.add(subscriber, state)}
   end
 
   def handle_info(:change, state) do
@@ -50,7 +40,7 @@ defmodule Display do
 
     send(self(), :transition)
 
-    {:noreply, [], state}
+    {:noreply, state}
   end
 
   def handle_info(:transition, %{current_subscriber: :transition} = state) do
@@ -58,16 +48,16 @@ defmodule Display do
 
     {events, state} = Transition.process(state)
 
-    {:noreply, events, state}
+    {:noreply, state}
   end
 
   def handle_info(:transition, state) do
-    {:noreply, [], state}
+    {:noreply, state}
   end
 
   def handle_events(events, _from, state) do
     {events, state} = Subscriber.process_events(events, state)
 
-    {:noreply, events, state}
+    {:noreply, state}
   end
 end
