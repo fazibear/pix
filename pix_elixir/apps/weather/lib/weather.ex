@@ -26,7 +26,7 @@ defmodule Weather do
       cloud_pos: 0,
       tick: 0,
       temp: "666",
-      symbol: "01d",
+      symbol: "01d"
     }
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
@@ -55,6 +55,11 @@ defmodule Weather do
 
     Process.send_after(self(), :fetch, @fetch_timeout)
 
+    {:noreply, [], state}
+  end
+
+  def handle_info(message, state) do
+    IO.inspect(message)
     {:noreply, [], state}
   end
 
@@ -122,7 +127,9 @@ defmodule Weather do
     try do
       Map.merge(state, fetch_weather())
     rescue
-      _ -> state
+      e ->
+        IO.inspect(e)
+        state
     end
   end
 
