@@ -3,12 +3,16 @@ defmodule Matrix do
   Takes data from display, and draw them on GPIO matrix using port
   """
 
-  use GenStage
+  use GenServer
 
   @port_path :matrix |> Application.app_dir("priv/matrix") |> String.to_charlist()
 
+  def data(data) do
+    GenServer.cast(__MODULE__, {:data, data})
+  end
+
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(state) do
@@ -16,23 +20,17 @@ defmodule Matrix do
 
     state = Map.put(state, :port, port)
 
-    {:consumer, state, subscribe_to: [Display]}
+    {:ok, state}
   end
 
-  def handle_events(events, _from, state) do
-    for event <- events do
-      handle_event(event, state.port)
-    end
-
-    {:noreply, [], state}
-  end
-
-  def handle_event(event, port) do
+  def handle_cast({:data, data}, state) do
     data =
-      event
+      data
       |> List.flatten()
       |> :erlang.list_to_binary()
 
-    Port.command(port, data)
+    Port.command(state.port, data)
+
+    {:noreply, state}
   end
 end
