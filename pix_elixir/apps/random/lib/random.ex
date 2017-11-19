@@ -3,7 +3,7 @@ defmodule Random do
   Generates random pixels
   """
 
-  use GenStage
+  use GenServer
 
   alias Display.Draw
 
@@ -11,7 +11,7 @@ defmodule Random do
   @timeout 10
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, Draw.empty(), name: __MODULE__)
+    GenServer.start_link(__MODULE__, Draw.empty(), name: __MODULE__)
   end
 
   def init(state) do
@@ -19,7 +19,7 @@ defmodule Random do
 
     Process.send_after(self(), :tick, 100)
 
-    {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
+    {:ok, state}
   end
 
   def handle_info(:tick, state) do
@@ -27,10 +27,10 @@ defmodule Random do
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{:data, __MODULE__, state}], state}
-  end
+    Display.data(__MODULE__, state)
 
-  def handle_demand(_demand, state), do: {:noreply, [], state}
+    {:noreply, state}
+  end
 
   defp draw_random(state) do
     Draw.dot(

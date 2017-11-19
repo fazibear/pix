@@ -10,24 +10,50 @@ defmodule Display do
   alias Display.{
     Cycle,
     Subscriber,
-    Transition
+    Transition,
+    Output
   }
 
   @change_timeout 5000
   @transition_timeout 20
 
+  def subscribe(subscriber) do
+    GenServer.cast(__MODULE__, {:subscribe, subscriber})
+  end
+
+  def unsubscribe(subscriber) do
+    GenServer.cast(__MODULE__, {:unsubscribe, subscriber})
+  end
+
+  def data(module, data) do
+    GenServer.cast(__MODULE__, {:data, module, data})
+  end
+
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, %{subscribers: []}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{subscribers: []}, name: __MODULE__)
   end
 
   def init(state) do
     Process.send_after(self(), :change, 100)
 
-    {:producer_consumer, state}
+    {:ok, state}
   end
 
   def handle_cast({:subscribe, subscriber}, state) do
-    {:noreply, Subscriber.add(subscriber, state)}
+    {:noreply, Subscriber.add(state, subscriber)}
+  end
+
+  def handle_cast({:unsubscribe, subscriber}, state) do
+    {:noreply, Subscriber.remove(state, subscriber)}
+  end
+
+  def handle_cast({:data, module, data}, state) do
+    state =
+      state
+      |> Subscriber.data(module, data)
+      |> Output.data(module, data)
+
+    {:noreply, state}
   end
 
   def handle_info(:change, state) do
@@ -48,16 +74,12 @@ defmodule Display do
 
     {events, state} = Transition.process(state)
 
+    Terminal.data(events)
+
     {:noreply, state}
   end
 
   def handle_info(:transition, state) do
-    {:noreply, state}
-  end
-
-  def handle_events(events, _from, state) do
-    {events, state} = Subscriber.process_events(events, state)
-
     {:noreply, state}
   end
 end

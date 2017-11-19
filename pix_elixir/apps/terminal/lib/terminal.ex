@@ -6,25 +6,25 @@ defmodule Terminal do
   use GenServer
   alias IO.ANSI
 
-  def display(data) do
-    GenStage.cast(__MODULE__, {:display, data})
+  def data(data) do
+    GenServer.cast(__MODULE__, {:data, data})
   end
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, [], name: __MODULE__)
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def handle_cast({:display, data}, state) do
+  def handle_cast({:data, data}, state) do
     Enum.each(data, &draw/1)
 
     {:noreply, state}
   end
 
   defp draw(state) do
+    # |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
     state
     |> Enum.map(&process_line/1)
     |> ANSI.format()
-    |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
     |> IO.puts()
   end
 

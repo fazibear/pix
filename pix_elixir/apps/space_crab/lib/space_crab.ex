@@ -3,7 +3,7 @@ defmodule SpaceCrab do
   Walking crab from space invaders
   """
 
-  use GenStage
+  use GenServer
 
   alias Display.Draw
   alias Display.Draw.Symbol
@@ -11,7 +11,7 @@ defmodule SpaceCrab do
   @timeout 150
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(_state) do
@@ -28,7 +28,7 @@ defmodule SpaceCrab do
       color: rand_color()
     }
 
-    {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
+    {:ok, state}
   end
 
   def handle_info(:tick, state) do
@@ -44,11 +44,10 @@ defmodule SpaceCrab do
       )
 
     Process.send_after(self(), :tick, @timeout)
+    Display.data(__MODULE__, data)
 
-    {:noreply, [{:data, __MODULE__, data}], state}
+    {:noreply, state}
   end
-
-  def handle_demand(_demand, state), do: {:noreply, [], state}
 
   defp tick(state) do
     state
