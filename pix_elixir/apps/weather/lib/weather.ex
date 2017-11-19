@@ -26,7 +26,7 @@ defmodule Weather do
       cloud_pos: 0,
       tick: 0,
       temp: "666",
-      symbol: "01d",
+      symbol: "01d"
     }
 
     {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
