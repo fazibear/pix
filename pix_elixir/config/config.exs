@@ -11,6 +11,8 @@ import_config "../apps/*/config/config.exs"
 
 import_config "secrets.exs"
 
+config :display, output: Terminal
+
 # Sample configuration (overrides the imported configuration above):
 #
 #     config :logger, :console,

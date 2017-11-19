@@ -32,7 +32,7 @@ defmodule Weather do
     {:ok, state}
   end
 
-  def terminate(reason, state) do
+  def terminate(_reason, state) do
     Display.unsubscribe(__MODULE__)
 
     {:ok, state}

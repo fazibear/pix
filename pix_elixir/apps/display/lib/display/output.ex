@@ -5,7 +5,7 @@ defmodule Display.Output do
 
   def data(state, module, data) do
     if module == current(state) do
-      Terminal.data(data)
+      current_output().data(data)
     end
 
     state
@@ -17,5 +17,9 @@ defmodule Display.Output do
       :current_subscriber,
       nil
     )
+  end
+
+  def current_output do
+    Application.get_env(:display, :output)
   end
 end
