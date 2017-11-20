@@ -75,7 +75,7 @@ defmodule Display do
 
     {state, output} = Transition.process(state)
 
-    Terminal.data(output)
+    Output.data(output)
 
     {:noreply, state}
   end
