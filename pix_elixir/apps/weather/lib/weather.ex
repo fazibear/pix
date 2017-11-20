@@ -125,13 +125,11 @@ defmodule Weather do
   end
 
   defp fetch(state) do
-    try do
-      Map.merge(state, fetch_weather())
-    rescue
-      e ->
-        IO.inspect(e)
-        state
-    end
+    Map.merge(state, fetch_weather())
+  rescue
+    e ->
+    IO.inspect(e)
+    state
   end
 
   defp tick(state) do
