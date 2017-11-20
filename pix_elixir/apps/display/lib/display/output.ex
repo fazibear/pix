@@ -3,7 +3,7 @@ defmodule Display.Output do
   Helper function related to display output
   """
 
-  def data(state, module, data) do
+  def current?(state, module, data) do
     if module == current(state) do
       current_output().data(data)
     end
@@ -18,6 +18,9 @@ defmodule Display.Output do
       nil
     )
   end
+
+  def data(nil), do: nil
+  def data(data), do: current_output().data(data)
 
   def current_output do
     Application.get_env(:display, :output)

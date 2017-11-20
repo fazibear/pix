@@ -48,10 +48,11 @@ defmodule Display do
   end
 
   def handle_cast({:data, module, data}, state) do
-    state =
-      state
-      |> Subscriber.data(module, data)
-      |> Output.data(module, data)
+    state = Subscriber.update(state, module, data)
+
+    state
+    |> Subscriber.output(module, data)
+    |> Output.data
 
     {:noreply, state}
   end
@@ -72,7 +73,7 @@ defmodule Display do
   def handle_info(:transition, %{current_subscriber: :transition} = state) do
     Process.send_after(self(), :transition, @transition_timeout)
 
-    {events, state} = Transition.process(state)
+    {[events], state} = Transition.process(state)
 
     Terminal.data(events)
 
