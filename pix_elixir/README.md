@@ -1,4 +1,3 @@
-
 # PIX PROJECT [fazibear/pix_project](https://github.com/fazibear/pix_project)
 
 Pixel frame like the project, but with raspberry pi inside.
