@@ -66,6 +66,11 @@ defmodule Weather do
     {:noreply, state}
   end
 
+  def handle_info(message, state) do
+    IO.inspect(message)
+    {:noreply, state}
+  end
+
   defp draw_temp(data, temp) do
     data
     |> Draw.char(String.at(temp, 0), 5, 9, @temp_color)
