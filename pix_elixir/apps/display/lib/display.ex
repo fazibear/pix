@@ -73,9 +73,9 @@ defmodule Display do
   def handle_info(:transition, %{current_subscriber: :transition} = state) do
     Process.send_after(self(), :transition, @transition_timeout)
 
-    {[events], state} = Transition.process(state)
+    {state, output} = Transition.process(state)
 
-    Terminal.data(events)
+    Terminal.data(output)
 
     {:noreply, state}
   end
