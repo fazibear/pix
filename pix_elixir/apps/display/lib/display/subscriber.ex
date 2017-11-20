@@ -3,31 +3,30 @@ defmodule Display.Subscriber do
   Helper function related to subscriber
   """
 
-  def add(subscriber, state) do
-    GenStage.async_subscribe(Display, to: subscriber)
+  def add(state, subscriber) do
     %{state | subscribers: state.subscribers ++ [subscriber]}
   end
 
-  def process_events(events, state) do
-    Enum.reduce(events, {[], state}, &process_event/2)
+  def remove(state, subscriber) do
+    %{state | subscribers: List.delete(state.subscribers, subscriber)}
   end
 
-  defp process_event({:data, key, value}, {events, %{subscribers_data: _} = state}) do
-    state = put_in(state.subscribers_data[key], value)
-
-    events = events ++ if key == current(state), do: [value], else: []
-
-    {events, state}
+  def update(%{subscribers_data: _} = state, module, data) do
+    put_in(state.subscribers_data[module], data)
   end
 
-  defp process_event(event, {events, state}) do
-    process_event(
-      event,
-      {
-        events,
-        Map.put(state, :subscribers_data, %{})
-      }
+  def update(state, module, data) do
+    update(
+      Map.put(state, :subscribers_data, %{}),
+      module,
+      data
     )
+  end
+
+  def output(state, module, data) do
+    if module == current(state) do
+      data
+    end
   end
 
   defp current(state) do

@@ -3,21 +3,25 @@ defmodule Terminal do
   Takes data from display and draw them on terminal
   """
 
-  use GenStage
+  use GenServer
   alias IO.ANSI
 
+  def data(data) do
+    GenServer.cast(__MODULE__, {:data, data})
+  end
+
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, [], name: __MODULE__)
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   def init(state) do
-    {:consumer, state, subscribe_to: [Display]}
+    {:ok, state}
   end
 
-  def handle_events(events, _from, state) do
-    Enum.each(events, &draw/1)
+  def handle_cast({:data, data}, state) do
+    draw(data)
 
-    {:noreply, [], state}
+    {:noreply, state}
   end
 
   defp draw(state) do

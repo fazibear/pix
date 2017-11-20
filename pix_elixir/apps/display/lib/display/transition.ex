@@ -42,10 +42,10 @@ defmodule Display.Transition do
   def process(%{transition: _} = state) do
     [current | rest] = state.transition.steps
 
-    events = process_steps(current, state)
+    output = process_steps(current, state)
     state = update_state(state, rest)
 
-    {[events], state}
+    {state, output}
   end
 
   defp process_steps(steps, state) do

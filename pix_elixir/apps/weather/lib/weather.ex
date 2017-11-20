@@ -3,7 +3,7 @@ defmodule Weather do
   Shows weather
   """
 
-  use GenStage
+  use GenServer
 
   alias Display.Draw
   alias Display.Draw.Symbol
@@ -13,7 +13,7 @@ defmodule Weather do
   @temp_color 2
 
   def start_link(_opts) do
-    GenStage.start_link(__MODULE__, %{}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(_state) do
@@ -29,7 +29,13 @@ defmodule Weather do
       symbol: "01d"
     }
 
-    {:producer, state, dispatcher: GenStage.BroadcastDispatcher}
+    {:ok, state}
+  end
+
+  def terminate(_reason, state) do
+    Display.unsubscribe(__MODULE__)
+
+    {:ok, state}
   end
 
   def handle_info(:tick, state) do
@@ -47,7 +53,9 @@ defmodule Weather do
 
     Process.send_after(self(), :tick, @timeout)
 
-    {:noreply, [{:data, __MODULE__, data}], state}
+    Display.data(__MODULE__, data)
+
+    {:noreply, state}
   end
 
   def handle_info(:fetch, state) do
@@ -55,15 +63,8 @@ defmodule Weather do
 
     Process.send_after(self(), :fetch, @fetch_timeout)
 
-    {:noreply, [], state}
+    {:noreply, state}
   end
-
-  def handle_info(message, state) do
-    IO.inspect(message)
-    {:noreply, [], state}
-  end
-
-  def handle_demand(_demand, state), do: {:noreply, [], state}
 
   defp draw_temp(data, temp) do
     data
@@ -165,7 +166,7 @@ defmodule Weather do
     response
     |> Map.get("main")
     |> Map.get("temp")
-    |> Kernel.inspect()
+    |> inspect()
     |> String.pad_leading(3, " ")
   end
 
