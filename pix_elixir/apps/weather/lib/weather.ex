@@ -128,7 +128,9 @@ defmodule Weather do
     try do
       Map.merge(state, fetch_weather())
     rescue
-      _ -> state
+      e ->
+        IO.inspect(e)
+        state
     end
   end
 
