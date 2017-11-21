@@ -26,6 +26,12 @@ defmodule BinaryClock do
     {:ok, state}
   end
 
+  def terminate(_reason, state) do
+    Display.unsubscribe(__MODULE__)
+
+    {:ok, state}
+  end
+
   def handle_info(:tick, state) do
     state = tick(state)
 
