@@ -10,7 +10,7 @@ defmodule Matrix.Application do
     # List all child processes to be supervised
 
     children = [
-      #      worker(Matrix, [nil])
+      worker(Matrix, [nil])
     ]
     # Starts a worker by calling: Matrix.Worker.start_link(arg)
     # {Matrix.Worker, arg},
