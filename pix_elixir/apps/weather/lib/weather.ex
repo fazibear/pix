@@ -67,7 +67,6 @@ defmodule Weather do
   end
 
   def handle_info(message, state) do
-    IO.inspect(message)
     {:noreply, state}
   end
 

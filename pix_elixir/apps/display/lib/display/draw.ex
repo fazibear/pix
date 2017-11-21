@@ -59,7 +59,10 @@ defmodule Display.Draw do
   end
 
   defp char_to_data(char) do
-    apply(Char, String.to_atom("_#{char}"), [])
+    case char do
+      "-" -> Char.minus()
+      _ -> apply(Char, String.to_atom("_#{char}"), [])
+    end
   end
 
   defp process_line({line, idx}, matrix, data) do

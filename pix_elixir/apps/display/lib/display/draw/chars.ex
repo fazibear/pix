@@ -3,6 +3,18 @@ defmodule Display.Draw.Char do
   Char data for text
   """
 
+  def minus do
+    [
+      '   ',
+      '   ',
+      '   ',
+      'ccc',
+      '   ',
+      '   ',
+      '   '
+    ]
+  end
+
   def _1 do
     [
       '  c',
