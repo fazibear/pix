@@ -166,7 +166,7 @@ defmodule Weather do
     response
     |> Map.get("main")
     |> Map.get("temp")
-    |> validate()
+    |> round()
     |> String.pad_leading(3, " ")
   end
 
@@ -175,13 +175,5 @@ defmodule Weather do
     |> Map.get("weather")
     |> List.first()
     |> Map.get("icon")
-  end
-
-  def validate(string) do
-    if Regex.match?(~r(\A\d+\z), string) do
-      string
-    else
-      raise "not an integer"
-    end
   end
 end
