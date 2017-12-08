@@ -167,6 +167,7 @@ defmodule Weather do
     |> Map.get("main")
     |> Map.get("temp")
     |> round()
+    |> Integer.to_string()
     |> String.pad_leading(3, " ")
   end
 
