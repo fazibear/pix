@@ -66,7 +66,7 @@ defmodule Weather do
     {:noreply, state}
   end
 
-  def handle_info(message, state) do
+  def handle_info(_message, state) do
     {:noreply, state}
   end
 
@@ -131,9 +131,7 @@ defmodule Weather do
   defp fetch(state) do
     Map.merge(state, fetch_weather())
   rescue
-    e ->
-    IO.inspect(e)
-    state
+    _ -> state
   end
 
   defp tick(state) do
@@ -168,7 +166,7 @@ defmodule Weather do
     response
     |> Map.get("main")
     |> Map.get("temp")
-    |> inspect()
+    |> validate()
     |> String.pad_leading(3, " ")
   end
 
@@ -177,5 +175,13 @@ defmodule Weather do
     |> Map.get("weather")
     |> List.first()
     |> Map.get("icon")
+  end
+
+  def validate(string) do
+    if Regex.match?(~r(\A\d+\z), string) do
+      string
+    else
+      raise "not an integer"
+    end
   end
 end
