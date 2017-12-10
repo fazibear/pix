@@ -3,11 +3,15 @@ defmodule Firmware.Mixfile do
 
   @target System.get_env("MIX_TARGET") || "host"
 
-  Mix.shell.info([:green, """
-  Mix environment
-    MIX_TARGET:   #{@target}
-    MIX_ENV:      #{Mix.env}
-  """, :reset])
+  unless @target == "host" do
+    Mix.shell.info([
+      :green, """
+      Mix environment
+      MIX_TARGET:   #{@target}
+      MIX_ENV:      #{Mix.env}
+      """, :reset
+    ])
+  end
 
   def project do
     [app: :firmware,
@@ -63,8 +67,11 @@ defmodule Firmware.Mixfile do
       {:bootloader, "~> 0.1"},
       {:nerves_runtime, "~> 0.4"},
       {:matrix, in_umbrella: true},
+      {:binary_clock, in_umbrella: true},
       {:clock, in_umbrella: true},
       {:random, in_umbrella: true},
+      {:space_crab, in_umbrella: true},
+      {:weather, in_umbrella: true},
     ] ++ system(target)
   end
 

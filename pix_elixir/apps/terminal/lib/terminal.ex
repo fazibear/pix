@@ -28,7 +28,7 @@ defmodule Terminal do
     state
     |> Enum.map(&process_line/1)
     |> ANSI.format()
-    |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
+    #    |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
     |> IO.puts()
   end
 

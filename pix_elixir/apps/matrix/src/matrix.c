@@ -29,6 +29,8 @@ void set_realtime(void) {
 #define SET_GPIO_OUT(pin) bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_OUTP)
 #define USLEEP(time) bcm2835_delayMicroseconds(time)
 
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 uint8_t matrix[LINES][PER_LINE] = {
     {
         0b00000000,0b00000000,
@@ -135,6 +137,8 @@ void set_dot(int x, int y, int r, int g, int b)
 {
     uint8_t l,p,t;
 
+    //pthread_mutex_lock(&mutex);
+
     if(y % 2) {
         x = (x + 16);
     }
@@ -172,6 +176,8 @@ void set_dot(int x, int y, int r, int g, int b)
         t &= ~(1 << p);
     }
     matrix[y][l] = t;
+
+    //pthread_mutex_unlock(&mutex);
 }
 
 
@@ -179,6 +185,7 @@ void* draw()
 {
     uint8_t line, pos, bit;
     while(1) {
+        //pthread_mutex_lock(&mutex);
         for(line = 0; line < LINES; line++) {
             set_line(line);
             for(pos = 0; pos < PER_LINE; pos++) {
@@ -194,6 +201,7 @@ void* draw()
             USLEEP(2000);
             SET_GPIO(OE, 1);
         }
+        //pthread_mutex_unlock(&mutex);
     }
 }
 
@@ -204,7 +212,7 @@ void draw_init(void)
     int draw_policy = SCHED_FIFO;
 
     pthread_create(&draw_thread, NULL, draw, NULL);
-    draw_prio.sched_priority = 40;
+    draw_prio.sched_priority = sched_get_priority_max(SCHED_FIFO);
     pthread_setschedparam(draw_thread, draw_policy, &draw_prio);
 }
 
