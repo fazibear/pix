@@ -3,18 +3,18 @@
 #include "lib/erl_port.h"
 #include "lib/bcm2835.h"
 
-#ifdef linux
-#include <sys/mman.h>
-void set_realtime(void) {
-    struct sched_param sp;
-    memset(&sp, 0, sizeof(sp));
-    sp.sched_priority = 40; //sched_get_priority_max(SCHED_FIFO);
-    sched_setscheduler(0, SCHED_FIFO, &sp);
-    mlockall(MCL_CURRENT | MCL_FUTURE);
-}
-#endif
+/* #ifdef linux */
+/* #include <sys/mman.h> */
+/* void set_realtime(void) { */
+/*     struct sched_param sp; */
+/*     memset(&sp, 0, sizeof(sp)); */
+/*     sp.sched_priority = 40; //sched_get_priority_max(SCHED_FIFO); */
+/*     sched_setscheduler(0, SCHED_FIFO, &sp); */
+/*     mlockall(MCL_CURRENT | MCL_FUTURE); */
+/* } */
+/* #endif */
 
-// #define LOCK 1
+//#define LOCK 1
 
 #define A1  17 // 0
 #define A2  18 // 1
@@ -234,9 +234,9 @@ int main(void)
     int len, i;
     byte buf[BUFSIZ];
 
-#ifdef linux
-    set_realtime();
-#endif
+/* #ifdef linux */
+/*     set_realtime(); */
+/* #endif */
 
     bcm2835_init();
     gpio_init();

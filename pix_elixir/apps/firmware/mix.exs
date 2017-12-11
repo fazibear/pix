@@ -68,7 +68,6 @@ defmodule Firmware.Mixfile do
       {:nerves_runtime, "~> 0.4"},
       {:nerves_network, "~> 0.3"},
       {:nerves_firmware_ssh, "~> 0.2"},
-      {:nerves_ntp, "~> 0.1.0"},
 
       {:matrix, in_umbrella: true},
       {:binary_clock, in_umbrella: true},
