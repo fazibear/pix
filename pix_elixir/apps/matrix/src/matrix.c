@@ -14,6 +14,8 @@ void set_realtime(void) {
 }
 #endif
 
+// #define LOCK 1
+
 #define A1  17 // 0
 #define A2  18 // 1
 #define A3  27 // 2
@@ -29,7 +31,9 @@ void set_realtime(void) {
 #define SET_GPIO_OUT(pin) bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_OUTP)
 #define USLEEP(time) bcm2835_delayMicroseconds(time)
 
+#ifdef LOCK
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+#endif
 
 uint8_t matrix[LINES][PER_LINE] = {
     {
@@ -137,7 +141,9 @@ void set_dot(int x, int y, int r, int g, int b)
 {
     uint8_t l,p,t;
 
-    //pthread_mutex_lock(&mutex);
+    #ifdef LOCK
+    pthread_mutex_lock(&mutex);
+    #endif
 
     if(y % 2) {
         x = (x + 16);
@@ -177,7 +183,10 @@ void set_dot(int x, int y, int r, int g, int b)
     }
     matrix[y][l] = t;
 
-    //pthread_mutex_unlock(&mutex);
+
+    #ifdef LOCK
+    pthread_mutex_unlock(&mutex);
+    #endif
 }
 
 
@@ -185,9 +194,11 @@ void* draw()
 {
     uint8_t line, pos, bit;
     while(1) {
-        //pthread_mutex_lock(&mutex);
         for(line = 0; line < LINES; line++) {
             set_line(line);
+            #ifdef LOCK
+            pthread_mutex_lock(&mutex);
+            #endif
             for(pos = 0; pos < PER_LINE; pos++) {
                 for (bit = 0; bit < 8; bit++)  {
                     SET_GPIO(SDI, !!(matrix[line][pos] & (1 << (7 - bit))));
@@ -195,13 +206,15 @@ void* draw()
                     SET_GPIO(CLK, 0);
                 }
             }
+            #ifdef LOCK
+            pthread_mutex_unlock(&mutex);
+            #endif
             SET_GPIO(LE, 1);
             SET_GPIO(LE, 0);
             SET_GPIO(OE, 0);
             USLEEP(2000);
             SET_GPIO(OE, 1);
         }
-        //pthread_mutex_unlock(&mutex);
     }
 }
 

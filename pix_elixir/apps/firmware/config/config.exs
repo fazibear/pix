@@ -21,8 +21,19 @@ target = System.get_env("MIX_TARGET") || "host"
 
 unless target == "host" do
   config :bootloader,
-    init: [:nerves_runtime],
+    init: [:nerves_runtime, :nerves_network, :ssh, :nerves_ntp],
     app: Mix.Project.config[:app]
+
+  # ntpd binary to use
+  config :nerves_ntp, :ntpd, "/usr/sbin/ntpd"
+
+  # servers to sync time from
+  config :nerves_ntp, :servers, [
+      "0.pool.ntp.org",
+      "1.pool.ntp.org",
+      "2.pool.ntp.org",
+      "3.pool.ntp.org"
+    ]
 end
 
 # Import target specific config. This must remain at the bottom
