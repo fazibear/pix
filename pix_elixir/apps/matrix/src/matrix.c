@@ -3,19 +3,6 @@
 #include "lib/erl_port.h"
 #include "lib/bcm2835.h"
 
-/* #ifdef linux */
-/* #include <sys/mman.h> */
-/* void set_realtime(void) { */
-/*     struct sched_param sp; */
-/*     memset(&sp, 0, sizeof(sp)); */
-/*     sp.sched_priority = 40; //sched_get_priority_max(SCHED_FIFO); */
-/*     sched_setscheduler(0, SCHED_FIFO, &sp); */
-/*     mlockall(MCL_CURRENT | MCL_FUTURE); */
-/* } */
-/* #endif */
-
-//#define LOCK 1
-
 #define A1  17 // 0
 #define A2  18 // 1
 #define A3  27 // 2
@@ -30,6 +17,8 @@
 #define SET_GPIO(pin, value) bcm2835_gpio_write(pin, value)
 #define SET_GPIO_OUT(pin) bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_OUTP)
 #define USLEEP(time) bcm2835_delayMicroseconds(time)
+
+//#define LOCK 1
 
 #ifdef LOCK
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -141,9 +130,9 @@ void set_dot(int x, int y, int r, int g, int b)
 {
     uint8_t l,p,t;
 
-    #ifdef LOCK
+#ifdef LOCK
     pthread_mutex_lock(&mutex);
-    #endif
+#endif
 
     if(y % 2) {
         x = (x + 16);
@@ -184,21 +173,22 @@ void set_dot(int x, int y, int r, int g, int b)
     matrix[y][l] = t;
 
 
-    #ifdef LOCK
+#ifdef LOCK
     pthread_mutex_unlock(&mutex);
-    #endif
+#endif
 }
 
 
 void* draw()
 {
+    mlockall(MCL_CURRENT | MCL_FUTURE);
     uint8_t line, pos, bit;
     while(1) {
         for(line = 0; line < LINES; line++) {
             set_line(line);
-            #ifdef LOCK
+#ifdef LOCK
             pthread_mutex_lock(&mutex);
-            #endif
+#endif
             for(pos = 0; pos < PER_LINE; pos++) {
                 for (bit = 0; bit < 8; bit++)  {
                     SET_GPIO(SDI, !!(matrix[line][pos] & (1 << (7 - bit))));
@@ -206,9 +196,9 @@ void* draw()
                     SET_GPIO(CLK, 0);
                 }
             }
-            #ifdef LOCK
+#ifdef LOCK
             pthread_mutex_unlock(&mutex);
-            #endif
+#endif
             SET_GPIO(LE, 1);
             SET_GPIO(LE, 0);
             SET_GPIO(OE, 0);
@@ -222,30 +212,39 @@ void draw_init(void)
 {
     pthread_t draw_thread;
     struct sched_param draw_prio;
-    int draw_policy = SCHED_FIFO;
 
     pthread_create(&draw_thread, NULL, draw, NULL);
     draw_prio.sched_priority = sched_get_priority_max(SCHED_FIFO);
-    pthread_setschedparam(draw_thread, draw_policy, &draw_prio);
+    pthread_setschedparam(draw_thread, SCHED_FIFO, &draw_prio);
 }
+
+#ifdef linux
+#include <sys/mman.h>
+void set_realtime(void)
+{
+    struct sched_param sp;
+    memset(&sp, 0, sizeof(sp));
+    sp.sched_priority = 40; //sched_get_priority_max(SCHED_FIFO);
+    sched_setscheduler(0, SCHED_FIFO, &sp);
+    mlockall(MCL_CURRENT | MCL_FUTURE);
+}
+#endif
 
 int main(void)
 {
     int len, i;
     byte buf[BUFSIZ];
 
-/* #ifdef linux */
-/*     set_realtime(); */
-/* #endif */
+#ifdef linux
+    // set_realtime();
+#endif
 
     bcm2835_init();
     gpio_init();
     draw_init();
 
-    while((len = read_cmd(buf)) > 0)
-    {
-        for(i=0; i<len; i++)
-        {
+    while((len = read_cmd(buf)) > 0) {
+        for(i=0; i<len; i++) {
             int x = i % 16;
             int y = i / 16;
             int r = buf[i] & 0b001;
