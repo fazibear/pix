@@ -23,11 +23,11 @@ defmodule Display.Transition do
         state
         |> Map.put(:current_subscriber, :transition)
         |> Map.put(:transition, %{
-             old: old,
-             new: new,
-             type: Enum.random([:line, :column]),
-             steps: Enum.random(TransitionRules.all())
-           })
+          old: old,
+          new: new,
+          type: Enum.random([:line, :column]),
+          steps: Enum.random(TransitionRules.all())
+        })
     end
   end
 

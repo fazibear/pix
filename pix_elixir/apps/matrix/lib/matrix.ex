@@ -37,5 +37,4 @@ defmodule Matrix do
     |> Application.app_dir("priv/matrix")
     |> String.to_charlist()
   end
-
 end

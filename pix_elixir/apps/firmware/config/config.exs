@@ -5,8 +5,6 @@
 # is restricted to this project.
 use Mix.Config
 
-target = System.get_env("MIX_TARGET") || "host"
-
 # Customize the firmware. Uncomment all or parts of the following
 # to add files to the root filesystem or modify the firmware
 # archive.
@@ -15,15 +13,12 @@ target = System.get_env("MIX_TARGET") || "host"
 #   rootfs_overlay: "rootfs_overlay",
 #   fwup_conf: "config/fwup.conf"
 
-# Use bootloader to start the main application. See the bootloader
+# Use shoehorn to start the main application. See the shoehorn
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
-
-unless target == "host" do
-  config :bootloader,
-    init: [:nerves_runtime, :nerves_network, :ssh],
-    app: Mix.Project.config[:app]
-end
+config :shoehorn,
+  init: [:nerves_runtime],
+  app: Mix.Project.config()[:app]
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

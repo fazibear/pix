@@ -1,12 +1,11 @@
 use Mix.Releases.Config,
-    # This sets the default release built by `mix release`
-    default_release: :default,
-    # This sets the default environment used by `mix release`
-    default_environment: :prod
+  # This sets the default release built by `mix release`
+  default_release: :default,
+  # This sets the default environment used by `mix release`
+  default_environment: :dev
 
 # For a full list of config options for both releases
 # and environments, visit https://hexdocs.pm/distillery/configuration.html
-
 
 # You may define one or more environments in this file,
 # an environment's settings will override those of a release
@@ -14,11 +13,11 @@ use Mix.Releases.Config,
 # and environment configuration is called a profile
 
 environment :dev do
-  set cookie: :"[8@6}_OjNpvl[64~`oODHH]7Df}e5kH/c%DfCR_,2MUTZiO,4!ZP_X.?gZ{s=[?u"
+  set(cookie: :"Z.?w91m[e41JQvl9CD34AC8Kt_fTXd&HOgiESZ5:)RUWLoWr($8:wJp*XK;w&6N!")
 end
 
 environment :prod do
-  set cookie: :"[8@6}_OjNpvl[64~`oODHH]7Df}e5kH/c%DfCR_,2MUTZiO,4!ZP_X.?gZ{s=[?u"
+  set(cookie: :"Z.?w91m[e41JQvl9CD34AC8Kt_fTXd&HOgiESZ5:)RUWLoWr($8:wJp*XK;w&6N!")
 end
 
 # You may define one or more releases in this file.
@@ -27,13 +26,14 @@ end
 # will be used by default
 
 release :firmware do
-  set version: current_version(:firmware)
-  plugin Bootloader.Plugin
+  set(version: current_version(:firmware))
+  plugin(Shoehorn)
+
   if System.get_env("NERVES_SYSTEM") do
-    set dev_mode: false
-    set include_src: false
-    set include_erts: System.get_env("ERL_LIB_DIR")
-    set include_system_libs: System.get_env("ERL_SYSTEM_LIB_DIR")
-    set vm_args: "rel/vm.args"
+    set(dev_mode: false)
+    set(include_src: false)
+    set(include_erts: System.get_env("ERL_LIB_DIR"))
+    set(include_system_libs: System.get_env("ERL_SYSTEM_LIB_DIR"))
+    set(vm_args: "rel/vm.args")
   end
 end

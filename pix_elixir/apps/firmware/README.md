@@ -1,5 +1,7 @@
 # Firmware
 
+**TODO: Add description**
+
 ## Targets
 
 Nerves applications produce images for hardware targets based on the

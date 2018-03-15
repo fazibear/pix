@@ -12,6 +12,7 @@ defmodule Matrix.Application do
     children = [
       worker(Matrix, [nil])
     ]
+
     # Starts a worker by calling: Matrix.Worker.start_link(arg)
     # {Matrix.Worker, arg},
 

@@ -1,5 +1,7 @@
 #include <pthread.h>
 #include <sched.h>
+#include <time.h>
+#include <sys/mman.h>
 #include "lib/erl_port.h"
 #include "lib/bcm2835.h"
 
@@ -23,6 +25,15 @@
 #ifdef LOCK
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 #endif
+
+static void sleep_until(struct timespec *ts, int delay){
+  ts->tv_nsec += delay;
+  if(ts->tv_nsec >= 1000*1000*1000){
+    ts->tv_nsec -= 1000*1000*1000;
+    ts->tv_sec++;
+  }
+  clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, ts, NULL);
+}
 
 uint8_t matrix[LINES][PER_LINE] = {
     {
@@ -183,6 +194,10 @@ void* draw()
 {
     mlockall(MCL_CURRENT | MCL_FUTURE);
     uint8_t line, pos, bit;
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    mlockall(MCL_FUTURE|MCL_CURRENT);
+
     while(1) {
         for(line = 0; line < LINES; line++) {
             set_line(line);
@@ -202,7 +217,8 @@ void* draw()
             SET_GPIO(LE, 1);
             SET_GPIO(LE, 0);
             SET_GPIO(OE, 0);
-            USLEEP(2000);
+            //USLEEP(2000);
+            sleep_until(&ts, 2000000);
             SET_GPIO(OE, 1);
         }
     }
