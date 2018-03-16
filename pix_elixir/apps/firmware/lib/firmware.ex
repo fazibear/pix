@@ -1,4 +1,8 @@
 defmodule Firmware do
+  @moduledoc """
+  Firmware
+  """
+
   def setup_time() do
     case Nerves.NetworkInterface.settings("wlan0") do
       {:ok, _} ->

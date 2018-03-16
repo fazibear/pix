@@ -1,4 +1,7 @@
 defmodule Firmware.Application do
+  @moduledoc """
+  Firmware
+  """
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
