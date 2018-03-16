@@ -20,12 +20,6 @@
 #define SET_GPIO_OUT(pin) bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_OUTP)
 #define USLEEP(time) bcm2835_delayMicroseconds(time)
 
-//#define LOCK 1
-
-#ifdef LOCK
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-#endif
-
 static void sleep_until(struct timespec *ts, int delay){
   ts->tv_nsec += delay;
   if(ts->tv_nsec >= 1000*1000*1000){
@@ -141,10 +135,6 @@ void set_dot(int x, int y, int r, int g, int b)
 {
     uint8_t l,p,t;
 
-#ifdef LOCK
-    pthread_mutex_lock(&mutex);
-#endif
-
     if(y % 2) {
         x = (x + 16);
     }
@@ -182,11 +172,6 @@ void set_dot(int x, int y, int r, int g, int b)
         t &= ~(1 << p);
     }
     matrix[y][l] = t;
-
-
-#ifdef LOCK
-    pthread_mutex_unlock(&mutex);
-#endif
 }
 
 
@@ -201,9 +186,6 @@ void* draw()
     while(1) {
         for(line = 0; line < LINES; line++) {
             set_line(line);
-#ifdef LOCK
-            pthread_mutex_lock(&mutex);
-#endif
             for(pos = 0; pos < PER_LINE; pos++) {
                 for (bit = 0; bit < 8; bit++)  {
                     SET_GPIO(SDI, !!(matrix[line][pos] & (1 << (7 - bit))));
@@ -211,9 +193,6 @@ void* draw()
                     SET_GPIO(CLK, 0);
                 }
             }
-#ifdef LOCK
-            pthread_mutex_unlock(&mutex);
-#endif
             SET_GPIO(LE, 1);
             SET_GPIO(LE, 0);
             SET_GPIO(OE, 0);
@@ -250,10 +229,6 @@ int main(void)
 {
     int len, i;
     byte buf[BUFSIZ];
-
-#ifdef linux
-    // set_realtime();
-#endif
 
     bcm2835_init();
     gpio_init();
