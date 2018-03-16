@@ -13,11 +13,11 @@ use Mix.Releases.Config,
 # and environment configuration is called a profile
 
 environment :dev do
-  set(cookie: :"_wV*T(/I.`87$ZnY:<06DV6.Y^dCO(3`C,AHR$K27xII{4Iqp8;]g~,Ym6F<KKQ4")
+  set(cookie: :"Z.?w91m[e41JQvl9CD34AC8Kt_fTXd&HOgiESZ5:)RUWLoWr($8:wJp*XK;w&6N!")
 end
 
 environment :prod do
-  set(cookie: :"_wV*T(/I.`87$ZnY:<06DV6.Y^dCO(3`C,AHR$K27xII{4Iqp8;]g~,Ym6F<KKQ4")
+  set(cookie: :"Z.?w91m[e41JQvl9CD34AC8Kt_fTXd&HOgiESZ5:)RUWLoWr($8:wJp*XK;w&6N!")
 end
 
 # You may define one or more releases in this file.
@@ -27,7 +27,7 @@ end
 
 release :firmware do
   set(version: current_version(:firmware))
-  plugin(Bootloader.Plugin)
+  plugin(Shoehorn)
 
   if System.get_env("NERVES_SYSTEM") do
     set(dev_mode: false)

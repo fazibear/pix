@@ -5,7 +5,7 @@
 ##  for read only filesystem.
 
 # -name firmware@0.0.0.0
--setcookie lmEgye8tMtmslEybLPUJGYKjCMa11K05Hf0znYxu7qOJ10aDWV2BShEq/SPuMDBj
+-setcookie KkdSZgnYdcSC5JSiN885MQpZwwZGqTI16me1s6gh7C+cBkL/Gf9sG737iGuV0qMc
 
 ## Use Ctrl-C to interrupt the current shell rather than invoking the emulator's
 ## break handler and possibly exiting the VM.
@@ -19,6 +19,9 @@
 
 -noshell
 -user Elixir.IEx.CLI
+
+## Enable colors in the shell
+-elixir ansi_enabled true
 
 ## Options added after -extra are interpreted as plain arguments and
 ## can be retrieved using :init.get_plain_arguments().

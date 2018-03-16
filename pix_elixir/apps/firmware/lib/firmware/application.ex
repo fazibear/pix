@@ -2,7 +2,6 @@ defmodule Firmware.Application do
   @moduledoc """
   Firmware
   """
-
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -18,6 +17,7 @@ defmodule Firmware.Application do
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]
+    Firmware.setup_time()
     Supervisor.start_link(children, opts)
   end
 end

@@ -4,7 +4,7 @@ defmodule Terminal.Application do
   @moduledoc false
 
   use Application
-      import Supervisor.Spec
+  import Supervisor.Spec
 
   def start(_type, _args) do
     # List all child processes to be supervised
@@ -12,6 +12,7 @@ defmodule Terminal.Application do
     children = [
       worker(Terminal, [nil])
     ]
+
     # Starts a worker by calling: Matrix.Worker.start_link(arg)
     # {Matrix.Worker, arg},
 

@@ -52,7 +52,7 @@ defmodule Display do
 
     state
     |> Subscriber.output(module, data)
-    |> Output.data
+    |> Output.data()
 
     {:noreply, state}
   end
