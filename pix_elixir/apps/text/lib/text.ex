@@ -21,7 +21,7 @@ defmodule Text do
 
     state = %{
       # lower case only !
-      text: "to jest fajny text na tablicy mej ",
+      text: "1234567890",
       letter: 0,
       position: 0
     }
@@ -59,7 +59,7 @@ defmodule Text do
         Map.put(state, :position, state.position + 1)
       end
 
-    if state.letter > String.length(state.text) do
+    if state.letter >= String.length(state.text) do
       Map.put(state, :letter, 0)
     else
       state
