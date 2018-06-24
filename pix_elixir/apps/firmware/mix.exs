@@ -45,7 +45,7 @@ defmodule Firmware.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    [{:nerves, "~> 0.9", runtime: false}] ++ deps(@target)
+    [{:nerves, "~> 1.0", runtime: false}] ++ deps(@target)
   end
 
   # Specify target specific dependencies
@@ -57,6 +57,9 @@ defmodule Firmware.MixProject do
       {:nerves_runtime, "~> 0.4"},
       {:nerves_network, "~> 0.3"},
       {:nerves_firmware_ssh, "~> 0.2"},
+      {:ring_logger, "~> 0.4"},
+
+      # pix apps
       {:matrix, in_umbrella: true},
       {:binary_clock, in_umbrella: true},
       {:clock, in_umbrella: true},

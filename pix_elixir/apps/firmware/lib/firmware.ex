@@ -3,13 +3,19 @@ defmodule Firmware do
   Firmware
   """
 
+  require Logger
+
   def init() do
     start_ssh()
-    start_ntp()
   end
 
-  def start_ntp() do
-    System.cmd("ntpd", ["-p", "pool.ntp.org"])
+  def network({_ip, nil}) do
+    set_time()
+  end
+  def network(_), do: :nothing
+
+  def set_time() do
+    System.cmd("ntpd", ~w[-n -q -p pool.ntp.org], into: Nerves.Runtime.OutputLogger.new(:info))
   end
 
   def start_ssh() do

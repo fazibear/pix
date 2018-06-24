@@ -16,6 +16,10 @@ use Mix.Config
 # Use shoehorn to start the main application. See the shoehorn
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
+
+config :logger, backends: [RingLogger]
+config :logger, RingLogger, max_size: 10_000
+
 config :shoehorn,
   init: [:nerves_runtime],
   app: Mix.Project.config()[:app]
