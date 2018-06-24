@@ -7,7 +7,7 @@ defmodule Text do
 
   alias Display.Draw
 
-  @timeout 50
+  @timeout 100
   @color 7
 
   def start_link(_opts) do
@@ -21,7 +21,7 @@ defmodule Text do
 
     state = %{
       # lower case only !
-      text: "to jest fany text na mej ramce",
+      text: "to jest fajny text na tablicy mej ",
       letter: 0,
       position: 0
     }
@@ -50,15 +50,16 @@ defmodule Text do
   end
 
   defp tick(state) do
-    state = if state.position > 2 do
-      state
-      |> Map.put(:position, 0)
-      |> Map.put(:letter, state.letter + 1)
-    else
-      Map.put(state, :position, state.position + 1)
-    end
+    state =
+      if state.position > 2 do
+        state
+        |> Map.put(:position, 0)
+        |> Map.put(:letter, state.letter + 1)
+      else
+        Map.put(state, :position, state.position + 1)
+      end
 
-    if state.letter + 5 > String.length(state.text) do
+    if state.letter > String.length(state.text) do
       Map.put(state, :letter, 0)
     else
       state
@@ -67,10 +68,23 @@ defmodule Text do
 
   defp draw_text(state, text, position, letter) do
     state
-    |> Draw.char(String.at(text, letter),     0 - position, 9, @color)
-    |> Draw.char(String.at(text, letter + 1), 4 - position, 9, @color)
-    |> Draw.char(String.at(text, letter + 2), 8 - position, 9, @color)
-    |> Draw.char(String.at(text, letter + 3), 12 - position, 9, @color)
-    |> Draw.char(String.at(text, letter + 4), 16 - position, 9, @color)
+    |> Draw.char(get_letter(text, letter, 0), 0 - position, 9, @color)
+    |> Draw.char(get_letter(text, letter, 1), 4 - position, 9, @color)
+    |> Draw.char(get_letter(text, letter, 2), 8 - position, 9, @color)
+    |> Draw.char(get_letter(text, letter, 3), 12 - position, 9, @color)
+    |> Draw.char(get_letter(text, letter, 4), 16 - position, 9, @color)
+  end
+
+  defp get_letter(text, letter, pos) do
+    len = String.length(text)
+
+    letter =
+      if letter + pos >= len do
+        letter + pos - len
+      else
+        letter + pos
+      end
+
+    String.at(text, letter)
   end
 end

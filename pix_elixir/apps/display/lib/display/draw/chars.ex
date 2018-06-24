@@ -271,6 +271,18 @@ defmodule Display.Draw.Char do
     ]
   end
 
+  def _l do
+    [
+      'c  ',
+      'c  ',
+      'c  ',
+      'c  ',
+      'c  ',
+      'c  ',
+      'ccc'
+    ]
+  end
+
   def _m do
     [
       'c c',
