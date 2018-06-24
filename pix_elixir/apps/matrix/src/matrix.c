@@ -39,7 +39,7 @@ static void sleep_until(int delay)
         ts.tv_nsec -= 1000*1000*1000;
         ts.tv_sec++;
     }
-    clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, ts, NULL);
+    clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL);
 }
 
 uint8_t matrix[LINES][PER_LINE] = {
