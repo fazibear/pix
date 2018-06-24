@@ -15,6 +15,10 @@ defmodule Display.Draw.Char do
     ]
   end
 
+  def _ do
+    []
+  end
+
   def _0 do
     [
       ' cc',

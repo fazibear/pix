@@ -7,20 +7,23 @@ defmodule Text do
 
   alias String.Chars
   alias Display.Draw
-  alias Display.Draw.Symbol
 
-  @timeout 1000
-  @dot_color 3
-  @digits_color 7
+  @timeout 100
+  @color 7
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
-  def init(state) do
+  def init(_state) do
     Display.subscribe(__MODULE__)
 
     Process.send_after(self(), :tick, 100)
+
+    state = %{
+      text: "to jest fany text na mej ramce",
+      position: 0,
+    }
 
     {:ok, state}
   end
@@ -36,8 +39,7 @@ defmodule Text do
 
     data =
       Draw.empty()
-      |> draw_time(state.time)
-      |> draw_dots(state.dot)
+      |> draw_text(state.text, state.position)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -47,31 +49,18 @@ defmodule Text do
   end
 
   defp tick(state) do
-    %{
-      dot: if(Map.get(state, :dot) == "dot_0", do: "dot_1", else: "dot_0"),
-      time: current_time()
-    }
+    if state.position + 4 > String.length(state.text) do
+      Map.put(state, :position, 0)
+    else
+      Map.put(state, :position, state.position + 1)
+    end
   end
 
-  defp draw_time(state, time) do
+  defp draw_text(state, text, position) do
     state
-    |> Draw.char(String.at(time, 0), 0, 0, @digits_color)
-    |> Draw.char(String.at(time, 1), 4, 0, @digits_color)
-    |> Draw.char(String.at(time, 2), 9, 9, @digits_color)
-    |> Draw.char(String.at(time, 3), 13, 9, @digits_color)
-  end
-
-  defp draw_dots(state, dot) do
-    state
-    |> Draw.symbol({Symbol, dot}, 11, 2, @dot_color)
-    |> Draw.symbol({Symbol, dot}, 2, 11, @dot_color)
-  end
-
-  defp current_time do
-    {{_, _, _}, {h, m, _}} = :calendar.local_time()
-
-    "~2.10. B~2.10.0B"
-    |> :io_lib.format([h, m])
-    |> Chars.to_string()
+    |> Draw.char(String.at(text, position), 0, 0, @color)
+    |> Draw.char(String.at(text, position + 1), 4, 0, @color)
+    |> Draw.char(String.at(text, position + 2), 9, 0, @color)
+    |> Draw.char(String.at(text, position + 3), 13, 0, @color)
   end
 end
