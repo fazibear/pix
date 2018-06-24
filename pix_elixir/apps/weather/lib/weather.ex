@@ -9,7 +9,7 @@ defmodule Weather do
   alias Display.Draw.Symbol
 
   @timeout 200
-  @fetch_timeout 1000 * 60 * 5
+  @fetch_timeout 1000 * 60
   @temp_color 2
 
   def start_link(_opts) do
