@@ -11,16 +11,4 @@ import_config "../apps/*/config/config.exs"
 
 import_config "secrets.exs"
 
-config :display, output: fn() ->
-  case Mix.env() do
-    :prod -> Matrix
-    :dev -> Terminal
-  end
-end.()
-
-# Sample configuration (overrides the imported configuration above):
-#
-#     config :logger, :console,
-#       level: :info,
-#       format: "$date $time [$level] $metadata$message\n",
-#       metadata: [:user_id]
+import_config "#{Mix.env()}.exs"

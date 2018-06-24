@@ -7,7 +7,7 @@
   "elixir_make": {:hex, :elixir_make, "0.4.2", "332c649d08c18bc1ecc73b1befc68c647136de4f340b548844efc796405743bf", [:mix], []},
   "httpotion": {:hex, :httpotion, "3.1.0", "14d20d9b0ce4e86e253eb91e4af79e469ad949f57a5d23c0a51b2f86559f6589", [:mix], [{:ibrowse, "~> 4.4", [hex: :ibrowse, optional: false]}]},
   "ibrowse": {:hex, :ibrowse, "4.4.0", "2d923325efe0d2cb09b9c6a047b2835a5eda69d8a47ed6ff8bc03628b764e991", [:rebar3], []},
-  "nerves": {:hex, :nerves, "0.11.0", "631693062f2fdad92b2f9d34ac7c230bbda985276b5cd99e6beff7c1a0545326", [:mix], [{:distillery, "~> 1.4", [hex: :distillery, optional: false]}]},
+  "nerves": {:hex, :nerves, "1.0.1", "06e311584bf346622afc37ffd6f0eb581288c918ed71b8a7a14f230062eabf31", [:mix], [{:distillery, "~> 1.4", [hex: :distillery, optional: false]}, {:jason, "~> 1.0", [hex: :jason, optional: true]}]},
   "nerves_firmware_ssh": {:hex, :nerves_firmware_ssh, "0.3.2", "2cdf126b5b264ec11c31f58b7f9933445eb065348a0b33c6762f08b1f46e87a9", [:mix], [{:nerves_runtime, "~> 0.4", [hex: :nerves_runtime, optional: false]}]},
   "nerves_network": {:hex, :nerves_network, "0.3.6", "c95779283ace071e9d12882d6a80e31edc8c476012adc61aba2ff6c306ef97b3", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, optional: false]}, {:nerves_network_interface, "~> 0.4.0", [hex: :nerves_network_interface, optional: false]}, {:nerves_wpa_supplicant, "~> 0.3.0", [hex: :nerves_wpa_supplicant, optional: false]}, {:system_registry, "~> 0.4", [hex: :system_registry, optional: false]}]},
   "nerves_network_interface": {:hex, :nerves_network_interface, "0.4.4", "200b1a84bc1a7fdeaf3a1e0e2d4e9b33e240b034e73f39372768d43f8690bae0", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, optional: false]}]},
