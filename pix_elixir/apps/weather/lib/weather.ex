@@ -25,7 +25,7 @@ defmodule Weather do
     state = %{
       cloud_pos: 0,
       tick: 0,
-      temp: "666",
+      temp: "   ",
       symbol: "01d"
     }
 
