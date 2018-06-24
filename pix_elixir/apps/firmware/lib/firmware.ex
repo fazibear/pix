@@ -12,6 +12,7 @@ defmodule Firmware do
   def network({_ip, nil}) do
     set_time()
   end
+
   def network(_), do: :nothing
 
   def set_time() do

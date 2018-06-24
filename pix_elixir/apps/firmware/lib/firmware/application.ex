@@ -12,6 +12,7 @@ defmodule Firmware.Application do
 
   def network() do
     import Supervisor.Spec, warn: false
+
     [
       worker(SystemRegistry.Task, [
         [:state, :network_interface, "wlan0", :ipv4_address],

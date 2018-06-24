@@ -5,10 +5,9 @@ defmodule Text do
 
   use GenServer
 
-  alias String.Chars
   alias Display.Draw
 
-  @timeout 100
+  @timeout 250
   @color 7
 
   def start_link(_opts) do
@@ -21,8 +20,9 @@ defmodule Text do
     Process.send_after(self(), :tick, 100)
 
     state = %{
+      # lower case only !
       text: "to jest fany text na mej ramce",
-      position: 0,
+      position: 0
     }
 
     {:ok, state}
@@ -58,9 +58,9 @@ defmodule Text do
 
   defp draw_text(state, text, position) do
     state
-    |> Draw.char(String.at(text, position), 0, 0, @color)
-    |> Draw.char(String.at(text, position + 1), 4, 0, @color)
-    |> Draw.char(String.at(text, position + 2), 9, 0, @color)
-    |> Draw.char(String.at(text, position + 3), 13, 0, @color)
+    |> Draw.char(String.at(text, position), 0, 9, @color)
+    |> Draw.char(String.at(text, position + 1), 4, 9, @color)
+    |> Draw.char(String.at(text, position + 2), 9, 9, @color)
+    |> Draw.char(String.at(text, position + 3), 13, 9, @color)
   end
 end

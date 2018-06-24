@@ -9,11 +9,7 @@ defmodule Matrix.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
 
-    children = if Mix.env() == :prod do
-      [worker(Matrix, [nil])]
-    else
-      []
-    end
+    children = matrix()
 
     # Starts a worker by calling: Matrix.Worker.start_link(arg)
     # {Matrix.Worker, arg},
@@ -22,5 +18,15 @@ defmodule Matrix.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Matrix.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  if Mix.env() == :prod do
+    def matrix do
+      [worker(Matrix, [nil])]
+    end
+  else
+    def matrix do
+      []
+    end
   end
 end
