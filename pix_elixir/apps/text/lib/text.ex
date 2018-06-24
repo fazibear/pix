@@ -7,7 +7,7 @@ defmodule Text do
 
   alias Display.Draw
 
-  @timeout 250
+  @timeout 50
   @color 7
 
   def start_link(_opts) do
@@ -22,6 +22,7 @@ defmodule Text do
     state = %{
       # lower case only !
       text: "to jest fany text na mej ramce",
+      letter: 0,
       position: 0
     }
 
@@ -39,7 +40,7 @@ defmodule Text do
 
     data =
       Draw.empty()
-      |> draw_text(state.text, state.position)
+      |> draw_text(state.text, state.position, state.letter)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -49,18 +50,27 @@ defmodule Text do
   end
 
   defp tick(state) do
-    if state.position + 4 > String.length(state.text) do
-      Map.put(state, :position, 0)
+    state = if state.position > 2 do
+      state
+      |> Map.put(:position, 0)
+      |> Map.put(:letter, state.letter + 1)
     else
       Map.put(state, :position, state.position + 1)
     end
+
+    if state.letter + 5 > String.length(state.text) do
+      Map.put(state, :letter, 0)
+    else
+      state
+    end
   end
 
-  defp draw_text(state, text, position) do
+  defp draw_text(state, text, position, letter) do
     state
-    |> Draw.char(String.at(text, position), 0, 9, @color)
-    |> Draw.char(String.at(text, position + 1), 4, 9, @color)
-    |> Draw.char(String.at(text, position + 2), 9, 9, @color)
-    |> Draw.char(String.at(text, position + 3), 13, 9, @color)
+    |> Draw.char(String.at(text, letter),     0 - position, 9, @color)
+    |> Draw.char(String.at(text, letter + 1), 4 - position, 9, @color)
+    |> Draw.char(String.at(text, letter + 2), 8 - position, 9, @color)
+    |> Draw.char(String.at(text, letter + 3), 12 - position, 9, @color)
+    |> Draw.char(String.at(text, letter + 4), 16 - position, 9, @color)
   end
 end
