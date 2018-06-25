@@ -3,8 +3,10 @@ defmodule Display.Cycle do
   Helper funcions to cycle throu all subscribed features
   """
 
+  alias Display.Subscriber
+
   def subscribers(state) do
-    if current_subscriber_index(state) >= length(state.subscribers) - 1 do
+    if current_subscriber_index(state) >= length(Subscriber.all(state)) - 1 do
       reset_index(state)
     else
       increment_index(state)

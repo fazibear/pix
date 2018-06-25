@@ -17,37 +17,29 @@ defmodule Display do
   @change_timeout 5000
   @transition_timeout 20
 
-  def subscribe(subscriber) do
-    GenServer.cast(__MODULE__, {:subscribe, subscriber})
+  def remove(subscriber) do
+    GenServer.cast(__MODULE__, {:remove, subscriber})
   end
 
-  def unsubscribe(subscriber) do
-    GenServer.cast(__MODULE__, {:unsubscribe, subscriber})
-  end
-
-  def data(module, data) do
-    GenServer.cast(__MODULE__, {:data, module, data})
+  def update(module, data) do
+    GenServer.cast(__MODULE__, {:update, module, data})
   end
 
   def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{subscribers: []}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{subscribers: %{}}, name: __MODULE__)
   end
 
   def init(state) do
-    Process.send_after(self(), :change, 100)
+    send self(), :change
 
     {:ok, state}
   end
 
-  def handle_cast({:subscribe, subscriber}, state) do
-    {:noreply, Subscriber.add(state, subscriber)}
-  end
-
-  def handle_cast({:unsubscribe, subscriber}, state) do
+  def handle_cast({:remove, subscriber}, state) do
     {:noreply, Subscriber.remove(state, subscriber)}
   end
 
-  def handle_cast({:data, module, data}, state) do
+  def handle_cast({:update, module, data}, state) do
     state = Subscriber.update(state, module, data)
 
     state

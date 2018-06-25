@@ -29,7 +29,7 @@ defmodule BinaryClock.Mixfile do
       {:convertat, "~> 1.1"},
       {:timex, "~> 3.1"},
       {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true}
+      # {:terminal, in_umbrella: true}
     ]
   end
 end

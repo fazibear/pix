@@ -15,15 +15,13 @@ defmodule Random do
   end
 
   def init(state) do
-    Display.subscribe(__MODULE__)
-
-    Process.send_after(self(), :tick, 100)
+    send(self(), :tick)
 
     {:ok, state}
   end
 
   def terminate(_reason, state) do
-    Display.unsubscribe(__MODULE__)
+    Display.remove(__MODULE__)
 
     {:ok, state}
   end
@@ -33,7 +31,7 @@ defmodule Random do
 
     Process.send_after(self(), :tick, @timeout)
 
-    Display.data(__MODULE__, state)
+    Display.update(__MODULE__, state)
 
     {:noreply, state}
   end

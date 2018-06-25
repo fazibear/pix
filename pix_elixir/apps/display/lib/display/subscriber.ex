@@ -3,21 +3,23 @@ defmodule Display.Subscriber do
   Helper function related to subscriber
   """
 
-  def add(state, subscriber) do
-    %{state | subscribers: state.subscribers ++ [subscriber]}
-  end
-
   def remove(state, subscriber) do
-    %{state | subscribers: List.delete(state.subscribers, subscriber)}
+    %{state | subscribers: Map.delete(state.subscribers, subscriber)}
   end
 
-  def update(%{subscribers_data: _} = state, module, data) do
-    put_in(state.subscribers_data[module], data)
+  def all(state) do
+    state
+    |> Map.get(:subscribers)
+    |> Map.keys
+  end
+
+  def update(%{subscribers: _} = state, module, data) do
+    put_in(state.subscribers[module], data)
   end
 
   def update(state, module, data) do
     update(
-      Map.put(state, :subscribers_data, %{}),
+      Map.put(state, :subscribers, %{}),
       module,
       data
     )

@@ -28,7 +28,7 @@ defmodule Clock.Mixfile do
     [
       {:timex, "~> 3.1"},
       {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true}
+      #      {:terminal, in_umbrella: true}
     ]
   end
 end

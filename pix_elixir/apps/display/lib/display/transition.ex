@@ -5,12 +5,13 @@ defmodule Display.Transition do
 
   alias Display.{
     Draw,
-    TransitionRules
+    TransitionRules,
+    Subscriber
   }
 
   def update(%{current_subscriber: _} = state) do
     old = state.current_subscriber
-    new = Enum.at(state.subscribers, state.current_subscriber_index)
+    new = Enum.at(Subscriber.all(state), state.current_subscriber_index)
 
     case {old, new} do
       {nil, new} ->
@@ -35,7 +36,7 @@ defmodule Display.Transition do
     Map.put(
       state,
       :current_subscriber,
-      Enum.at(state.subscribers, state.current_subscriber_index)
+      Enum.at(Subscriber.all(state), state.current_subscriber_index)
     )
   end
 
@@ -64,11 +65,11 @@ defmodule Display.Transition do
     )
   end
 
-  defp line_data("o", %{subscribers_data: subscribers_data, transition: transition}),
-    do: subscribers_data[transition.old]
+  defp line_data("o", %{subscribers: subscribers, transition: transition}),
+    do: subscribers[transition.old]
 
-  defp line_data(_, %{subscribers_data: subscribers_data, transition: transition}),
-    do: subscribers_data[transition.new]
+  defp line_data(_, %{subscribers: subscribers, transition: transition}),
+    do: subscribers[transition.new]
 
   defp line_data(_, _), do: Draw.empty()
 

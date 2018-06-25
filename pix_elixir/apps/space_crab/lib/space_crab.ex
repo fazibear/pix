@@ -15,9 +15,7 @@ defmodule SpaceCrab do
   end
 
   def init(_state) do
-    Display.subscribe(__MODULE__)
-
-    Process.send_after(self(), :tick, 100)
+    send(self(), :tick)
 
     state = %{
       crab: "crab_0",
@@ -32,7 +30,7 @@ defmodule SpaceCrab do
   end
 
   def terminate(_reason, state) do
-    Display.unsubscribe(__MODULE__)
+    Display.remove(__MODULE__)
 
     {:ok, state}
   end
@@ -50,7 +48,7 @@ defmodule SpaceCrab do
       )
 
     Process.send_after(self(), :tick, @timeout)
-    Display.data(__MODULE__, data)
+    Display.update(__MODULE__, data)
 
     {:noreply, state}
   end
