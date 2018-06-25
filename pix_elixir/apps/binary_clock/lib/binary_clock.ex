@@ -8,6 +8,7 @@ defmodule BinaryClock do
   alias Display.Draw
   alias Display.Draw.Symbol
 
+  @timezone Application.get_env(:binary_clock, :timezone)
   @timeout 1000
   @on_color 6
   @off_color 4
@@ -94,7 +95,7 @@ defmodule BinaryClock do
   end
 
   defp current_time do
-    "Europe/Warsaw"
+    @timezone
     |> Timex.now()
     |> Timex.format!("%H%M", :strftime)
     |> String.split("", trim: true)

@@ -9,6 +9,7 @@ defmodule Clock do
   alias Display.Draw
   alias Display.Draw.Symbol
 
+  @timezone Application.get_env(:clock, :timezone)
   @timeout 1000
   @dot_color 3
   @digits_color 7
@@ -68,7 +69,7 @@ defmodule Clock do
   end
 
   defp current_time do
-    "Europe/Warsaw"
+    @timezone
     |> Timex.now()
     |> Timex.format!("%H%M", :strftime)
   end
