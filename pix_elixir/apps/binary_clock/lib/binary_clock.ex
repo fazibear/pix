@@ -5,7 +5,6 @@ defmodule BinaryClock do
 
   use GenServer
 
-  alias String.Chars
   alias Display.Draw
   alias Display.Draw.Symbol
 
@@ -95,11 +94,9 @@ defmodule BinaryClock do
   end
 
   defp current_time do
-    {{_, _, _}, {h, m, _}} = :calendar.local_time()
-
-    "~2.10.0B~2.10.0B"
-    |> :io_lib.format([h, m])
-    |> Chars.to_string()
+    "Europe/Warsaw"
+    |> Timex.now()
+    |> Timex.format!("%H%M", :strftime)
     |> String.split("", trim: true)
     |> Enum.map(&to_bin/1)
   end

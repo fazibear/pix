@@ -4,8 +4,8 @@ defmodule Clock do
   """
 
   use GenServer
+  use Timex
 
-  alias String.Chars
   alias Display.Draw
   alias Display.Draw.Symbol
 
@@ -68,10 +68,8 @@ defmodule Clock do
   end
 
   defp current_time do
-    {{_, _, _}, {h, m, _}} = :calendar.local_time()
-
-    "~2.10. B~2.10.0B"
-    |> :io_lib.format([h, m])
-    |> Chars.to_string()
+    "Europe/Warsaw"
+    |> Timex.now()
+    |> Timex.format!("%H%M", :strftime)
   end
 end
