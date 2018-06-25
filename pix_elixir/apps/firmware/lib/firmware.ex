@@ -16,6 +16,7 @@ defmodule Firmware do
   def network(_), do: :nothing
 
   def set_time() do
+    System.put_env("TZ", "Poland-2")
     System.cmd("ntpd", ~w[-n -q -p pool.ntp.org], into: Nerves.Runtime.OutputLogger.new(:info))
   end
 
