@@ -9,7 +9,6 @@ defmodule BitBay do
 
   @timeout 100
   @fetch_timeout 1000 * 60 * 5
-  @color 4
   @offset 5
 
   def start_link(_opts) do
@@ -70,6 +69,7 @@ defmodule BitBay do
 
   defp fetch(type) do
     pid = self()
+
     spawn(fn ->
       try do
         send(pid, {:fetched, type, fetch_ticker(type)})
@@ -88,9 +88,7 @@ defmodule BitBay do
 
   def format_text(data) do
     text(data, "btc:", "BTCPLN") <>
-    text(data, "eth:", "ETHPLN") <>
-    text(data, "ltc:", "LTCPLN") <>
-    text(data, "xrp:", "XRPPLN")
+      text(data, "eth:", "ETHPLN") <> text(data, "ltc:", "LTCPLN") <> text(data, "xrp:", "XRPPLN")
   end
 
   def text(data, header, type, value \\ "average") do
@@ -99,9 +97,8 @@ defmodule BitBay do
 
   def format_color(data) do
     color(data, "3", "btc:", "BTCPLN") <>
-    color(data, "4", "eth:", "ETHPLN") <>
-    color(data, "2", "ltc:", "LTCPLN") <>
-    color(data, "5", "xrp:", "XRPPLN")
+      color(data, "4", "eth:", "ETHPLN") <>
+      color(data, "2", "ltc:", "LTCPLN") <> color(data, "5", "xrp:", "XRPPLN")
   end
 
   def color(data, color, header, type, value \\ "average") do
@@ -137,7 +134,7 @@ defmodule BitBay do
   defp get_color(text, letter, pos) do
     text
     |> get_letter(letter, pos)
-    |> String.to_integer
+    |> String.to_integer()
   end
 
   defp get_letter(text, letter, pos) do

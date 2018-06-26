@@ -65,7 +65,7 @@ defmodule Firmware.MixProject do
       {:binary_clock, in_umbrella: true},
       {:clock, in_umbrella: true},
       {:space_crab, in_umbrella: true},
-      {:weather, in_umbrella: true},
+      {:weather, in_umbrella: true}
     ] ++ system(target)
   end
 

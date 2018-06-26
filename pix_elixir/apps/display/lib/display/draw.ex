@@ -53,7 +53,7 @@ defmodule Display.Draw do
 
   def char(matrix, char, x, y, c) do
     char
-    |> Char.data_for
+    |> Char.data_for()
     |> Enum.with_index()
     |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
   end

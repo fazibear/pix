@@ -10,7 +10,7 @@ defmodule Display.Subscriber do
   def all(state) do
     state
     |> Map.get(:subscribers)
-    |> Map.keys
+    |> Map.keys()
   end
 
   def update(%{subscribers: _} = state, module, data) do

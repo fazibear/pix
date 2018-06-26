@@ -30,7 +30,7 @@ defmodule Display do
   end
 
   def init(state) do
-    send self(), :change
+    send(self(), :change)
 
     {:ok, state}
   end

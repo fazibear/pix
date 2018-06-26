@@ -130,6 +130,7 @@ defmodule Weather do
 
   defp fetch() do
     pid = self()
+
     spawn(fn ->
       try do
         send(pid, {:fetched, fetch_weather()})
