@@ -30,7 +30,7 @@ defmodule Weather.Mixfile do
       {:httpotion, "~> 3.0"},
 
       {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true}
+      {:terminal, in_umbrella: true, only: :dev}
     ]
   end
 end
