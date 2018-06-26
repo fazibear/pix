@@ -14,7 +14,7 @@ defmodule Display do
     Output
   }
 
-  @change_timeout 5000
+  @change_timeout 10 * 1000
   @transition_timeout 20
 
   def remove(subscriber) do

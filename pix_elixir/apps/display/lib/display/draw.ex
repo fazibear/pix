@@ -53,16 +53,9 @@ defmodule Display.Draw do
 
   def char(matrix, char, x, y, c) do
     char
-    |> char_to_data
+    |> Char.data_for
     |> Enum.with_index()
     |> Enum.reduce(matrix, &process_line(&1, &2, %{x: x, y: y, c: c}))
-  end
-
-  defp char_to_data(char) do
-    case char do
-      "-" -> Char.minus()
-      _ -> apply(Char, String.to_atom("_#{char}"), [])
-    end
   end
 
   defp process_line({line, idx}, matrix, data) do
