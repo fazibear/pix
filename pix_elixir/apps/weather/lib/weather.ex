@@ -57,11 +57,13 @@ defmodule Weather do
   end
 
   def handle_info(:fetch, state) do
-    state = fetch(state)
-
-    Process.send_after(self(), :fetch, @fetch_timeout)
-
+    fetch()
     {:noreply, state}
+  end
+
+  def handle_info({:fetched, data}, state) do
+    Process.send_after(self(), :fetch, @fetch_timeout)
+    {:noreply, Map.merge(state, data)}
   end
 
   def handle_info(_message, state) do
@@ -126,10 +128,16 @@ defmodule Weather do
     end
   end
 
-  defp fetch(state) do
-    Map.merge(state, fetch_weather())
-  rescue
-    _ -> state
+  defp fetch() do
+    pid = self()
+    spawn(fn ->
+      data = try do
+        fetch_weather()
+      rescue
+        _ -> %{}
+      end
+      send(pid, {:fetched, data})
+    end)
   end
 
   defp tick(state) do
@@ -154,8 +162,8 @@ defmodule Weather do
 
   def owm_query do
     %{
-      q: "Warsaw,pl",
-      units: "metric",
+      q: Application.fetch_env!(:weather, :query),
+      units: Application.fetch_env!(:weather, :units),
       appid: Application.fetch_env!(:weather, :owm_key)
     }
   end

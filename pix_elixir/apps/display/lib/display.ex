@@ -55,7 +55,11 @@ defmodule Display do
       |> Cycle.subscribers()
       |> Transition.update()
 
-    Process.send_after(self(), :change, @change_timeout)
+    if state.current_subscriber do
+      Process.send_after(self(), :change, @change_timeout)
+    else
+      send(self(), :change)
+    end
 
     send(self(), :transition)
 

@@ -26,9 +26,11 @@ defmodule Weather.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:display, in_umbrella: true},
       {:poison, "~> 3.0"},
-      {:httpotion, "~> 3.0"}
+      {:httpotion, "~> 3.0"},
+
+      {:display, in_umbrella: true},
+      {:terminal, in_umbrella: true}
     ]
   end
 end
