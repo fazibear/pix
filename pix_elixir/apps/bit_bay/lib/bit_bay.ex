@@ -23,6 +23,7 @@ defmodule BitBay do
     state = %{
       # lower case only !
       text: "waiting for data... ",
+      color: "12345671234567123456",
       letter: 0,
       position: 0,
       data: %{}
@@ -42,7 +43,7 @@ defmodule BitBay do
 
     data =
       Draw.empty()
-      |> draw_text(state.text, state.position, state.letter)
+      |> draw_text(state.text, state.color, state.position, state.letter)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -63,6 +64,7 @@ defmodule BitBay do
   def handle_info({:fetched, type, data}, state) do
     state = put_in(state[:data][type], data)
     state = put_in(state.text, format_text(state.data))
+    state = put_in(state.color, format_color(state.data))
     {:noreply, state}
   end
 
@@ -85,9 +87,26 @@ defmodule BitBay do
   end
 
   def format_text(data) do
-    "btc:#{data["BTCPLN"]["average"]} eth:#{data["ETHPLN"]["average"]} ltc:#{data["LTCPLN"]["average"]} xrp:#{data["XRPPLN"]["average"]} "
+    text(data, "btc:", "BTCPLN") <>
+    text(data, "eth:", "ETHPLN") <>
+    text(data, "ltc:", "LTCPLN") <>
+    text(data, "xrp:", "XRPPLN")
   end
 
+  def text(data, header, type, value \\ "average") do
+    "#{header}#{data[type][value]} "
+  end
+
+  def format_color(data) do
+    color(data, "3", "btc:", "BTCPLN") <>
+    color(data, "4", "eth:", "ETHPLN") <>
+    color(data, "2", "ltc:", "LTCPLN") <>
+    color(data, "5", "xrp:", "XRPPLN")
+  end
+
+  def color(data, color, header, type, value \\ "average") do
+    String.pad_leading("", String.length(text(data, header, type, value)), color)
+  end
 
   defp tick(state) do
     state =
@@ -106,13 +125,19 @@ defmodule BitBay do
     end
   end
 
-  defp draw_text(state, text, position, letter) do
+  defp draw_text(state, text, color, position, letter) do
     state
-    |> Draw.char(get_letter(text, letter, 0), 0 - position, @offset, @color)
-    |> Draw.char(get_letter(text, letter, 1), 4 - position, @offset, @color)
-    |> Draw.char(get_letter(text, letter, 2), 8 - position, @offset, @color)
-    |> Draw.char(get_letter(text, letter, 3), 12 - position, @offset, @color)
-    |> Draw.char(get_letter(text, letter, 4), 16 - position, @offset, @color)
+    |> Draw.char(get_letter(text, letter, 0), 0 - position, @offset, get_color(color, letter, 0))
+    |> Draw.char(get_letter(text, letter, 1), 4 - position, @offset, get_color(color, letter, 1))
+    |> Draw.char(get_letter(text, letter, 2), 8 - position, @offset, get_color(color, letter, 2))
+    |> Draw.char(get_letter(text, letter, 3), 12 - position, @offset, get_color(color, letter, 3))
+    |> Draw.char(get_letter(text, letter, 4), 16 - position, @offset, get_color(color, letter, 4))
+  end
+
+  defp get_color(text, letter, pos) do
+    text
+    |> get_letter(letter, pos)
+    |> String.to_integer
   end
 
   defp get_letter(text, letter, pos) do
