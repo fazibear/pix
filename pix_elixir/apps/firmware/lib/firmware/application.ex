@@ -10,7 +10,7 @@ defmodule Firmware.Application do
     Supervisor.start_link(network(), opts)
   end
 
-  def network() do
+  def network do
     import Supervisor.Spec, warn: false
 
     [

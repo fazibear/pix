@@ -4,8 +4,9 @@ defmodule Firmware do
   """
 
   require Logger
+  alias Nerves.Runtime.OutputLogger
 
-  def init() do
+  def init do
     start_ssh()
   end
 
@@ -15,17 +16,23 @@ defmodule Firmware do
 
   def network(_), do: :nothing
 
-  def set_time() do
+  def set_time do
     System.put_env("TZ", "Poland-2")
-    System.cmd("ntpd", ~w[-n -q -p pool.ntp.org], into: Nerves.Runtime.OutputLogger.new(:info))
+
+    System.cmd(
+      "ntpd",
+      ~w[-n -q -p pool.ntp.org],
+      into: OutputLogger.new(:info)
+    )
   end
 
-  def start_ssh() do
+  def start_ssh do
     authorized_keys =
       Application.get_env(:nerves_firmware_ssh, :authorized_keys, [])
       |> Enum.join("\n")
 
-    decoded_authorized_keys = :public_key.ssh_decode(authorized_keys, :auth_keys)
+    decoded_authorized_keys =
+      :public_key.ssh_decode(authorized_keys, :auth_keys)
 
     cb_opts = [authorized_keys: decoded_authorized_keys]
     system_dir = :code.priv_dir(:nerves_firmware_ssh)

@@ -9,9 +9,9 @@ defmodule Display do
 
   alias Display.{
     Cycle,
+    Output,
     Subscriber,
-    Transition,
-    Output
+    Transition
   }
 
   @change_timeout 10 * 1000

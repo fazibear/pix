@@ -128,7 +128,7 @@ defmodule Weather do
     end
   end
 
-  defp fetch() do
+  defp fetch do
     pid = self()
 
     spawn(fn ->
@@ -141,7 +141,11 @@ defmodule Weather do
   end
 
   defp tick(state) do
-    %{state | cloud_pos: move_cloud(state.cloud_pos), tick: if(state.tick == 0, do: 1, else: 0)}
+    %{
+      state
+      | cloud_pos: move_cloud(state.cloud_pos),
+        tick: if(state.tick == 0, do: 1, else: 0)
+    }
   end
 
   def move_cloud(pos) when pos < -9, do: 15

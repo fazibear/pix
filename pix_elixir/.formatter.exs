@@ -15,5 +15,6 @@
     # Mix tests
     in_fixture: 2,
     in_tmp: 2
-  ]
+  ],
+  line_length: 80
 ]

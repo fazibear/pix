@@ -88,7 +88,8 @@ defmodule BitBay do
 
   def format_text(data) do
     text(data, "btc:", "BTCPLN") <>
-      text(data, "eth:", "ETHPLN") <> text(data, "ltc:", "LTCPLN") <> text(data, "xrp:", "XRPPLN")
+      text(data, "eth:", "ETHPLN") <>
+      text(data, "ltc:", "LTCPLN") <> text(data, "xrp:", "XRPPLN")
   end
 
   def text(data, header, type, value \\ "average") do
@@ -102,7 +103,11 @@ defmodule BitBay do
   end
 
   def color(data, color, header, type, value \\ "average") do
-    String.pad_leading("", String.length(text(data, header, type, value)), color)
+    String.pad_leading(
+      "",
+      String.length(text(data, header, type, value)),
+      color
+    )
   end
 
   defp tick(state) do
@@ -124,11 +129,36 @@ defmodule BitBay do
 
   defp draw_text(state, text, color, position, letter) do
     state
-    |> Draw.char(get_letter(text, letter, 0), 0 - position, @offset, get_color(color, letter, 0))
-    |> Draw.char(get_letter(text, letter, 1), 4 - position, @offset, get_color(color, letter, 1))
-    |> Draw.char(get_letter(text, letter, 2), 8 - position, @offset, get_color(color, letter, 2))
-    |> Draw.char(get_letter(text, letter, 3), 12 - position, @offset, get_color(color, letter, 3))
-    |> Draw.char(get_letter(text, letter, 4), 16 - position, @offset, get_color(color, letter, 4))
+    |> Draw.char(
+      get_letter(text, letter, 0),
+      0 - position,
+      @offset,
+      get_color(color, letter, 0)
+    )
+    |> Draw.char(
+      get_letter(text, letter, 1),
+      4 - position,
+      @offset,
+      get_color(color, letter, 1)
+    )
+    |> Draw.char(
+      get_letter(text, letter, 2),
+      8 - position,
+      @offset,
+      get_color(color, letter, 2)
+    )
+    |> Draw.char(
+      get_letter(text, letter, 3),
+      12 - position,
+      @offset,
+      get_color(color, letter, 3)
+    )
+    |> Draw.char(
+      get_letter(text, letter, 4),
+      16 - position,
+      @offset,
+      get_color(color, letter, 4)
+    )
   end
 
   defp get_color(text, letter, pos) do

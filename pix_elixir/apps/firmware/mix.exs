@@ -75,7 +75,12 @@ defmodule Firmware.MixProject do
   defp system("rpi3"), do: [{:nerves_system_rpi3, ">= 0.0.0", runtime: false}]
   defp system("bbb"), do: [{:nerves_system_bbb, ">= 0.0.0", runtime: false}]
   defp system("ev3"), do: [{:nerves_system_ev3, ">= 0.0.0", runtime: false}]
-  defp system("qemu_arm"), do: [{:nerves_system_qemu_arm, ">= 0.0.0", runtime: false}]
-  defp system("x86_64"), do: [{:nerves_system_x86_64, ">= 0.0.0", runtime: false}]
+
+  defp system("qemu_arm"),
+    do: [{:nerves_system_qemu_arm, ">= 0.0.0", runtime: false}]
+
+  defp system("x86_64"),
+    do: [{:nerves_system_x86_64, ">= 0.0.0", runtime: false}]
+
   defp system(target), do: Mix.raise("Unknown MIX_TARGET: #{target}")
 end

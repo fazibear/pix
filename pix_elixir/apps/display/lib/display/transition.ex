@@ -5,8 +5,8 @@ defmodule Display.Transition do
 
   alias Display.{
     Draw,
-    TransitionRules,
-    Subscriber
+    Subscriber,
+    TransitionRules
   }
 
   def update(%{current_subscriber: _} = state) do
