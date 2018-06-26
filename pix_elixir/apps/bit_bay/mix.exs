@@ -1,9 +1,9 @@
-defmodule Crypto.Mixfile do
+defmodule BitBay.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :crypto,
+      app: :bit_bay,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -19,7 +19,7 @@ defmodule Crypto.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Crypto.Application, []}
+      mod: {BitBay.Application, []}
     ]
   end
 
