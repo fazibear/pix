@@ -61,12 +61,11 @@ defmodule Firmware.MixProject do
 
       # pix apps
       {:matrix, in_umbrella: true},
+      {:bit_bay, in_umbrella: true},
       {:binary_clock, in_umbrella: true},
       {:clock, in_umbrella: true},
-      {:random, in_umbrella: true},
       {:space_crab, in_umbrella: true},
       {:weather, in_umbrella: true},
-      {:text, in_umbrella: true}
     ] ++ system(target)
   end
 

@@ -57,12 +57,12 @@ defmodule Weather do
   end
 
   def handle_info(:fetch, state) do
+    Process.send_after(self(), :fetch, @fetch_timeout)
     fetch()
     {:noreply, state}
   end
 
   def handle_info({:fetched, data}, state) do
-    Process.send_after(self(), :fetch, @fetch_timeout)
     {:noreply, Map.merge(state, data)}
   end
 
@@ -131,12 +131,11 @@ defmodule Weather do
   defp fetch() do
     pid = self()
     spawn(fn ->
-      data = try do
-        fetch_weather()
+      try do
+        send(pid, {:fetched, fetch_weather()})
       rescue
-        _ -> %{}
+        _ -> :nothing
       end
-      send(pid, {:fetched, data})
     end)
   end
 

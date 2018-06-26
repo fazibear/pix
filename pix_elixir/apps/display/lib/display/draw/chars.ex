@@ -1,9 +1,9 @@
 defmodule Display.Draw.Char do
   @moduledoc """
-  Char data for text
+  data_for data for text
   """
 
-  def minus do
+  def data_for("-") do
     [
       '   ',
       '   ',
@@ -15,11 +15,31 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _ do
-    []
+  def data_for(":") do
+    [
+      '   ',
+      '   ',
+      ' c ',
+      '   ',
+      ' c ',
+      '   ',
+      '   '
+    ]
   end
 
-  def _0 do
+  def data_for(".") do
+    [
+      '   ',
+      '   ',
+      '   ',
+      '   ',
+      '   ',
+      '   ',
+      ' c  '
+    ]
+  end
+
+  def data_for("0") do
     [
       ' cc',
       'c c',
@@ -31,7 +51,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _1 do
+  def data_for("1") do
     [
       '  c',
       ' cc',
@@ -43,7 +63,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _2 do
+  def data_for("2") do
     [
       'cc ',
       '  c',
@@ -55,7 +75,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _3 do
+  def data_for("3") do
     [
       'ccc',
       '  c',
@@ -67,7 +87,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _4 do
+  def data_for("4") do
     [
       'c c',
       'c c',
@@ -79,7 +99,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _5 do
+  def data_for("5") do
     [
       'ccc',
       'c  ',
@@ -91,7 +111,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _6 do
+  def data_for("6") do
     [
       ' cc',
       'c  ',
@@ -103,7 +123,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _7 do
+  def data_for("7") do
     [
       'ccc',
       '  c',
@@ -115,7 +135,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _8 do
+  def data_for("8") do
     [
       ' cc',
       'c c',
@@ -127,7 +147,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _9 do
+  def data_for("9") do
     [
       ' cc',
       'c c',
@@ -139,7 +159,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _a do
+  def data_for("a") do
     [
       ' cc',
       'c c',
@@ -151,7 +171,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _b do
+  def data_for("b") do
     [
       ' cc',
       'c c',
@@ -163,7 +183,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _c do
+  def data_for("c") do
     [
       ' cc',
       'c  ',
@@ -175,7 +195,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _d do
+  def data_for("d") do
     [
       'cc ',
       'c c',
@@ -187,7 +207,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _e do
+  def data_for("e") do
     [
       ' cc',
       'c  ',
@@ -199,7 +219,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _f do
+  def data_for("f") do
     [
       ' cc',
       'c  ',
@@ -211,7 +231,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _g do
+  def data_for("g") do
     [
       ' cc',
       'c  ',
@@ -223,7 +243,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _h do
+  def data_for("h") do
     [
       'c c',
       'c c',
@@ -235,7 +255,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _i do
+  def data_for("i") do
     [
       ' c ',
       ' c ',
@@ -247,7 +267,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _j do
+  def data_for("j") do
     [
       '  c',
       '  c',
@@ -259,7 +279,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _k do
+  def data_for("k") do
     [
       'c c',
       'c c',
@@ -271,7 +291,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _l do
+  def data_for("l") do
     [
       'c  ',
       'c  ',
@@ -283,7 +303,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _m do
+  def data_for("m") do
     [
       'c c',
       'ccc',
@@ -295,7 +315,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _n do
+  def data_for("n") do
     [
       'c  ',
       'cc ',
@@ -307,7 +327,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _o do
+  def data_for("o") do
     [
       ' cc',
       'c c',
@@ -319,7 +339,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _p do
+  def data_for("p") do
     [
       ' cc',
       'c c',
@@ -331,7 +351,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _q do
+  def data_for("q") do
     [
       ' cc',
       'c c',
@@ -343,7 +363,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _r do
+  def data_for("r") do
     [
       ' cc',
       'c c',
@@ -355,7 +375,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _s do
+  def data_for("s") do
     [
       ' cc',
       'c  ',
@@ -367,7 +387,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _t do
+  def data_for("t") do
     [
       'ccc',
       ' c ',
@@ -379,7 +399,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _u do
+  def data_for("u") do
     [
       'c c',
       'c c',
@@ -391,7 +411,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _v do
+  def data_for("v") do
     [
       'c c',
       'c c',
@@ -403,7 +423,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _w do
+  def data_for("w") do
     [
       'c c',
       'c c',
@@ -415,7 +435,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _x do
+  def data_for("x") do
     [
       'c c',
       'c c',
@@ -427,7 +447,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _y do
+  def data_for("y") do
     [
       'c c',
       'c c',
@@ -439,7 +459,7 @@ defmodule Display.Draw.Char do
     ]
   end
 
-  def _z do
+  def data_for("z") do
     [
       'ccc',
       '  c',
@@ -449,5 +469,9 @@ defmodule Display.Draw.Char do
       'c  ',
       'ccc'
     ]
+  end
+
+  def data_for(_) do
+    []
   end
 end
