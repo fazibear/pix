@@ -35,12 +35,11 @@ defmodule Firmware do
       :public_key.ssh_decode(authorized_keys, :auth_keys)
 
     cb_opts = [authorized_keys: decoded_authorized_keys]
-    system_dir = :code.priv_dir(:nerves_firmware_ssh)
 
     {:ok, _ref} =
       :ssh.daemon(22, [
         {:key_cb, {Nerves.Firmware.SSH.Keys, cb_opts}},
-        {:system_dir, system_dir},
+        {:system_dir, "/root"},
         shell: {IEx, :start, []}
       ])
   end
