@@ -58,6 +58,7 @@ defmodule Firmware.MixProject do
       {:nerves_network, "~> 0.3"},
       {:nerves_firmware_ssh, "~> 0.2"},
       {:ring_logger, "~> 0.4"},
+      {:logger_file_backend, "~> 0.0.1"},
 
       # pix apps
       {:matrix, in_umbrella: true},
