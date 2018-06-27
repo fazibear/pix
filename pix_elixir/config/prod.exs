@@ -3,8 +3,16 @@ use Mix.Config
 config :tzdata, :autoupdate, :disabled
 config :display, output: Matrix
 
-config :logger, backends: [RingLogger]
+config :logger, backends: [
+  RingLogger,
+  {LoggerFileBackend, :error_log}
+]
 config :logger, RingLogger, max_size: 10_000
+
+# configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :error_log,
+  path: "/root/error.log",
+  level: :error
 
 config :shoehorn,
   init: [:nerves_runtime],
