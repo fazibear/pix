@@ -34,8 +34,8 @@ defmodule Display.Draw do
 
   def symbol(matrix, data, x, y, c \\ 7)
 
-  def symbol(matrix, {module, symbol}, x, y, c) when is_binary(symbol) do
-    symbol(matrix, module.data_for(symbol), x, y, c)
+  def symbol(matrix, {module, symbol}, x, y, c) do
+    symbol(matrix, module.data_for("#{symbol}"), x, y, c)
   end
 
   def symbol(matrix, data, x, y, c) do
