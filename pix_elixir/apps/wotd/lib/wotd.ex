@@ -143,7 +143,6 @@ defmodule Wotd do
           |> String.normalize(:nfd)
           |> String.replace(~r/[^A-z\s]/u, "")
 
-    "#{word}: #{desc}"
+    "#{word}: #{desc}.  "
   end
-
 end
