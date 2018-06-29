@@ -6,10 +6,11 @@ defmodule BitBay do
   use GenServer
 
   alias Display.Draw
+  alias Display.Draw.Symbol
 
   @timeout 100
   @fetch_timeout 1000 * 60 * 5
-  @offset 5
+  @offset 9
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -44,6 +45,10 @@ defmodule BitBay do
 
     data =
       Draw.empty()
+      |> Draw.symbol({Symbol, "coin"}, 0, 2, 3)
+      |> Draw.symbol({Symbol, "coin"}, 4, 4, 4)
+      |> Draw.symbol({Symbol, "coin"}, 8, 2, 2)
+      |> Draw.symbol({Symbol, "coin"}, 12, 4, 5)
       |> draw_text(state.text, state.color, state.position, state.letter)
 
     Process.send_after(self(), :tick, @timeout)

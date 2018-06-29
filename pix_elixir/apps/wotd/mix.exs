@@ -1,9 +1,9 @@
-defmodule SpaceCrab.Mixfile do
+defmodule Wotd.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :space_crab,
+      app: :wotd,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -19,7 +19,7 @@ defmodule SpaceCrab.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {SpaceCrab.Application, []}
+      mod: {Wotd.Application, []}
     ]
   end
 
@@ -27,7 +27,11 @@ defmodule SpaceCrab.Mixfile do
   defp deps do
     [
       {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true, only: :dev}
+      {:terminal, in_umbrella: true, only: :dev},
+
+      {:poison, "~> 3.0"},
+      {:httpotion, "~> 3.0"},
+      {:floki, "~> 0.20.0"},
     ]
   end
 end

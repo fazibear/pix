@@ -34,12 +34,8 @@ defmodule Display.Draw do
 
   def symbol(matrix, data, x, y, c \\ 7)
 
-  def symbol(matrix, {module, fun}, x, y, c) when is_binary(fun) do
-    symbol(matrix, apply(module, String.to_atom(fun), []), x, y, c)
-  end
-
-  def symbol(matrix, {module, fun}, x, y, c) when is_atom(fun) do
-    symbol(matrix, apply(module, fun, []), x, y, c)
+  def symbol(matrix, {module, symbol}, x, y, c) when is_binary(symbol) do
+    symbol(matrix, module.data_for(symbol), x, y, c)
   end
 
   def symbol(matrix, data, x, y, c) do

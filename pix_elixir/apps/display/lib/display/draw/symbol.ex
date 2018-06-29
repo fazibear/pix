@@ -3,7 +3,7 @@ defmodule Display.Draw.Symbol do
   Various symbols
   """
 
-  def dot_0 do
+  def data_for("dot_0") do
     [
       ' c ',
       'ccc',
@@ -11,7 +11,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def dot_1 do
+  def data_for("dot_1") do
     [
       'c c',
       ' c ',
@@ -19,28 +19,28 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def dot_2 do
+  def data_for("dot_2") do
     [
       'cc',
       'cc'
     ]
   end
 
-  def dot_3 do
+  def data_for("dot_3") do
     [
       ' c',
       'c '
     ]
   end
 
-  def dot_4 do
+  def data_for("dot_4") do
     [
       'c ',
       ' c'
     ]
   end
 
-  def crab_0 do
+  def data_for("crab_0") do
     [
       '  c     c  ',
       'c  c   c  c',
@@ -53,7 +53,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def crab_1 do
+  def data_for("crab_1") do
     [
       '  c     c  ',
       '   c   c   ',
@@ -66,7 +66,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def sun_0 do
+  def data_for("sun_0") do
     [
       '  3  3  ',
       '        ',
@@ -79,7 +79,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def sun_1 do
+  def data_for("sun_1") do
     [
       '        ',
       '  3  3  ',
@@ -92,7 +92,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def moon do
+  def data_for("moon") do
     [
       '777  ',
       '  77 ',
@@ -105,7 +105,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def cloud do
+  def data_for("cloud") do
     [
       '     777  ',
       '   777777 ',
@@ -117,7 +117,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def rain_0 do
+  def data_for("rain_0") do
     [
       '6 6 6   ',
       ' 6 6 6  ',
@@ -127,7 +127,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def rain_1 do
+  def data_for("rain_1") do
     [
       '        ',
       '6 6 6   ',
@@ -138,7 +138,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def snow_0 do
+  def data_for("snow_0") do
     [
       '7  7  7 ',
       ' 7  7  7',
@@ -147,7 +147,7 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def snow_1 do
+  def data_for("snow_1") do
     [
       '  7  7  7',
       ' 7  7  7 ',
@@ -156,13 +156,22 @@ defmodule Display.Draw.Symbol do
     ]
   end
 
-  def thunder do
+  def data_for("thunder") do
     [
       '1       ',
       ' 1   1  ',
       '  1 1 1 ',
       '   1   1',
       '        1'
+    ]
+  end
+
+  def data_for("coin") do
+    [
+      ' cc ',
+      'cccc',
+      'cccc',
+      ' cc '
     ]
   end
 end
