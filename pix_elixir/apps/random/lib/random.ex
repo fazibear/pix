@@ -17,6 +17,8 @@ defmodule Random do
   def init(state) do
     send(self(), :tick)
 
+    Display.time(__MODULE__, 20)
+
     {:ok, state}
   end
 

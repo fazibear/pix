@@ -19,6 +19,8 @@ defmodule BitBay do
     send(self(), :tick)
     send(self(), :fetch)
 
+    Display.time(__MODULE__, 15000)
+
     state = %{
       # lower case only !
       text: "waiting for data... ",

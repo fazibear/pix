@@ -14,7 +14,7 @@ defmodule Display do
     Transition
   }
 
-  @change_timeout 10 * 1000
+  @default_change_timeout 5 * 1000
   @transition_timeout 20
 
   def remove(subscriber) do
@@ -25,14 +25,22 @@ defmodule Display do
     GenServer.cast(__MODULE__, {:update, module, data})
   end
 
+  def time(module, time) do
+    GenServer.cast(__MODULE__, {:time, module, time})
+  end
+
   def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{subscribers: %{}}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{time: %{}, subscribers: %{}}, name: __MODULE__)
   end
 
   def init(state) do
     send(self(), :change)
 
     {:ok, state}
+  end
+
+  def handle_cast({:time, module, time}, state) do
+    {:noreply, put_in(state.time[module], time)}
   end
 
   def handle_cast({:remove, subscriber}, state) do
@@ -55,11 +63,6 @@ defmodule Display do
       |> Cycle.subscribers()
       |> Transition.update()
 
-    if state.current_subscriber do
-      Process.send_after(self(), :change, @change_timeout)
-    else
-      send(self(), :change)
-    end
 
     send(self(), :transition)
 
@@ -77,6 +80,18 @@ defmodule Display do
   end
 
   def handle_info(:transition, state) do
+    if state.current_subscriber do
+      Process.send_after(self(), :change, change_time(state))
+    else
+      send(self(), :change)
+    end
+
     {:noreply, state}
+  end
+
+  defp change_time(state) do
+    state
+    |> Map.get(:time, %{})
+    |> Map.get(state.current_subscriber, @default_change_timeout)
   end
 end
