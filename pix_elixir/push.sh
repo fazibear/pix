@@ -5,6 +5,7 @@ export MIX_TARGET=rpi0
 
 cd apps/firmware
 
+mix deps.get
 mix firmware
 #mix firmware.burn
 mix firmware.push $1
