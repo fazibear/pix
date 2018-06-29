@@ -17,8 +17,6 @@ defmodule Firmware do
   def network(_), do: :nothing
 
   def set_time do
-    System.put_env("TZ", "Poland-2")
-
     System.cmd(
       "ntpd",
       ~w[-n -q -p pool.ntp.org],
@@ -39,7 +37,7 @@ defmodule Firmware do
     {:ok, _ref} =
       :ssh.daemon(22, [
         {:key_cb, {Nerves.Firmware.SSH.Keys, cb_opts}},
-        {:system_dir, "/root"},
+        {:system_dir, :code.priv_dir(:nerves_firmware_ssh)},
         shell: {IEx, :start, []}
       ])
   end

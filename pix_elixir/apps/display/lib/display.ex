@@ -79,12 +79,14 @@ defmodule Display do
     {:noreply, state}
   end
 
+  def handle_info(:transition, %{current_subscriber: nil} = state) do
+    send(self(), :change)
+
+    {:noreply, state}
+  end
+
   def handle_info(:transition, state) do
-    if state.current_subscriber do
-      Process.send_after(self(), :change, change_time(state))
-    else
-      send(self(), :change)
-    end
+    Process.send_after(self(), :change, change_time(state))
 
     {:noreply, state}
   end
