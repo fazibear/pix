@@ -9,8 +9,6 @@ defmodule Wotd do
 
   @timeout 100
   @fetch_timeout 1000 * 60 * 60
-  @head_color 3
-  @text_color 2
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -23,10 +21,20 @@ defmodule Wotd do
     Display.time(__MODULE__, 15000)
 
     state = %{
-      # lower case only !
-      text: "fetching data ... ",
-      letter: 0,
-      position: 0
+      up: %{
+        text: "fetching ",
+        letter: 0,
+        position: 0,
+        color: 3,
+        offset: 0
+      },
+      down: %{
+        text: "data ",
+        letter: 0,
+        position: 0,
+        color: 2,
+        offset: 9
+      }
     }
 
     {:ok, state}
@@ -39,12 +47,13 @@ defmodule Wotd do
   end
 
   def handle_info(:tick, state) do
-    state = tick(state)
+    state = put_in(state.up, tick(state.up))
+    state = put_in(state.down, tick(state.down))
 
     data =
       Draw.empty()
-      |> draw_head()
-      |> draw_text(state.text, state.position, state.letter)
+      |> draw_text(state.up)
+      |> draw_text(state.down)
 
 
     Process.send_after(self(), :tick, @timeout)
@@ -60,8 +69,10 @@ defmodule Wotd do
     {:noreply, state}
   end
 
-  def handle_info({:fetched, data}, state) do
-    state = Map.put(state, :text, data)
+  def handle_info({:fetched, {up, down}}, state) do
+    state = put_in(state.up.text, up)
+    state = put_in(state.down.text, down)
+
     {:noreply, state}
   end
 
@@ -82,21 +93,13 @@ defmodule Wotd do
     end
   end
 
-  defp draw_head(state) do
+  defp draw_text(state, %{text: text, position: position, letter: letter, offset: offset, color: color}) do
     state
-    |> Draw.char("w", 0, 0, @head_color)
-    |> Draw.char("o", 4, 0, @head_color)
-    |> Draw.char("t", 8, 0, @head_color)
-    |> Draw.char("d", 12, 0, @head_color)
-  end
-
-  defp draw_text(state, text, position, letter) do
-    state
-    |> Draw.char(get_letter(text, letter, 0), 0 - position, 9, @text_color)
-    |> Draw.char(get_letter(text, letter, 1), 4 - position, 9, @text_color)
-    |> Draw.char(get_letter(text, letter, 2), 8 - position, 9, @text_color)
-    |> Draw.char(get_letter(text, letter, 3), 12 - position, 9, @text_color)
-    |> Draw.char(get_letter(text, letter, 4), 16 - position, 9, @text_color)
+    |> Draw.char(get_letter(text, letter, 0), 0 - position, offset, color)
+    |> Draw.char(get_letter(text, letter, 1), 4 - position, offset, color)
+    |> Draw.char(get_letter(text, letter, 2), 8 - position, offset, color)
+    |> Draw.char(get_letter(text, letter, 3), 12 - position, offset, color)
+    |> Draw.char(get_letter(text, letter, 4), 16 - position, offset, color)
   end
 
   defp get_letter(text, letter, pos) do
@@ -131,18 +134,18 @@ defmodule Wotd do
 
     word = html
            |> Floki.find("#contentWrapper > div.dikicolumn > div > div.dictionaryEntity > div.hws > span.hw > a")
-           |> Floki.text
+           |> Floki.text(sep: " ")
            |> String.downcase
            |> String.normalize(:nfd)
-           |> String.replace(~r/[^A-z\s]/u, "")
+           |> String.replace(~r/[^A-z,\.\-\s]/u, "")
 
     desc = html
-          |> Floki.find("#meaning18718_id > span a")
+          |> Floki.find(".foreignToNativeMeanings a.plainLink")
           |> Floki.text(sep: " ")
           |> String.downcase
           |> String.normalize(:nfd)
-          |> String.replace(~r/[^A-z\s]/u, "")
+          |> String.replace(~r/[^A-z,\.\-\s]/u, "")
 
-    "#{word}: #{desc}.  "
+    {"#{word} ", "#{desc} "}
   end
 end
