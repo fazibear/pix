@@ -45,9 +45,9 @@ defmodule BitBay do
 
     data =
       Draw.empty()
-      |> Draw.symbol({Symbol, "coin"}, 0, 2, 3)
+      |> Draw.symbol({Symbol, "coin"}, 0, 1, 3)
       |> Draw.symbol({Symbol, "coin"}, 4, 4, 4)
-      |> Draw.symbol({Symbol, "coin"}, 8, 2, 2)
+      |> Draw.symbol({Symbol, "coin"}, 8, 1, 2)
       |> Draw.symbol({Symbol, "coin"}, 12, 4, 5)
       |> draw_text(state.text, state.color, state.position, state.letter)
 
