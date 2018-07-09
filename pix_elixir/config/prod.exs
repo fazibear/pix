@@ -4,8 +4,8 @@ config :tzdata, :autoupdate, :disabled
 config :display, output: Matrix
 
 config :logger, backends: [
-  RingLogger,
-  {LoggerFileBackend, :error_log}
+  {LoggerFileBackend, :error_log},
+  RingLogger
 ]
 config :logger, RingLogger, max_size: 10_000
 
