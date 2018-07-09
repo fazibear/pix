@@ -79,12 +79,19 @@ defmodule BitBay do
 
     spawn(fn ->
       try do
-        send(pid, {:fetched, type, fetch_ticker(type)})
+        data = type
+               |> fetch_ticker()
+               |> extract_data()
+
+        send(pid, {:fetched, type, data})
       rescue
         _ -> :nothing
       end
     end)
   end
+
+  def extract_data(%{"average" => average}), do: average
+  def extract_data(_), do: raise ArgumentError
 
   def fetch_ticker(type) do
     "https://bitbay.net/API/Public/#{type}/ticker.json"
@@ -99,8 +106,8 @@ defmodule BitBay do
       text(data, "ltc:", "LTCPLN") <> text(data, "xrp:", "XRPPLN")
   end
 
-  def text(data, header, type, value \\ "average") do
-    "#{header}#{data[type][value]} "
+  def text(data, header, type) do
+    "#{header}#{data[type]} "
   end
 
   def format_color(data) do
@@ -109,10 +116,10 @@ defmodule BitBay do
       color(data, "2", "ltc:", "LTCPLN") <> color(data, "5", "xrp:", "XRPPLN")
   end
 
-  def color(data, color, header, type, value \\ "average") do
+  def color(data, color, header, type) do
     String.pad_leading(
       "",
-      String.length(text(data, header, type, value)),
+      String.length(text(data, header, type)),
       color
     )
   end
