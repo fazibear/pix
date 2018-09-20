@@ -128,24 +128,32 @@ defmodule Wotd do
   end
 
   def fetch_word do
-    html = "https://www.diki.pl/slowko-dnia"
+    html = "https://www.diki.pl/dictionary/word-of-the-day"
     |> HTTPotion.get!()
     |> Map.get(:body)
 
     word = html
-           |> Floki.find("#contentWrapper > div.dikicolumn > div > div.dictionaryEntity > div.hws > span.hw > a")
-           |> Floki.text(sep: " ")
-           |> String.downcase
-           |> String.normalize(:nfd)
-           |> String.replace(~r/[^A-z,\.\-\s]/u, "")
+           |> extract("#contentWrapper > div.dikicolumn > div > div.dictionaryEntity > div.hws > span.hw > a")
+           |> strip()
 
     desc = html
-          |> Floki.find(".foreignToNativeMeanings a.plainLink")
-          |> Floki.text(sep: " ")
-          |> String.downcase
-          |> String.normalize(:nfd)
-          |> String.replace(~r/[^A-z,\.\-\s]/u, "")
+           |> extract(".foreignToNativeMeanings a.plainLink")
+           |> strip()
 
     {"#{word} ", "#{desc} "}
+  end
+
+  def extract(html, selector) do
+    html
+    |> Floki.find(selector)
+    |> Floki.text(sep: " ")
+  end
+
+  def strip(string) do
+    string
+    |> String.downcase
+    |> String.replace("ł", "l")
+    |> String.normalize(:nfd)
+    |> String.replace(~r/[^A-z,\.\-\s]/u, "")
   end
 end
