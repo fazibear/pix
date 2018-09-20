@@ -55,7 +55,6 @@ defmodule Wotd do
       |> draw_text(state.up)
       |> draw_text(state.down)
 
-
     Process.send_after(self(), :tick, @timeout)
 
     Display.update(__MODULE__, data)
@@ -93,7 +92,13 @@ defmodule Wotd do
     end
   end
 
-  defp draw_text(state, %{text: text, position: position, letter: letter, offset: offset, color: color}) do
+  defp draw_text(state, %{
+         text: text,
+         position: position,
+         letter: letter,
+         offset: offset,
+         color: color
+       }) do
     state
     |> Draw.char(get_letter(text, letter, 0), 0 - position, offset, color)
     |> Draw.char(get_letter(text, letter, 1), 4 - position, offset, color)
@@ -128,17 +133,22 @@ defmodule Wotd do
   end
 
   def fetch_word do
-    html = "https://www.diki.pl/dictionary/word-of-the-day"
-    |> HTTPotion.get!()
-    |> Map.get(:body)
+    html =
+      "https://www.diki.pl/dictionary/word-of-the-day"
+      |> HTTPotion.get!()
+      |> Map.get(:body)
 
-    word = html
-           |> extract("#contentWrapper > div.dikicolumn > div > div.dictionaryEntity > div.hws > span.hw > a")
-           |> strip()
+    word =
+      html
+      |> extract(
+        "#contentWrapper > div.dikicolumn > div > div.dictionaryEntity > div.hws > span.hw > a"
+      )
+      |> strip()
 
-    desc = html
-           |> extract(".foreignToNativeMeanings a.plainLink")
-           |> strip()
+    desc =
+      html
+      |> extract(".foreignToNativeMeanings a.plainLink")
+      |> strip()
 
     {"#{word} ", "#{desc} "}
   end
@@ -151,7 +161,7 @@ defmodule Wotd do
 
   def strip(string) do
     string
-    |> String.downcase
+    |> String.downcase()
     |> String.replace("ł", "l")
     |> String.normalize(:nfd)
     |> String.replace(~r/[^A-z,\.\-\s]/u, "")

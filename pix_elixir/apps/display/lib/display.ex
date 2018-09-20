@@ -30,7 +30,9 @@ defmodule Display do
   end
 
   def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{time: %{}, subscribers: %{}}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{time: %{}, subscribers: %{}},
+      name: __MODULE__
+    )
   end
 
   def init(state) do
@@ -62,7 +64,6 @@ defmodule Display do
       state
       |> Cycle.subscribers()
       |> Transition.update()
-
 
     send(self(), :transition)
 

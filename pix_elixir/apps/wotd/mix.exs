@@ -28,10 +28,9 @@ defmodule Wotd.Mixfile do
     [
       {:display, in_umbrella: true},
       {:terminal, in_umbrella: true, only: :dev},
-
       {:poison, "~> 3.0"},
       {:httpotion, "~> 3.0"},
-      {:floki, "~> 0.20.0"},
+      {:floki, "~> 0.20.0"}
     ]
   end
 end

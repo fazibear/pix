@@ -79,9 +79,10 @@ defmodule BitBay do
 
     spawn(fn ->
       try do
-        data = type
-               |> fetch_ticker()
-               |> extract_data()
+        data =
+          type
+          |> fetch_ticker()
+          |> extract_data()
 
         send(pid, {:fetched, type, data})
       rescue
@@ -91,7 +92,7 @@ defmodule BitBay do
   end
 
   def extract_data(%{"average" => average}), do: average
-  def extract_data(_), do: raise ArgumentError
+  def extract_data(_), do: raise(ArgumentError)
 
   def fetch_ticker(type) do
     "https://bitbay.net/API/Public/#{type}/ticker.json"
