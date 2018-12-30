@@ -31,18 +31,18 @@ void set_realtime()
 }
 #endif
 
-struct timespec ts;
-static void sleep_until(int delay)
-{
-    ts.tv_nsec += delay;
-    if(ts.tv_nsec >= 1000*1000*1000) {
-        ts.tv_nsec -= 1000*1000*1000;
-        ts.tv_sec++;
-    }
-    clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL);
-}
+/* struct timespec ts; */
+/* static void sleep_until(int delay) */
+/* { */
+/*     ts.tv_nsec += delay; */
+/*     if(ts.tv_nsec >= 1000*1000*1000) { */
+/*         ts.tv_nsec -= 1000*1000*1000; */
+/*         ts.tv_sec++; */
+/*     } */
+/*     clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL); */
+/* } */
 
-uint8_t matrix[LINES][PER_LINE] = {
+volatile uint8_t matrix[LINES][PER_LINE] = {
     {
         0b00000000,0b00000000,
         0b00000000,0b00000000,
@@ -236,7 +236,7 @@ int main(void)
 
     set_realtime();
 
-    clock_gettime(CLOCK_MONOTONIC, &ts);
+    /* clock_gettime(CLOCK_MONOTONIC, &ts); */
 
     bcm2835_init();
     gpio_init();
