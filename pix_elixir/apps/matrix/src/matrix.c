@@ -42,7 +42,7 @@ void set_realtime()
 /*     clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL); */
 /* } */
 
-volatile uint8_t matrix[LINES][PER_LINE] = {
+uint8_t matrix[LINES][PER_LINE] = {
     {
         0b00000000,0b00000000,
         0b00000000,0b00000000,
