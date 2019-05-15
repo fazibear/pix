@@ -6,6 +6,6 @@ export MIX_TARGET=rpi0
 cd apps/firmware
 
 mix deps.get
+mix deps.update --all
 mix firmware
-#mix firmware.burn
-mix firmware.push $1
+./upload.sh pix.local ../../_build/rpi0/rpi0_prod/nerves/images/firmware.fw
