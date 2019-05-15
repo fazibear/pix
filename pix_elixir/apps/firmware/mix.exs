@@ -40,7 +40,7 @@ defmodule Firmware.MixProject do
   end
 
   def application(_target) do
-    [mod: {Firmware.Application, []}, extra_applications: [:logger]]
+    []
   end
 
   # Run "mix help deps" to learn about dependencies.
@@ -55,10 +55,9 @@ defmodule Firmware.MixProject do
     [
       {:shoehorn, "~> 0.2"},
       {:nerves_runtime, "~> 0.4"},
-      {:nerves_network, "~> 0.3"},
-      {:nerves_firmware_ssh, "~> 0.2"},
-      {:ring_logger, "~> 0.4"},
       {:logger_file_backend, "~> 0.0.1"},
+      {:nerves_init_gadget, "~> 0.6"},
+      {:nerves_time, "~> 0.2"},
 
       # pix apps
       {:matrix, in_umbrella: true},
