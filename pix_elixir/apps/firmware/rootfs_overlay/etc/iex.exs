@@ -25,3 +25,5 @@ IEx.configure(
     :reset
   ] |> IO.ANSI.format |> IO.chardata_to_string
 )
+
+use Toolshed
