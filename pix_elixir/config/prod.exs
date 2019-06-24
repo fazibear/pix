@@ -30,5 +30,6 @@ config :nerves_init_gadget,
   ifname: "wlan0",
   address_method: :dhcp,
   mdns_domain: "pix.local",
+  mdns_name: "Pix",
   node_name: :pix,
   node_host: :mdns_domain
