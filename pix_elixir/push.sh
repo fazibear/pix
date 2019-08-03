@@ -7,5 +7,5 @@ cd apps/firmware
 
 mix deps.get
 mix deps.update --all
-mix firmware
+mix firmware --verbose
 ./upload.sh pix.local ../../_build/rpi0/rpi0_prod/nerves/images/firmware.fw
