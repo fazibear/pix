@@ -1,13 +1,13 @@
 defmodule Firmware.MixProject do
   use Mix.Project
-
+  @app :firmware
   @target System.get_env("MIX_TARGET") || "host"
 
   def project do
     [
-      app: :firmware,
+      app: @app,
       version: "0.1.0",
-      elixir: "~> 1.4",
+      elixir: "~> 1.9",
       target: @target,
       archives: [nerves_bootstrap: "~> 1.0"],
       deps_path: "../../deps/#{@target}",
@@ -17,7 +17,19 @@ defmodule Firmware.MixProject do
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: [loadconfig: [&bootstrap/1]],
-      deps: deps()
+      deps: deps(),
+      releases: [{@app, release()}],
+      preferred_cli_target: [run: :host, test: :host]
+    ]
+  end
+
+  def release do
+    [
+      overwrite: true,
+      cookie: "#{@app}_cookie",
+      include_erts: &Nerves.Release.erts/0,
+      steps: [&Nerves.Release.init/1, :assemble],
+      strip_beams: Mix.env() == :prod
     ]
   end
 
@@ -53,7 +65,7 @@ defmodule Firmware.MixProject do
 
   defp deps(target) do
     [
-      {:shoehorn, "~> 0.2"},
+      {:shoehorn, "~> 0.6"},
       {:nerves_runtime, "~> 0.4"},
       {:logger_file_backend, "~> 0.0.1"},
       {:nerves_init_gadget, github: "fazibear/nerves_init_gadget", branch: "discover_ssh"},
