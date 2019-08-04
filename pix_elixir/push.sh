@@ -5,7 +5,9 @@ export MIX_TARGET=rpi0
 
 cd apps/firmware
 
-mix deps.get
 mix deps.update --all
+mix hex.outdated
+
+mix deps.get
 mix firmware --verbose
-./upload.sh pix.local ../../_build/rpi0/rpi0_prod/nerves/images/firmware.fw
+./upload.sh pix.local ../../_build/${MIX_TARGET}/${MIX_TARGET}_${MIX_ENV}/nerves/images/firmware.fw

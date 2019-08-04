@@ -1,10 +1,7 @@
 %{
-  "artificery": {:hex, :artificery, "0.4.2", "3ded6e29e13113af52811c72f414d1e88f711410cac1b619ab3a2666bbd7efd4", [:mix], []},
-  "bootloader": {:hex, :bootloader, "0.1.3", "7770e9953ae0f161e2fd26e9ddb7b50e81b97f61db92c633e7ed90f028abcd61", [:mix], [{:distillery, "~> 1.0", [hex: :distillery, optional: false]}]},
   "certifi": {:hex, :certifi, "2.5.1", "867ce347f7c7d78563450a18a6a28a8090331e77fa02380b4a21962a65d36ee5", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
   "combine": {:hex, :combine, "0.10.0", "eff8224eeb56498a2af13011d142c5e7997a80c8f5b97c499f84c841032e429f", [:mix], [], "hexpm"},
   "convertat": {:hex, :convertat, "1.1.0", "00c125f00a2e06be74d27df5a6b93f9b2d7c27aaa6ecb41d96f009ee7d7bd978", [:mix], [], "hexpm"},
-  "distillery": {:hex, :distillery, "2.0.14", "25fc1cdad06282334dbf4a11b6e869cc002855c4e11825157498491df2eed594", [:mix], [{:artificery, "~> 0.2", [hex: :artificery, optional: false]}]},
   "dns": {:hex, :dns, "2.1.2", "81c46d39f7934f0e73368355126e4266762cf227ba61d5889635d83b2d64a493", [:mix], [{:socket, "~> 0.3.13", [hex: :socket, repo: "hexpm", optional: false]}], "hexpm"},
   "elixir_make": {:hex, :elixir_make, "0.6.0", "38349f3e29aff4864352084fc736fa7fa0f2995a819a737554f7ebd28b85aaab", [:mix], [], "hexpm"},
   "floki": {:hex, :floki, "0.20.4", "be42ac911fece24b4c72f3b5846774b6e61b83fe685c2fc9d62093277fb3bc86", [:mix], [{:html_entities, "~> 0.4.0", [hex: :html_entities, repo: "hexpm", optional: false]}, {:mochiweb, "~> 2.15", [hex: :mochiweb, repo: "hexpm", optional: false]}], "hexpm"},
@@ -25,7 +22,6 @@
   "nerves_init_gadget": {:git, "https://github.com/fazibear/nerves_init_gadget.git", "686fd79bb952a14e10edab43253dfaaaa41a1504", [branch: "discover_ssh"]},
   "nerves_network": {:hex, :nerves_network, "0.5.5", "4690c362707f76c4072810bd9639b2ae8eb7dd9c21119656308b462a087230aa", [:make, :mix], [{:elixir_make, "~> 0.5", [hex: :elixir_make, repo: "hexpm", optional: false]}, {:nerves_network_interface, "~> 0.4.4", [hex: :nerves_network_interface, repo: "hexpm", optional: false]}, {:nerves_wpa_supplicant, "~> 0.5", [hex: :nerves_wpa_supplicant, repo: "hexpm", optional: false]}, {:one_dhcpd, "~> 0.2.0", [hex: :one_dhcpd, repo: "hexpm", optional: false]}, {:system_registry, "~> 0.7", [hex: :system_registry, repo: "hexpm", optional: false]}], "hexpm"},
   "nerves_network_interface": {:hex, :nerves_network_interface, "0.4.6", "d50e57daca8154f0f780fd98eb5ae94a005579e0d72d69840e80e228375d88ad", [:make, :mix], [{:elixir_make, "~> 0.5", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
-  "nerves_ntp": {:hex, :nerves_ntp, "0.1.1", "fa1a1f5c325d00fc3d940d8f5deea98964c84e617c7370325989d64accfa698a", [:mix], []},
   "nerves_runtime": {:hex, :nerves_runtime, "0.10.2", "b6c3bac939c5726dc19b66fc7cb9a10a18b9ee388c5a2d7353cd13e75d541a6c", [:make, :mix], [{:elixir_make, "~> 0.5", [hex: :elixir_make, repo: "hexpm", optional: false]}, {:system_registry, "~> 0.5", [hex: :system_registry, repo: "hexpm", optional: false]}, {:uboot_env, "~> 0.1", [hex: :uboot_env, repo: "hexpm", optional: false]}], "hexpm"},
   "nerves_system_br": {:hex, :nerves_system_br, "1.8.5", "58d5eb2ad0cd807fe54a6304d6ce78f2efad6d6ab8f68eafab9c6d9c17881cad", [:mix], [], "hexpm"},
   "nerves_system_linter": {:hex, :nerves_system_linter, "0.3.0", "84e0f63c8ac196b16b77608bbe7df66dcf352845c4e4fb394bffd2b572025413", [:mix], [], "hexpm"},

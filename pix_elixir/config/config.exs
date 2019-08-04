@@ -10,6 +10,7 @@ use Mix.Config
 
 config :clock, :timezone, "Europe/Warsaw"
 config :binary_clock, :timezone, "Europe/Warsaw"
+config :nerves_network, regulatory_domain: "PL"
 
 import_config "../apps/*/config/config.exs"
 
