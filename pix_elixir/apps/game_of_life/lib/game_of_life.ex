@@ -47,7 +47,6 @@ defmodule GameOfLife do
     data =
       state.alive_cells
       |> Enum.reduce(Draw.empty(), fn {x, y, c}, acc ->
-        if c == 0 || c > 7, do: raise(:dupa)
         acc |> Draw.dot(x, y, c)
       end)
 
@@ -61,7 +60,7 @@ defmodule GameOfLife do
     %{state | color: color}
   end
 
-  defp add_random(%{alive_cells: cells} = state) when length(cells) == 0 do
+  defp add_random(%{alive_cells: cells} = state) when cells == [] do
     %{
       state
       | alive_cells:
@@ -75,7 +74,9 @@ defmodule GameOfLife do
   defp add_random(state) do
     %{
       state
-      | alive_cells: state.alive_cells ++ [{:rand.uniform(15), :rand.uniform(15), state.color}]
+      | alive_cells:
+          state.alive_cells ++
+            [{:rand.uniform(15), :rand.uniform(15), state.color}]
     }
   end
 
