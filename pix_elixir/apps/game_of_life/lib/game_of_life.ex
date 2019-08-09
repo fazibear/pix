@@ -17,7 +17,7 @@ defmodule GameOfLife do
     send(self(), :tick)
 
     state = %{
-      alive_cells: [{0, 0}, {1, 0}, {2, 0}, {1, 1}],
+      alive_cells: [{0, 0, 1}, {1, 0, 1}, {2, 0, 1}, {1, 1, 1}],
       color: 1
     }
 
@@ -46,8 +46,9 @@ defmodule GameOfLife do
   defp draw_data(state) do
     data =
       state.alive_cells
-      |> Enum.reduce(Draw.empty(), fn {x, y}, acc ->
-        acc |> Draw.dot(x, y, 7)
+      |> Enum.reduce(Draw.empty(), fn {x, y, c}, acc ->
+        if c == 0 || c > 7, do: raise(:dupa)
+        acc |> Draw.dot(x, y, c)
       end)
 
     Display.update(__MODULE__, data)
@@ -66,7 +67,7 @@ defmodule GameOfLife do
       | alive_cells:
           state.alive_cells ++
             Enum.reduce(0..15, [], fn _, acc ->
-              acc ++ [{:rand.uniform(15), :rand.uniform(15)}]
+              acc ++ [{:rand.uniform(15), :rand.uniform(15), state.color}]
             end)
     }
   end
@@ -74,8 +75,7 @@ defmodule GameOfLife do
   defp add_random(state) do
     %{
       state
-      | alive_cells:
-          state.alive_cells ++ [{:rand.uniform(15), :rand.uniform(15)}]
+      | alive_cells: state.alive_cells ++ [{:rand.uniform(15), :rand.uniform(15), state.color}]
     }
   end
 
@@ -84,11 +84,11 @@ defmodule GameOfLife do
       state
       | alive_cells:
           keep_alive_tick(state.alive_cells) ++
-            become_alive_tick(state.alive_cells)
+            become_alive_tick(state.alive_cells, state.color)
     }
   end
 
-  defp keep_alive?(alive_cells, {x, y} = _alive_cell) do
+  defp keep_alive?(alive_cells, {x, y, _} = _alive_cell) do
     case count_neighbours(alive_cells, x, y, 0) do
       2 -> true
       3 -> true
@@ -96,21 +96,21 @@ defmodule GameOfLife do
     end
   end
 
-  defp become_alive?(alive_cells, {x, y} = _dead_cell) do
+  defp become_alive?(alive_cells, {x, y, _} = _dead_cell) do
     3 == count_neighbours(alive_cells, x, y, 0)
   end
 
   defp count_neighbours([head_cell | tail_cells], x, y, count) do
     increment =
       case head_cell do
-        {hx, hy} when hx == x - 1 and hy == y - 1 -> 1
-        {hx, hy} when hx == x and hy == y - 1 -> 1
-        {hx, hy} when hx == x + 1 and hy == y - 1 -> 1
-        {hx, hy} when hx == x - 1 and hy == y -> 1
-        {hx, hy} when hx == x + 1 and hy == y -> 1
-        {hx, hy} when hx == x - 1 and hy == y + 1 -> 1
-        {hx, hy} when hx == x and hy == y + 1 -> 1
-        {hx, hy} when hx == x + 1 and hy == y + 1 -> 1
+        {hx, hy, _} when hx == x - 1 and hy == y - 1 -> 1
+        {hx, hy, _} when hx == x and hy == y - 1 -> 1
+        {hx, hy, _} when hx == x + 1 and hy == y - 1 -> 1
+        {hx, hy, _} when hx == x - 1 and hy == y -> 1
+        {hx, hy, _} when hx == x + 1 and hy == y -> 1
+        {hx, hy, _} when hx == x - 1 and hy == y + 1 -> 1
+        {hx, hy, _} when hx == x and hy == y + 1 -> 1
+        {hx, hy, _} when hx == x + 1 and hy == y + 1 -> 1
         _not_neighbour -> 0
       end
 
@@ -124,19 +124,19 @@ defmodule GameOfLife do
     (neighbours |> Enum.uniq()) -- alive_cells
   end
 
-  defp neighbours([{x, y} | cells], neighbours) do
+  defp neighbours([{x, y, c} | cells], neighbours) do
     neighbours(
       cells,
       neighbours ++
         [
-          {x - 1, y - 1},
-          {x, y - 1},
-          {x + 1, y - 1},
-          {x - 1, y},
-          {x + 1, y},
-          {x - 1, y + 1},
-          {x, y + 1},
-          {x + 1, y + 1}
+          {x - 1, y - 1, c},
+          {x, y - 1, c},
+          {x + 1, y - 1, c},
+          {x - 1, y, c},
+          {x + 1, y, c},
+          {x - 1, y + 1, c},
+          {x, y + 1, c},
+          {x + 1, y + 1, c}
         ]
     )
   end
@@ -150,11 +150,11 @@ defmodule GameOfLife do
   defp remove_nil_cells(cells) do
     cells
     |> Enum.filter(fn cell -> cell != nil end)
-    |> Enum.filter(fn {x, y} -> x > -1 && x < 16 && y > -1 && y < 16 end)
+    |> Enum.filter(fn {x, y, _} -> x > -1 && x < 16 && y > -1 && y < 16 end)
   end
 
-  defp become_alive_or_nilify(alive_cells, {x, y} = dead_cell) do
-    if become_alive?(alive_cells, dead_cell), do: {x, y}, else: nil
+  defp become_alive_or_nilify(alive_cells, {x, y, _} = dead_cell, color) do
+    if become_alive?(alive_cells, dead_cell), do: {x, y, color}, else: nil
   end
 
   defp keep_alive_tick(alive_cells) do
@@ -163,10 +163,10 @@ defmodule GameOfLife do
     |> remove_nil_cells
   end
 
-  defp become_alive_tick(alive_cells) do
+  defp become_alive_tick(alive_cells, color) do
     alive_cells
     |> dead_neighbours()
-    |> Enum.map(&become_alive_or_nilify(alive_cells, &1))
+    |> Enum.map(&become_alive_or_nilify(alive_cells, &1, color))
     |> remove_nil_cells
   end
 end
