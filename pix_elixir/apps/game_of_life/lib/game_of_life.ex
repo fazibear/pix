@@ -150,7 +150,7 @@ defmodule GameOfLife do
   defp remove_nil_cells(cells) do
     cells
     |> Enum.filter(fn cell -> cell != nil end)
-    |> Enum.filter(fn {x, y} -> x > -1 || x < 16 || y > -1 || y < 16 end)
+    |> Enum.filter(fn {x, y} -> x > -1 && x < 16 && y > -1 && y < 16 end)
   end
 
   defp become_alive_or_nilify(alive_cells, {x, y} = dead_cell) do

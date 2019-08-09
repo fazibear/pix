@@ -68,8 +68,7 @@ defmodule Firmware.MixProject do
       {:shoehorn, "~> 0.6"},
       {:nerves_runtime, "~> 0.4"},
       {:logger_file_backend, "~> 0.0.1"},
-      {:nerves_init_gadget,
-       github: "fazibear/nerves_init_gadget", branch: "discover_ssh"},
+      {:nerves_init_gadget, github: "fazibear/nerves_init_gadget", branch: "discover_ssh"},
       {:nerves_time, "~> 0.2"},
       {:toolshed, "~> 0.2"},
 
@@ -80,7 +79,8 @@ defmodule Firmware.MixProject do
       {:clock, in_umbrella: true},
       {:space_crab, in_umbrella: true},
       {:weather, in_umbrella: true},
-      {:wotd, in_umbrella: true}
+      {:wotd, in_umbrella: true},
+      {:game_of_life, in_umbrella: true}
     ] ++ system(target)
   end
 
