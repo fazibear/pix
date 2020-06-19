@@ -4,6 +4,7 @@ defmodule Wotd do
   """
 
   use GenServer
+  use Tesla
 
   alias Display.Draw
 
@@ -135,7 +136,7 @@ defmodule Wotd do
   def fetch_word do
     html =
       "https://www.diki.pl/dictionary/word-of-the-day"
-      |> HTTPotion.get!()
+      |> get!()
       |> Map.get(:body)
 
     word =

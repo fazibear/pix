@@ -4,6 +4,7 @@ defmodule Weather do
   """
 
   use GenServer
+  use Tesla
 
   alias Display.Draw
   alias Display.Draw.Symbol
@@ -154,9 +155,9 @@ defmodule Weather do
   def fetch_weather do
     json =
       "https://api.openweathermap.org/data/2.5/weather"
-      |> HTTPotion.get!(query: owm_query())
+      |> get!(query: owm_query())
       |> Map.get(:body)
-      |> Poison.decode!()
+      |> Jason.decode!()
 
     %{
       temp: get_temp(json),

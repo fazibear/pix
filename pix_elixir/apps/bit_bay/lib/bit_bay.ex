@@ -4,6 +4,7 @@ defmodule BitBay do
   """
 
   use GenServer
+  use Tesla
 
   alias Display.Draw
   alias Display.Draw.Symbol
@@ -96,9 +97,9 @@ defmodule BitBay do
 
   def fetch_ticker(type) do
     "https://bitbay.net/API/Public/#{type}/ticker.json"
-    |> HTTPotion.get!()
+    |> get!()
     |> Map.get(:body)
-    |> Poison.decode!()
+    |> Jason.decode!()
   end
 
   def format_text(data) do
