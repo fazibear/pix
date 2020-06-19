@@ -3,7 +3,7 @@ ERL_EI_INCLUDE_DIR ?= $(ERL_PATH)/usr/include
 ERL_EI_LIBDIR ?= $(ERL_PATH)/usr/lib
 
 CFLAGS = -g -I$(ERL_EI_INCLUDE_DIR)
-LDFLAGS = -L$(ERL_EI_LIBDIR) -lerl_interface -lei -lerts -lpthread
+LDFLAGS = -L$(ERL_EI_LIBDIR) -lei -lerts -lpthread
 
 HEADER_FILES = src/lib
 

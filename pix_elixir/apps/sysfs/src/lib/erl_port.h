@@ -3,7 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "erl_interface.h"
 #include "ei.h"
 
 typedef unsigned char byte;
