@@ -62,9 +62,10 @@ defmodule YearProgress do
   end
 
   defp draw_percent(data, percent) do
-    string = percent
-    |> Integer.to_string()
-    |> String.pad_leading(3)
+    string =
+      percent
+      |> Integer.to_string()
+      |> String.pad_leading(3)
 
     data
     |> Draw.char("y", 1, 2, 4)
@@ -74,16 +75,16 @@ defmodule YearProgress do
   end
 
   defp draw_bar(data, percent) do
-    Enum.reduce(0..round(percent/100 * 13), data, fn dot, data ->
+    Enum.reduce(0..round(percent / 100 * 13), data, fn dot, data ->
       data
-      |> Draw.dot(dot+1, 12, 2)
-      |> Draw.dot(dot+1, 13, 2)
+      |> Draw.dot(dot + 1, 12, 2)
+      |> Draw.dot(dot + 1, 13, 2)
     end)
   end
 
   def year_progress do
     Date.utc_today()
-    |> Date.day_of_year
+    |> Date.day_of_year()
     |> Kernel./(365)
     |> Kernel.*(100)
     |> round()

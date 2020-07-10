@@ -51,6 +51,18 @@ defmodule Display.Draw.Char do
     ]
   end
 
+  def data_for("%") do
+    [
+      'c c',
+      '  c',
+      ' c ',
+      ' c ',
+      ' c ',
+      'c  ',
+      'c c'
+    ]
+  end
+
   def data_for("0") do
     [
       ' cc',

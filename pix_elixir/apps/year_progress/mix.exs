@@ -26,7 +26,7 @@ defmodule YearProgress.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:display, in_umbrella: true},
+      {:display, in_umbrella: true}
       # {:terminal, in_umbrella: true}
     ]
   end
