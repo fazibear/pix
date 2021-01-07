@@ -68,7 +68,7 @@ defmodule YearProgress do
       |> String.pad_leading(3)
 
     data
-    |> Draw.char("y", 1, 2, 4)
+    |> Draw.char("y", 0, 2, 4)
     |> Draw.char(String.at(string, 1), 5, 2, 3)
     |> Draw.char(String.at(string, 2), 9, 2, 3)
     |> Draw.char("%", 13, 2, 3)
