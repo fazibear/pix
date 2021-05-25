@@ -46,9 +46,10 @@ defmodule Covid do
     data =
       Draw.empty()
       |> Draw.char("c", 0, 0, @info_color)
-      |> Draw.char("o", 4, 0, @info_color)
-      |> Draw.char("v", 8, 0, @info_color)
-      # |> Draw.char("v", 12, 0, @info_color)
+      |> Draw.char("-", 4, 0, @info_color)
+      |> Draw.char("-", 5, 0, @info_color)
+      |> Draw.char("1", 9, 0, @info_color)
+      |> Draw.char("9", 13, 0, @info_color)
       |> draw_text(state.text, @text_color, state.position, state.letter)
 
     Process.send_after(self(), :tick, @timeout)
@@ -60,15 +61,16 @@ defmodule Covid do
 
   def handle_info(:fetch, state) do
     Process.send_after(self(), :fetch, @fetch_timeout)
-
     case get("https://coronavirus-19-api.herokuapp.com/countries/poland") do
       {:ok, response} ->
-        cases = response
+        data = response
         |> Map.get(:body)
         |> Jason.decode!()
-        |> Map.get("todayCases")
 
-        {:noreply, Map.put(state, :text, "#{cases} * ")}
+        cases = Map.get(data, "todayCases")
+        deaths = Map.get(data, "todayDeaths")
+
+        {:noreply, Map.put(state, :text, "#{cases}/#{deaths} ")}
       _ ->
         {:noreply, state}
     end

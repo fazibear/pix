@@ -1,20 +1,24 @@
-ERL_PATH = $(shell erl -eval "io:format(\"~s~n\", [code:root_dir()])" -s init stop -noshell)
-ERL_EI_INCLUDE_DIR ?= $(ERL_PATH)/usr/include
-ERL_EI_LIBDIR ?= $(ERL_PATH)/usr/lib
-
 CFLAGS = -g -I$(ERL_EI_INCLUDE_DIR)
 LDFLAGS = -L$(ERL_EI_LIBDIR) -lei -lpthread -lrt
 
-HEADER_FILES = src/lib
+PREFIX = $(MIX_APP_PATH)/priv
+BUILD  = $(MIX_APP_PATH)/obj
+
+BUILD_DIRS = $(PREFIX) $(BUILD) $(BUILD)/src $(BUILD)/src/lib
 
 SRC = $(wildcard src/*.c src/lib/*.c)
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:%.c=$(BUILD)/%.o)
 
-priv/matrix: priv $(OBJ)
-	$(CC) -I $(HEADER_FILES) -o $@ $(OBJ) $(LDLIBS) $(LDFLAGS)
+MATRIX = $(PREFIX)/matrix
 
-priv:
-	mkdir -p priv
+$(MATRIX): $(BUILD_DIRS) $(OBJ)
+	$(CC) -o $@ $(OBJ) $(LDFLAGS)
+
+$(BUILD)/src/%.o: src/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(BUILD_DIRS):
+	mkdir -p $@
 
 clean:
-	rm -rf priv $(OBJ) $(LIB_OBJ) $(BEAM_FILES)
+	rm -rf $(MATRIX) $(OBJ) $(BUILD_DIRS)

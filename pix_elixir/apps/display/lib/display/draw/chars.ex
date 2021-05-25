@@ -3,6 +3,42 @@ defmodule Display.Draw.Char do
   data_for data for text
   """
 
+  def data_for("*") do
+    [
+      '   ',
+      'c c',
+      ' c ',
+      'ccc',
+      ' c ',
+      'c c',
+      '   '
+    ]
+  end
+
+  def data_for("/") do
+    [
+      '  c',
+      '  c',
+      ' c ',
+      ' c ',
+      ' c ',
+      'c  ',
+      'c  '
+    ]
+  end
+
+  def data_for("\\") do
+    [
+      'c  ',
+      'c  ',
+      ' c ',
+      ' c ',
+      ' c ',
+      '  c',
+      '  c'
+    ]
+  end
+
   def data_for("-") do
     [
       '   ',

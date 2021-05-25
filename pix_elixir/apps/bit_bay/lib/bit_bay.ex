@@ -63,15 +63,19 @@ defmodule BitBay do
     Process.send_after(self(), :fetch, @fetch_timeout)
     fetch("BTCPLN")
     fetch("ETHPLN")
-    fetch("LTCPLN")
-    fetch("XRPPLN")
+
     {:noreply, state}
   end
 
   def handle_info({:fetched, type, data}, state) do
-    state = put_in(state[:data][type], data)
-    state = put_in(state.text, format_text(state.data))
-    state = put_in(state.color, format_color(state.data))
+    state = state
+    |> put_data(type, data)
+    |> put_wallet()
+    |> clear_text()
+    |> put_text("5", "sum:", "WALLET")
+    |> put_text("3", "btc:", "BTCPLN")
+    |> put_text("4", "eth:", "ETHPLN")
+
     {:noreply, state}
   end
 
@@ -102,28 +106,33 @@ defmodule BitBay do
     |> Jason.decode!()
   end
 
-  def format_text(data) do
-    text(data, "btc:", "BTCPLN") <>
-      text(data, "eth:", "ETHPLN") <>
-      text(data, "ltc:", "LTCPLN") <> text(data, "xrp:", "XRPPLN")
+  def put_data(state, type, data) do
+    put_in(state[:data][type], data)
   end
 
-  def text(data, header, type) do
-    "#{header}#{data[type]} "
+  def put_wallet(state) do
+    sum = :bit_bay
+          |> Application.fetch_env!(:wallet)
+          |> Enum.map(fn ({type, value}) -> {type, Map.get(state.data, String.upcase("#{type}PLN"), 0) * value} end)
+          |> Keyword.values()
+          |> Enum.sum()
+          |> Float.round(2)
+
+    put_data(state, "WALLET", sum)
   end
 
-  def format_color(data) do
-    color(data, "3", "btc:", "BTCPLN") <>
-      color(data, "4", "eth:", "ETHPLN") <>
-      color(data, "2", "ltc:", "LTCPLN") <> color(data, "5", "xrp:", "XRPPLN")
+  def clear_text(state) do
+    state
+    |> Map.put(:text, "")
+    |> Map.put(:color, "")
   end
 
-  def color(data, color, header, type) do
-    String.pad_leading(
-      "",
-      String.length(text(data, header, type)),
-      color
-    )
+  def put_text(state, color, header, data) do
+    text = "#{header}#{Map.get(state.data, data, "*")} "
+
+    state
+    |> Map.put(:text, "#{state.text}#{text}")
+    |> Map.put(:color, "#{state.color}#{String.pad_leading("", String.length(text), color)}")
   end
 
   defp tick(state) do
