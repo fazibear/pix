@@ -83,7 +83,8 @@ defmodule Firmware.MixProject do
       {:wotd, in_umbrella: true},
       # {:game_of_life, in_umbrella: true}
       {:year_progress, in_umbrella: true},
-      {:covid, in_umbrella: true}
+      {:covid, in_umbrella: true},
+      {:ip, in_umbrella: true}
     ] ++ system(target)
   end
 
