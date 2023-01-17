@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :nerves, :firmware, rootfs_overlay: ["rootfs_overlay"]
 
@@ -18,18 +18,34 @@ config :logger, :error_log,
   level: :error
 
 config :shoehorn,
-  init: [:nerves_runtime, :nerves_init_gadget],
+  init: [:nerves_runtime, :nerves_pack],
   app: Mix.Project.config()[:app]
 
-config :nerves_firmware_ssh,
-  authorized_keys: [
-    File.read!(Path.join(System.user_home!, ".ssh/id_rsa.pub"))
-  ]
+config :mdns_lite,
+  # The `host` key specifies what hostnames mdns_lite advertises.  `:hostname`
+  # advertises the device's hostname.local. For the official Nerves systems, this
+  # is "nerves-<4 digit serial#>.local".  mdns_lite also advertises
+  # "nerves.local" for convenience. If more than one Nerves device is on the
+  # network, delete "nerves" from the list.
 
-config :nerves_init_gadget,
-  ifname: "wlan0",
-  address_method: :dhcp,
-  mdns_domain: "pix.local",
-  mdns_name: "Pix",
-  node_name: :pix,
-  node_host: :mdns_domain
+  host: [:hostname, "pix"],
+  ttl: 120,
+
+  # Advertise the following services over mDNS.
+  services: [
+    %{
+      protocol: "ssh",
+      transport: "tcp",
+      port: 22
+    },
+    %{
+      protocol: "sftp-ssh",
+      transport: "tcp",
+      port: 22
+    },
+    %{
+      protocol: "epmd",
+      transport: "tcp",
+      port: 4369
+    }
+  ]

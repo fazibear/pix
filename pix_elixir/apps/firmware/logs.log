@@ -1,0 +1,231 @@
+14:31:58.091 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:31:58.294 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:31:58.509 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:31:58.709 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:32:41.685 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:41.685 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:41.753 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:41.759 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:41.816 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:41.831 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:42.054 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:32:42.061 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:42.258 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:32:42.259 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:42.458 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:32:42.461 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:32:42.673 [error] GenServer Covid terminating
+** (Jason.DecodeError) unexpected byte at position 0: 0x3C ("<")
+    (jason 1.4.0) lib/jason.ex:92: Jason.decode!/2
+    (covid 0.1.0) lib/covid.ex:68: Covid.handle_info/2
+    (stdlib 4.0) gen_server.erl:1120: :gen_server.try_dispatch/4
+    (stdlib 4.0) gen_server.erl:1197: :gen_server.handle_msg/6
+    (stdlib 4.0) proc_lib.erl:240: :proc_lib.init_p_do_apply/3
+Last message: :fetch
+State: %{letter: 0, position: 1, text: "waiting for data... "}
+14:33:35.371 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:33:35.371 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:33:35.371 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:34:15.909 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:34:15.909 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:34:15.909 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:34:55.819 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:34:55.819 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:34:55.819 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:39:33.372 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:39:33.372 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:39:33.372 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:40:15.285 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:40:15.285 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:40:15.285 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:42:05.405 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:42:05.405 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:42:05.405 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:42:56.961 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:42:56.961 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:42:56.961 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:43:46.695 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:43:46.695 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:43:46.695 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:44:15.887 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:44:15.887 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:44:15.887 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:47:17.603 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:47:17.603 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:47:17.603 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:47:22.897 [error] beam/beam_load.c(180): Error loading module 'Elixir.Tesla.Middleware.DecodeJSON':
+  module name in object code is 'Elixir.Tesla.Middleware.DecodeJson'
+
+
+14:47:22.897 [error] Loading of /Users/michalkalbarczyk/dev/pix_elixir/_build/dev/lib/tesla/ebin/Elixir.Tesla.Middleware.DecodeJSON.beam failed: :badfile
+
+14:47:58.957 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:47:58.957 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:47:58.957 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:49:59.617 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:49:59.617 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:49:59.617 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:50:46.316 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:50:46.317 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:50:46.316 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:52:43.803 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:52:43.803 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+
+14:52:43.803 [warn] Description: 'Authenticity is not established by certificate path validation'
+     Reason: 'Option {verify, verify_peer} and cacertfile/cacerts is missing'
+

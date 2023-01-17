@@ -26,7 +26,7 @@ defmodule Ip.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tesla, "~> 1.3.0"},
+      {:tesla, "~> 1.5.0"},
       {:display, in_umbrella: true},
       {:terminal, in_umbrella: true, only: :dev}
     ]

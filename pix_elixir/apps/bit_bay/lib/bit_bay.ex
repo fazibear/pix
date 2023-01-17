@@ -54,7 +54,7 @@ defmodule BitBay do
 
     Process.send_after(self(), :tick, @timeout)
 
-    Display.update(__MODULE__, data)
+    #Display.update(__MODULE__, data)
 
     {:noreply, state}
   end
@@ -103,6 +103,7 @@ defmodule BitBay do
     "https://bitbay.net/API/Public/#{type}/ticker.json"
     |> get!()
     |> Map.get(:body)
+    |> inspect()
     |> Jason.decode!()
   end
 

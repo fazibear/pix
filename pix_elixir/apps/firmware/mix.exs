@@ -1,105 +1,105 @@
 defmodule Firmware.MixProject do
   use Mix.Project
+
   @app :firmware
-  @target System.get_env("MIX_TARGET") || "host"
+  @version "0.1.0"
+  @all_targets [:rpi, :rpi0, :rpi2, :rpi3, :rpi3a, :rpi4, :bbb, :osd32mp1, :x86_64, :grisp2]
 
   def project do
     [
       app: @app,
-      version: "0.1.0",
-      elixir: "~> 1.9",
-      target: @target,
-      archives: [nerves_bootstrap: "~> 1.0"],
-      deps_path: "../../deps/#{@target}",
-      build_path: "../../_build/#{@target}",
+      version: @version,
+      elixir: "~> 1.11",
+      archives: [nerves_bootstrap: "~> 1.11"],
+      deps_path: "../../deps",
+      build_path: "../../_build",
       config_path: "../../config/config.exs",
-      lockfile: "../../mix.lock.#{@target}",
-      build_embedded: Mix.env() == :prod,
+      lockfile: "../../mix.lock",
       start_permanent: Mix.env() == :prod,
-      aliases: [loadconfig: [&bootstrap/1]],
-      deps: deps(),
-      releases: [{@app, release()}],
+      deps: deps(Mix.env()),
+      releases: [{@app, release(Mix.env())}],
       preferred_cli_target: [run: :host, test: :host]
     ]
   end
 
-  def release do
+  defp deps(:prod) do
     [
-      overwrite: true,
-      cookie: "#{@app}_cookie",
-      include_erts: &Nerves.Release.erts/0,
-      steps: [&Nerves.Release.init/1, :assemble],
-      strip_beams: Mix.env() == :prod
-    ]
+      # Dependencies for all targets
+      {:nerves, "~> 1.7.16 or ~> 1.8.0 or ~> 1.9.0", runtime: false},
+
+      # Dependencies for all targets except :host
+      {:nerves_runtime, "~> 0.13.0", targets: @all_targets},
+      {:nerves_pack, "~> 0.7.0", targets: @all_targets},
+      {:nerves_time, "~> 0.4", targets: @all_targets},
+
+      # Dependencies for specific targets
+      # NOTE: It's generally low risk and recommended to follow minor version
+      # bumps to Nerves systems. Since these include Linux kernel and Erlang
+      # version updates, please review their release notes in case
+      # changes to your application are needed.
+      {:nerves_system_rpi, "~> 1.19", runtime: false, targets: :rpi},
+      {:nerves_system_rpi0, "~> 1.19", runtime: false, targets: :rpi0},
+      {:nerves_system_rpi2, "~> 1.19", runtime: false, targets: :rpi2},
+      {:nerves_system_rpi3, "~> 1.19", runtime: false, targets: :rpi3},
+      {:nerves_system_rpi3a, "~> 1.19", runtime: false, targets: :rpi3a},
+      {:nerves_system_rpi4, "~> 1.19", runtime: false, targets: :rpi4},
+      {:nerves_system_bbb, "~> 2.14", runtime: false, targets: :bbb},
+      {:nerves_system_osd32mp1, "~> 0.10", runtime: false, targets: :osd32mp1},
+      {:nerves_system_x86_64, "~> 1.19", runtime: false, targets: :x86_64},
+      {:nerves_system_grisp2, "~> 0.3", runtime: false, targets: :grisp2},
+
+      {:ring_logger, "~> 0.6"},
+      {:matrix, in_umbrella: true},
+    ] ++ other_deps()
   end
 
-  # Starting nerves_bootstrap adds the required aliases to Mix.Project.config()
-  # Aliases are only added if MIX_TARGET is set.
-  def bootstrap(args) do
-    Application.start(:nerves_bootstrap)
-    Mix.Task.run("loadconfig", args)
+  defp deps(_) do
+    [
+      {:logger_file_backend, "~> 0.0.10"},
+      {:terminal, in_umbrella: true},
+    ] ++ other_deps()
   end
 
-  # Run "mix help compile.app" to learn about applications.
-  def application, do: application(@target)
-
-  # Specify target specific application configurations
-  # It is common that the application start function will start and supervise
-  # applications which could cause the host to fail. Because of this, we only
-  # invoke Firmware.start/2 when running on a target.
-  def application("host") do
-    [extra_applications: [:logger]]
-  end
-
-  def application(_target) do
-    []
-  end
-
-  # Run "mix help deps" to learn about dependencies.
-  defp deps do
-    [{:nerves, "~> 1.0", runtime: false}] ++ deps(@target)
-  end
-
-  # Specify target specific dependencies
-  defp deps("host"), do: []
-
-  defp deps(target) do
+  defp other_deps do
     [
       {:shoehorn, "~> 0.6"},
       {:nerves_runtime, "~> 0.4"},
-      {:logger_file_backend, "~> 0.0.1"},
-      {:nerves_init_gadget,
-       github: "fazibear/nerves_init_gadget", branch: "discover_ssh"},
-      {:nerves_time, "~> 0.2"},
       {:toolshed, "~> 0.2"},
 
-      # pix apps
-      {:matrix, in_umbrella: true},
-      {:bit_bay, in_umbrella: true},
       {:binary_clock, in_umbrella: true},
       {:clock, in_umbrella: true},
       {:space_crab, in_umbrella: true},
       {:weather, in_umbrella: true},
       {:wotd, in_umbrella: true},
-      # {:game_of_life, in_umbrella: true}
+      {:game_of_life, in_umbrella: true},
       {:year_progress, in_umbrella: true},
-      {:covid, in_umbrella: true},
-      {:ip, in_umbrella: true}
-    ] ++ system(target)
+      {:ip, in_umbrella: true},
+
+      #{:covid, in_umbrella: true},
+      #{:bit_bay, in_umbrella: true},
+    ]
   end
 
-  defp system("rpi"), do: [{:nerves_system_rpi, ">= 0.0.0", runtime: false}]
-  defp system("rpi0"), do: [{:nerves_system_rpi0, ">= 0.0.0", runtime: false}]
-  defp system("rpi2"), do: [{:nerves_system_rpi2, ">= 0.0.0", runtime: false}]
-  defp system("rpi3"), do: [{:nerves_system_rpi3, ">= 0.0.0", runtime: false}]
-  defp system("bbb"), do: [{:nerves_system_bbb, ">= 0.0.0", runtime: false}]
-  defp system("ev3"), do: [{:nerves_system_ev3, ">= 0.0.0", runtime: false}]
+  def release(:prod) do
+    [
+      overwrite: true,
+      # Erlang distribution is not started automatically.
+      # See https://hexdocs.pm/nerves_pack/readme.html#erlang-distribution
+      cookie: "#{@app}_cookie",
+      include_erts: &Nerves.Release.erts/0,
+      steps: [&Nerves.Release.init/1, :assemble],
+      strip_beams: Mix.env() == :prod or [keep: ["Docs"]]
+    ]
+  end
 
-  defp system("qemu_arm"),
-    do: [{:nerves_system_qemu_arm, ">= 0.0.0", runtime: false}]
-
-  defp system("x86_64"),
-    do: [{:nerves_system_x86_64, ">= 0.0.0", runtime: false}]
-
-  defp system(target), do: Mix.raise("Unknown MIX_TARGET: #{target}")
+  def release(_) do
+    [
+      overwrite: true,
+      # Erlang distribution is not started automatically.
+      # See https://hexdocs.pm/nerves_pack/readme.html#erlang-distribution
+      cookie: "#{@app}_cookie",
+      steps: [:assemble],
+      strip_beams: Mix.env() == :prod or [keep: ["Docs"]]
+    ]
+  end
 end

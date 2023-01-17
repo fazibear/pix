@@ -153,28 +153,16 @@ defmodule Weather do
   def move_cloud(pos), do: pos - 1
 
   def fetch_weather do
-    json =
-      "https://api.openweathermap.org/data/2.5/weather"
-      |> get!(query: owm_query())
-      |> Map.get(:body)
-      |> Jason.decode!()
+    {_, json} = Weather.Fetcher.fetch()
 
-    %{
-      temp: get_temp(json),
-      symbol: get_symbol(json)
+   %{
+      temp: get_temp(json.body),
+      symbol: get_symbol(json.body)
     }
   end
 
-  def owm_query do
-    %{
-      q: Application.fetch_env!(:weather, :query),
-      units: Application.fetch_env!(:weather, :units),
-      appid: Application.fetch_env!(:weather, :owm_key)
-    }
-  end
-
-  def get_temp(response) do
-    response
+  def get_temp(json) do
+    json
     |> Map.get("main")
     |> Map.get("temp")
     |> round()
@@ -182,8 +170,8 @@ defmodule Weather do
     |> String.pad_leading(3, " ")
   end
 
-  def get_symbol(response) do
-    response
+  def get_symbol(json) do
+    json
     |> Map.get("weather")
     |> List.first()
     |> Map.get("icon")

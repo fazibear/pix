@@ -28,8 +28,8 @@ defmodule Wotd.Mixfile do
     [
       {:display, in_umbrella: true},
       {:terminal, in_umbrella: true, only: :dev},
-      {:tesla, "~> 1.3.0"},
-      {:floki, "~> 0.20.0"}
+      {:tesla, "~> 1.5.0"},
+      {:floki, "~> 0.34.0"}
     ]
   end
 end

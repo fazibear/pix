@@ -1,24 +1,16 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
+# This file is responsible for configuring your application and its
+# dependencies.
 #
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
-use Mix.Config
+# This configuration file is loaded before any dependency and is restricted to
+# this project.
+import Config
 
-# Customize the firmware. Uncomment all or parts of the following
-# to add files to the root filesystem or modify the firmware
-# archive.
+config :firmware, target: Mix.target()
 
-# config :nerves, :firmware,
-#   rootfs_overlay: "rootfs_overlay",
-#   fwup_conf: "config/fwup.conf"
+config :tesla, adapter: Tesla.Adapter.Hackney
 
-# Use shoehorn to start the main application. See the shoehorn
-# docs for separating out critical OTP applications such as those
-# involved with firmware updates.
-
-# Import target specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
-# Uncomment to use target specific configurations
-
-# import_config "#{Mix.env()}.exs"
+if Mix.target() == :host do
+  import_config "host.exs"
+else
+  import_config "target.exs"
+end

@@ -1,5 +1,3 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
 # By default, the umbrella project as well as each child
@@ -7,10 +5,6 @@ use Mix.Config
 # they all use the same configuration. While one could
 # configure all applications here, we prefer to delegate
 # back to each application for organization purposes.
-
-config :clock, :timezone, "Europe/Warsaw"
-config :binary_clock, :timezone, "Europe/Warsaw"
-config :nerves_network, regulatory_domain: "PL"
 
 import_config "../apps/*/config/config.exs"
 

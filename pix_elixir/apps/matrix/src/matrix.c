@@ -187,7 +187,6 @@ void set_dot(int x, int y, int r, int g, int b)
     matrix[y][l] = t;
 }
 
-
 void draw()
 {
     uint8_t line, pos, bit;
