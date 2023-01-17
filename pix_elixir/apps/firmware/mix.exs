@@ -11,9 +11,9 @@ defmodule Firmware.MixProject do
       version: @version,
       elixir: "~> 1.11",
       archives: [nerves_bootstrap: "~> 1.11"],
+      config_path: "../../config/config.exs",
       deps_path: "../../deps",
       build_path: "../../_build",
-      config_path: "../../config/config.exs",
       lockfile: "../../mix.lock",
       start_permanent: Mix.env() == :prod,
       deps: deps(Mix.env()),
@@ -63,7 +63,6 @@ defmodule Firmware.MixProject do
   defp other_deps do
     [
       {:shoehorn, "~> 0.6"},
-      {:nerves_runtime, "~> 0.4"},
       {:toolshed, "~> 0.2"},
 
       {:binary_clock, in_umbrella: true},

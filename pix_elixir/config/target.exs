@@ -1,18 +1,32 @@
 import Config
+
 # Enable the Nerves integration with Mix
 Application.start(:nerves_bootstrap)
 
-# Use Ringlogger as the logger backend and remove :console.
-# See https://hexdocs.pm/ring_logger/readme.html for more information on
-# configuring ring_logger.
+config :nerves, :firmware, rootfs_overlay: ["rootfs_overlay"]
+config :tzdata, :autoupdate, :disabled
+config :display, output: Matrix
 
+# Add the RingLogger backend. This removes the
+# default :console backend.
 config :logger, backends: [RingLogger]
+
+# Set the number of messages to hold in the circular buffer
+config :logger, RingLogger, max_size: 10_000
+
+# You can also configure `RingLogger.Client` options to be used
+# with every client by default
+config :logger, RingLogger,
+  colors: [debug: :yellow],
+  level: :debug
 
 # Use shoehorn to start the main application. See the shoehorn
 # library documentation for more control in ordering how OTP
 # applications are started and handling failures.
 
-config :shoehorn, init: [:nerves_runtime, :nerves_pack]
+config :shoehorn,
+  init: [:nerves_runtime, :nerves_pack],
+  app: Mix.Project.config()[:app]
 
 # Erlinit can be configured without a rootfs_overlay. See
 # https://github.com/nerves-project/erlinit/ for more information on
@@ -58,18 +72,27 @@ if keys == [],
 config :nerves_ssh,
   authorized_keys: Enum.map(keys, &File.read!/1)
 
-# Configure the network using vintage_net
-# See https://github.com/nerves-networking/vintage_net for more information
 config :vintage_net,
   regulatory_domain: "US",
   config: [
-    {"usb0", %{type: VintageNetDirect}},
-    {"eth0",
-     %{
-       type: VintageNetEthernet,
-       ipv4: %{method: :dhcp}
-     }},
-    {"wlan0", %{type: VintageNetWiFi}}
+    # {"usb0", %{type: VintageNetDirect}},
+    # {"eth0",
+    #  %{
+    #    type: VintageNetEthernet,
+    #    ipv4: %{method: :dhcp}
+    #  }},
+    { "wlan0", %{
+      type: VintageNetWiFi,
+      vintage_net_wifi: %{
+        networks: [
+          %{
+            key_mgmt: :wpa_psk,
+            ssid: Application.get_env(:secrets, :ssid),
+            psk: Application.get_env(:Secrets, :psk),
+          }
+        ]
+      },
+    }}
   ]
 
 config :mdns_lite,

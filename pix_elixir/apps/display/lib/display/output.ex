@@ -5,7 +5,7 @@ defmodule Display.Output do
 
   def current?(state, module, data) do
     if module == current(state) do
-      current_output().data(data)
+      display(output(), data)
     end
 
     state
@@ -19,10 +19,13 @@ defmodule Display.Output do
     )
   end
 
-  def data(nil), do: nil
-  def data(data), do: current_output().data(data)
+  def data(data), do: display(output(), data)
 
-  def current_output do
+  def display(nil, _), do: nil
+  def display(_, nil), do: nil
+  def display(out, data), do: data |> out.data()
+
+  def output do
     Application.get_env(:display, :output)
   end
 end
