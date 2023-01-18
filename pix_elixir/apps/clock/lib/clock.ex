@@ -9,7 +9,7 @@ defmodule Clock do
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timezone Application.get_env(:clock, :timezone)
+  @timezone Application.fetch_env!(:clock, :timezone)
   @timeout 1000
   @dot_color 3
   @digits_color 7

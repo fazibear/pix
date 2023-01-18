@@ -133,11 +133,11 @@ defmodule Weather do
     pid = self()
 
     spawn(fn ->
-      try do
-        send(pid, {:fetched, fetch_weather()})
-      rescue
-        _ -> :nothing
-      end
+      #try do
+        send(pid, {:fetched, Weather.Fetcher.fetch()})
+      # rescue
+      #   _ -> :nothing
+      # end
     end)
   end
 
@@ -152,28 +152,4 @@ defmodule Weather do
   def move_cloud(pos) when pos < -9, do: 15
   def move_cloud(pos), do: pos - 1
 
-  def fetch_weather do
-    {_, json} = Weather.Fetcher.fetch()
-
-   %{
-      temp: get_temp(json.body),
-      symbol: get_symbol(json.body)
-    }
-  end
-
-  def get_temp(json) do
-    json
-    |> Map.get("main")
-    |> Map.get("temp")
-    |> round()
-    |> Integer.to_string()
-    |> String.pad_leading(3, " ")
-  end
-
-  def get_symbol(json) do
-    json
-    |> Map.get("weather")
-    |> List.first()
-    |> Map.get("icon")
-  end
 end

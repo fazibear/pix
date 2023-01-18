@@ -87,9 +87,9 @@ config :vintage_net,
         networks: [
           %{
             key_mgmt: :wpa_psk,
-            ssid: Application.get_env(:secrets, :ssid),
-            psk: Application.get_env(:Secrets, :psk),
-          }
+            ssid: Secrets.get!(:ssid),
+            psk: Secrets.get!(:psk),
+          } |> IO.inspect()
         ]
       },
     }}

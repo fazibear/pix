@@ -8,7 +8,7 @@ defmodule BinaryClock do
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timezone Application.get_env(:binary_clock, :timezone)
+  @timezone Application.fetch_env!(:binary_clock, :timezone)
   @timeout 1000
   @on_color 6
   @off_color 4

@@ -4,18 +4,12 @@ defmodule Weather.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      worker(Weather, [nil])
-      # Starts a worker by calling: Weather.Worker.start_link(arg)
-      # {Weather.Worker, arg},
+      Weather
+      #%{id: Weather, start: {Weather, :start_link, [[]]}}
     ]
-
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Weather.Supervisor]
     Supervisor.start_link(children, opts)
   end

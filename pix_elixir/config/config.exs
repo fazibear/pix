@@ -10,16 +10,15 @@ Application.start(:nerves_bootstrap)
 
 import_config "secrets.exs"
 
-# config :firmware, target: Mix.target()
-config :tesla, adapter: Tesla.Adapter.Hackney
+config :tesla, adapter: Tesla.Adapter.Httpc
 config :weather,
   units: "metric",
   query: "Warsaw,pl",
-  key: Application.get_env(:secrets, :weather_omw_key)
+  owm_key: Secrets.get!(:weather_key)
 
 config :bit_bay,
   ticker: ["BTCPLN", "ETHPLN"],
-  wallet: Application.get_env(:secrets, :wallet)
+  wallet: Secrets.get!(:wallet)
 
 for config <- "../apps/*/config/config.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   import_config config
