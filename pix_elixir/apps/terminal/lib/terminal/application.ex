@@ -4,21 +4,17 @@ defmodule Terminal.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
-    # List all child processes to be supervised
-
     children = [
-      worker(Terminal, [nil])
+      Terminal
     ]
 
-    # Starts a worker by calling: Matrix.Worker.start_link(arg)
-    # {Matrix.Worker, arg},
+    opts = [
+      strategy: :one_for_one,
+      name: Terminal.Supervisor
+    ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Terminal.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
