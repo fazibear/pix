@@ -72,6 +72,6 @@ defmodule Clock do
   end
 
   defp format(datetime) do
-    "#{datetime.hour}#{datetime.minute}"
+    String.pad_leading("#{datetime.hour}", 2, "0") <> String.pad_leading("#{datetime.minute}", 2, "0")
   end
 end
