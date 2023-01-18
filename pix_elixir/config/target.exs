@@ -75,24 +75,23 @@ config :nerves_ssh,
 config :vintage_net,
   regulatory_domain: "US",
   config: [
-    # {"usb0", %{type: VintageNetDirect}},
-    # {"eth0",
-    #  %{
-    #    type: VintageNetEthernet,
-    #    ipv4: %{method: :dhcp}
-    #  }},
-    { "wlan0", %{
-      type: VintageNetWiFi,
-      vintage_net_wifi: %{
-        networks: [
-          %{
-            key_mgmt: :wpa_psk,
-            ssid: Secrets.get!(:ssid),
-            psk: Secrets.get!(:psk),
-          } |> IO.inspect()
-        ]
-      },
-    }}
+    {
+      "wlan0", %{
+        type: VintageNetWiFi,
+        vintage_net_wifi: %{
+          networks: [
+            %{
+              key_mgmt: :wpa_psk,
+              ssid: Secrets.get!(:ssid),
+              psk: Secrets.get!(:psk),
+            }
+          ]
+        },
+        ipv4: %{
+          method: :dhcp
+        }
+      }
+    }
   ]
 
 config :mdns_lite,
