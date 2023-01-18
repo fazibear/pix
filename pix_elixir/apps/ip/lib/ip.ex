@@ -9,6 +9,7 @@ defmodule Ip do
   alias Display.Draw
 
   @timeout 100
+  @fetch_after 1000 * 60 * 2
   @fetch_timeout 1000 * 60 * 60
   @offset 9
   @text_color 2
@@ -19,8 +20,8 @@ defmodule Ip do
   end
 
   def init(_state) do
+    Process.send_after(self(), :fetch, @fetch_after)
     send(self(), :tick)
-    send(self(), :fetch)
 
     Display.time(__MODULE__, 15000)
 

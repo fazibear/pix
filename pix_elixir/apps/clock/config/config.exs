@@ -1,3 +1,3 @@
 import Config
 
-config :clock, :timezone, "Europe/Warsaw"
+config :clock, :timezone, +1

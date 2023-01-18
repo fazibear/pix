@@ -4,12 +4,11 @@ defmodule Clock do
   """
 
   use GenServer
-  use Timex
 
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timezone Application.fetch_env!(:clock, :timezone)
+  @timezone Application.compile_env!(:clock, :timezone)
   @timeout 1000
   @dot_color 3
   @digits_color 7
@@ -67,8 +66,12 @@ defmodule Clock do
   end
 
   defp current_time do
-    @timezone
-    |> Timex.now()
-    |> Timex.format!("%H%M", :strftime)
+    DateTime.utc_now()
+    |> DateTime.add(@timezone, :minute)
+    |> format()
+  end
+
+  defp format(datetime) do
+    "#{datetime.hour}#{datetime.minute}"
   end
 end

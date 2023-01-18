@@ -26,10 +26,8 @@ defmodule BinaryClock.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:convertat, "~> 1.1"},
-      {:timex, "~> 3.1"},
-      {:display, in_umbrella: true}
-      # {:terminal, in_umbrella: true}
+      {:display, in_umbrella: true},
+      {:terminal, in_umbrella: true}
     ]
   end
 end

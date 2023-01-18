@@ -1,3 +1,3 @@
 import Config
 
-config :binary_clock, :timezone, "Europe/Warsaw"
+config :binary_clock, :timezone, +1

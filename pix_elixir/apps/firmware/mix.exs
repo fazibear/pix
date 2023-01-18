@@ -69,10 +69,10 @@ defmodule Firmware.MixProject do
       {:space_crab, in_umbrella: true},
       {:weather, in_umbrella: true},
       {:wotd, in_umbrella: true},
-      {:game_of_life, in_umbrella: true},
       {:year_progress, in_umbrella: true},
       {:ip, in_umbrella: true},
 
+      #{:game_of_life, in_umbrella: true},
       #{:covid, in_umbrella: true},
       #{:bit_bay, in_umbrella: true},
     ]

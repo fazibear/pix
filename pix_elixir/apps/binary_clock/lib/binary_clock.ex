@@ -8,7 +8,7 @@ defmodule BinaryClock do
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timezone Application.fetch_env!(:binary_clock, :timezone)
+  @timezone Application.compile_env!(:binary_clock, :timezone)
   @timeout 1000
   @on_color 6
   @off_color 4
@@ -93,17 +93,21 @@ defmodule BinaryClock do
   end
 
   defp current_time do
-    @timezone
-    |> Timex.now()
-    |> Timex.format!("%H%M", :strftime)
+    DateTime.utc_now()
+    |> DateTime.add(@timezone, :minute)
+    |> format()
     |> String.split("", trim: true)
     |> Enum.map(&to_bin/1)
   end
 
+  defp format(datetime) do
+    "#{datetime.hour}#{datetime.minute}"
+  end
+
   defp to_bin(int) do
     int
-    |> Convertat.from_base(10)
-    |> Convertat.to_base(2)
+    |> String.to_integer()
+    |> Integer.to_string(2)
     |> String.pad_leading(4, "0")
     |> String.split("", trim: true)
   end
