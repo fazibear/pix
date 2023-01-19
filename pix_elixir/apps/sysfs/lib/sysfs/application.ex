@@ -6,17 +6,15 @@ defmodule Sysfs.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      # import Supervisor.Spec
-      # worker(Sysfs, [nil])
-      # Starts a worker by calling: Sysfs.Worker.start_link(arg)
-      # {Sysfs.Worker, arg},
+      # Sysfs
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Sysfs.Supervisor]
+    opts = [
+      strategy: :one_for_one,
+      name: Sysfs.Supervisor
+    ]
+
     Supervisor.start_link(children, opts)
   end
 end

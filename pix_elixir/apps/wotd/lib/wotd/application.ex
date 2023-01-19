@@ -4,19 +4,17 @@ defmodule Wotd.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      worker(Wotd, [nil])
-      # Starts a worker by calling: Text.Worker.start_link(arg)
-      # {Text.Worker, arg},
+      Wotd
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Wotd.Supervisor]
+    opts = [
+      strategy: :one_for_one,
+      name: Wotd.Supervisor
+    ]
+
     Supervisor.start_link(children, opts)
   end
 end

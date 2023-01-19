@@ -4,19 +4,17 @@ defmodule Covid.Application do
   @moduledoc false
 
   use Application
-  import Supervisor.Spec
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      worker(Covid, [nil])
-      # Starts a worker by calling: Covid.Worker.start_link(arg)
-      # {Covid.Worker, arg},
+      Covid
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Covid.Supervisor]
+    opts = [
+      strategy: :one_for_one,
+      name: Covid.Supervisor
+    ]
+
     Supervisor.start_link(children, opts)
   end
 end
