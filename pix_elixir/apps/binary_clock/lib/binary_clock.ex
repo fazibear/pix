@@ -94,7 +94,7 @@ defmodule BinaryClock do
 
   defp current_time do
     DateTime.utc_now()
-    |> DateTime.add(@timezone, :minute)
+    |> DateTime.add(@timezone, :hour)
     |> format()
     |> String.split("", trim: true)
     |> Enum.map(&to_bin/1)

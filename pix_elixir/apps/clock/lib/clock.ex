@@ -67,7 +67,7 @@ defmodule Clock do
 
   defp current_time do
     DateTime.utc_now()
-    |> DateTime.add(@timezone, :minute)
+    |> DateTime.add(@timezone, :hour)
     |> format()
   end
 
