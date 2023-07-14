@@ -70,6 +70,7 @@ defmodule Firmware.MixProject do
       {:year_progress, in_umbrella: true},
       {:ip, in_umbrella: true},
       {:game_of_life, in_umbrella: true},
+      {:lastfm, in_umbrella: true},
 
       #{:covid, in_umbrella: true},
       #{:bit_bay, in_umbrella: true},
