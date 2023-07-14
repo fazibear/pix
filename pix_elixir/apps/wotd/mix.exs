@@ -27,8 +27,7 @@ defmodule Wotd.Mixfile do
   defp deps do
     [
       {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true, only: :dev},
-      {:tesla, "~> 1.5.0"},
+      {:tesla, "~> 1.7.0"},
       {:floki, "~> 0.34.0"}
     ]
   end

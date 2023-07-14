@@ -8,7 +8,6 @@ defmodule Clock do
   alias Display.Draw
   alias Display.Draw.Symbol
 
-  @timezone Application.compile_env!(:clock, :timezone)
   @timeout 1000
   @dot_color 3
   @digits_color 7
@@ -66,12 +65,11 @@ defmodule Clock do
   end
 
   defp current_time do
-    DateTime.utc_now()
-    |> DateTime.add(@timezone, :hour)
+    :calendar.local_time()
     |> format()
   end
 
-  defp format(datetime) do
-    String.pad_leading("#{datetime.hour}", 2, "0") <> String.pad_leading("#{datetime.minute}", 2, "0")
+  defp format({_, {hour, minute, _}}) do
+    String.pad_leading("#{hour}", 2, "0") <> String.pad_leading("#{minute}", 2, "0")
   end
 end

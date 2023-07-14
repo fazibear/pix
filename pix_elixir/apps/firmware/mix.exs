@@ -2,13 +2,12 @@ defmodule Firmware.MixProject do
   use Mix.Project
 
   @app :firmware
-  @version "0.1.0"
   @all_targets [:rpi, :rpi0, :rpi2, :rpi3, :rpi3a, :rpi4, :bbb, :osd32mp1, :x86_64, :grisp2]
 
   def project do
     [
       app: @app,
-      version: @version,
+      version: "0.1.0",
       elixir: "~> 1.11",
       archives: [nerves_bootstrap: "~> 1.11"],
       config_path: "../../config/config.exs",
@@ -18,15 +17,13 @@ defmodule Firmware.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(Mix.env()),
       releases: [{@app, release(Mix.env())}],
-      preferred_cli_target: [run: :host, test: :host]
+      preferred_cli_target: [run: :host, test: :host],
+      #      aliases: [run: "run --no-halt"]
     ]
   end
 
   defp deps(:prod) do
     [
-      # Dependencies for all targets
-      {:nerves, "~> 1.7.16 or ~> 1.8.0 or ~> 1.9.0", runtime: false},
-
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.13.0", targets: @all_targets},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
@@ -48,19 +45,20 @@ defmodule Firmware.MixProject do
       {:nerves_system_grisp2, "~> 0.3", runtime: false, targets: :grisp2},
 
       {:ring_logger, "~> 0.6"},
-      {:matrix, in_umbrella: true},
     ] ++ other_deps()
   end
 
   defp deps(_) do
     [
       {:logger_file_backend, "~> 0.0.10"},
-      {:terminal, in_umbrella: true},
     ] ++ other_deps()
   end
 
   defp other_deps do
     [
+      # Dependencies for all targets
+      {:nerves, "~> 1.10", runtime: false},
+
       {:shoehorn, "~> 0.6"},
       {:toolshed, "~> 0.2"},
 
@@ -71,8 +69,8 @@ defmodule Firmware.MixProject do
       {:wotd, in_umbrella: true},
       {:year_progress, in_umbrella: true},
       {:ip, in_umbrella: true},
+      {:game_of_life, in_umbrella: true},
 
-      #{:game_of_life, in_umbrella: true},
       #{:covid, in_umbrella: true},
       #{:bit_bay, in_umbrella: true},
     ]

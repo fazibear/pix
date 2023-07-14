@@ -14,7 +14,7 @@ defmodule Display do
     Transition
   }
 
-  @default_change_timeout 5 * 1000
+  @default_change_timeout 10 * 1000
   @transition_timeout 20
 
   def remove(subscriber) do

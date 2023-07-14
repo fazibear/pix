@@ -11,7 +11,7 @@ defmodule Display.Mixfile do
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(Mix.env())
     ]
   end
 
@@ -24,7 +24,15 @@ defmodule Display.Mixfile do
   end
 
   # Run "mix help deps" to learn about dependencies.
-  defp deps do
-    []
+  defp deps(:dev) do
+    [
+      {:terminal, in_umbrella: true},
+    ]
+  end
+
+  defp deps(:prod) do
+    [
+      {:matrix, in_umbrella: true},
+    ]
   end
 end

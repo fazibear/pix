@@ -26,10 +26,9 @@ defmodule Covid.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tesla, "~> 1.5.0"},
+      {:tesla, "~> 1.7.0"},
       {:jason, ">= 1.0.0"},
-      {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true, only: :dev}
+      {:display, in_umbrella: true}
     ]
   end
 end

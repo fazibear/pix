@@ -29,7 +29,6 @@ defmodule Matrix.Mixfile do
   defp deps do
     [
       {:elixir_make, "~> 0.4", runtime: false},
-      {:display, in_umbrella: true}
     ]
   end
 end

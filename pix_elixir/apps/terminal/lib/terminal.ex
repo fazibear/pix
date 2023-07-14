@@ -29,7 +29,7 @@ defmodule Terminal do
     |> Enum.map(&process_line/1)
     |> List.insert_at(0, [IO.ANSI.clear(), IO.ANSI.home()])
     |> ANSI.format()
-    #|> IO.puts()
+    |> IO.puts()
   end
 
   defp process_line(line) do

@@ -27,7 +27,6 @@ defmodule YearProgress.Mixfile do
   defp deps do
     [
       {:display, in_umbrella: true}
-      # {:terminal, in_umbrella: true}
     ]
   end
 end

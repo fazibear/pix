@@ -82,8 +82,8 @@ config :vintage_net,
           networks: [
             %{
               key_mgmt: :wpa_psk,
-              ssid: Secrets.get!(:ssid),
-              psk: Secrets.get!(:psk),
+              ssid: Secrets.get!(:wifi_name),
+              psk: Secrets.get!(:wifi_password),
             }
           ]
         },

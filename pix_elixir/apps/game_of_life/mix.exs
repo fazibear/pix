@@ -27,7 +27,6 @@ defmodule GameOfLife.Mixfile do
   defp deps do
     [
       {:display, in_umbrella: true},
-      {:terminal, in_umbrella: true, only: :dev}
     ]
   end
 end

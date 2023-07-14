@@ -4,9 +4,7 @@ defmodule Pix.Mixfile do
   def project do
     [
       apps_path: "apps",
-      # start_permanent: Mix.env() == :prod,
       deps: [],
-      aliases: [run: "run --no-halt"]
     ]
   end
 end

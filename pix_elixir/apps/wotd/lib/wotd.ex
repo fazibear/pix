@@ -144,20 +144,20 @@ defmodule Wotd do
       |> extract(
         "#contentWrapper > div.dikicolumn > div > div.dictionaryEntity > div.hws > span.hw > a"
       )
-      |> strip()
 
     desc =
       html
       |> extract(".foreignToNativeMeanings a.plainLink")
-      |> strip()
 
     {"#{word} ", "#{desc} "}
   end
 
   def extract(html, selector) do
     html
+    |> Floki.parse_document()
     |> Floki.find(selector)
     |> Floki.text(sep: " ")
+    |> strip()
   end
 
   def strip(string) do

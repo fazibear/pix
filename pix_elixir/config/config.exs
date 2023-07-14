@@ -11,18 +11,12 @@ Application.start(:nerves_bootstrap)
 import_config "secrets.exs"
 
 config :tesla, adapter: Tesla.Adapter.Httpc
-config :weather,
-  units: "metric",
-  query: "Warsaw,pl",
-  owm_key: Secrets.get!(:weather_key)
-
-config :bit_bay,
-  ticker: ["BTCPLN", "ETHPLN"],
-  wallet: Secrets.get!(:wallet)
 
 for config <- "../apps/*/config/config.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   import_config config
 end
+
+IO.puts "Mix target: #{Mix.target()}"
 
 case Mix.target() do
   :host -> "host.exs"
