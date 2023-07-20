@@ -28,6 +28,7 @@ defmodule Firmware.MixProject do
       {:nerves_runtime, "~> 0.13.0", targets: @all_targets},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
       {:nerves_time, "~> 0.4", targets: @all_targets},
+      {:nerves_time_zones, "~> 0.3.2", targets: @all_targets},
       # Dependencies for specific targets
       # NOTE: It's generally low risk and recommended to follow minor version
       # bumps to Nerves systems. Since these include Linux kernel and Erlang
@@ -69,11 +70,12 @@ defmodule Firmware.MixProject do
       {:wotd, in_umbrella: true},
       {:year_progress, in_umbrella: true},
       {:ip, in_umbrella: true},
-      {:game_of_life, in_umbrella: true},
       {:lastfm, in_umbrella: true},
 
-      #{:covid, in_umbrella: true},
-      #{:bit_bay, in_umbrella: true},
+      # {:random, in_umbrella: true},
+      # {:game_of_life, in_umbrella: true},
+      # {:covid, in_umbrella: true},
+      # {:bit_bay, in_umbrella: true},
     ]
   end
 
