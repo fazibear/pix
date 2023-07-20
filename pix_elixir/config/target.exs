@@ -48,6 +48,8 @@ config :nerves, :firmware,
 
 config :nerves, source_date_epoch: "1673948458"
 
+config :nerves_time_zones, default_time_zone: "Europe/Warsaw"
+
 # Configure the device for SSH IEx prompt access and firmware updates
 #
 # * See https://hexdocs.pm/nerves_ssh/readme.html for general SSH configuration
