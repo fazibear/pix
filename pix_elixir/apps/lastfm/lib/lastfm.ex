@@ -11,7 +11,7 @@ defmodule Lastfm do
   alias Display.Draw
 
   @timeout 100
-  @fetch_timeout 1000 * 60 * 60
+  @fetch_timeout 1000 * 60 * 2
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -127,11 +127,11 @@ defmodule Lastfm do
     pid = self()
 
     spawn(fn ->
-      # try do
-      send(pid, {:fetched, fetch_playing()})
-      # rescue
-      #   _ -> IO.puts(:nothing)
-      #    end
+      try do
+        send(pid, {:fetched, fetch_playing()})
+      rescue
+        _ -> :nothing
+      end
     end)
   end
 
