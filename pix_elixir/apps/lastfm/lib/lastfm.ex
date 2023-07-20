@@ -9,9 +9,13 @@ defmodule Lastfm do
   plug(Tesla.Middleware.JSON)
 
   alias Display.Draw
+  alias Display.Draw.Symbol
 
   @timeout 100
   @fetch_timeout 1000 * 60 * 2
+  @offset 9
+  @text_color 5
+  @notes_color 6
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -24,20 +28,9 @@ defmodule Lastfm do
     Display.time(__MODULE__, 15000)
 
     state = %{
-      up: %{
-        text: "fetching ",
-        letter: 0,
-        position: 0,
-        color: 3,
-        offset: 0
-      },
-      down: %{
-        text: "data ",
-        letter: 0,
-        position: 0,
-        color: 2,
-        offset: 9
-      }
+      text: "fetching... ",
+      letter: 0,
+      position: 0,
     }
 
     {:ok, state}
@@ -50,13 +43,13 @@ defmodule Lastfm do
   end
 
   def handle_info(:tick, state) do
-    state = put_in(state.up, tick(state.up))
-    state = put_in(state.down, tick(state.down))
+    state = tick(state)
 
     data =
       Draw.empty()
-      |> draw_text(state.up)
-      |> draw_text(state.down)
+      |> Draw.symbol({Symbol, "note"}, 1, 1, @notes_color)
+      |> Draw.symbol({Symbol, "note"}, 8, 1, @notes_color)
+      |> draw_text(state.text, @text_color, state.position, state.letter)
 
     Process.send_after(self(), :tick, @timeout)
 
@@ -71,9 +64,8 @@ defmodule Lastfm do
     {:noreply, state}
   end
 
-  def handle_info({:fetched, {up, down}}, state) do
-    state = put_in(state.up.text, up)
-    state = put_in(state.down.text, down)
+  def handle_info({:fetched, text}, state) do
+    state = put_in(state.text, text)
 
     {:noreply, state}
   end
@@ -95,19 +87,13 @@ defmodule Lastfm do
     end
   end
 
-  defp draw_text(state, %{
-         text: text,
-         position: position,
-         letter: letter,
-         offset: offset,
-         color: color
-       }) do
+  defp draw_text(state, text, color, position, letter) do
     state
-    |> Draw.char(get_letter(text, letter, 0), 0 - position, offset, color)
-    |> Draw.char(get_letter(text, letter, 1), 4 - position, offset, color)
-    |> Draw.char(get_letter(text, letter, 2), 8 - position, offset, color)
-    |> Draw.char(get_letter(text, letter, 3), 12 - position, offset, color)
-    |> Draw.char(get_letter(text, letter, 4), 16 - position, offset, color)
+    |> Draw.char(get_letter(text, letter, 0),  0 - position, @offset, color)
+    |> Draw.char(get_letter(text, letter, 1),  4 - position, @offset, color)
+    |> Draw.char(get_letter(text, letter, 2),  8 - position, @offset, color)
+    |> Draw.char(get_letter(text, letter, 3), 12 - position, @offset, color)
+    |> Draw.char(get_letter(text, letter, 4), 16 - position, @offset, color)
   end
 
   defp get_letter(text, letter, pos) do
@@ -156,9 +142,9 @@ defmodule Lastfm do
         |> Map.get("name")
         |> String.downcase()
 
-      {"#{artist} ", "#{song} "}
+      "#{artist} #{song} "
     else
-      {"so...", "quiet"}
+      "so... quiet... "
     end
   end
 end

@@ -174,4 +174,16 @@ defmodule Display.Draw.Symbol do
       ' cc '
     ]
   end
+
+  def data_for("note") do
+    [
+      '   ccc ',
+      '  c   c',
+      '  c   c',
+      '  c   c',
+      '  c cc ',
+      'cc  cc ',
+      'cc     '
+    ]
+  end
 end
