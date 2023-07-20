@@ -154,7 +154,7 @@ defmodule Wotd do
 
   def extract(html, selector) do
     html
-    |> Floki.parse_document()
+    |> Floki.parse_document!()
     |> Floki.find(selector)
     |> Floki.text(sep: " ")
     |> strip()
