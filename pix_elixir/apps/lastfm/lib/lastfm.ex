@@ -142,7 +142,7 @@ defmodule Lastfm do
         |> Map.get("name")
         |> String.downcase()
 
-      "#{artist} #{song} "
+      "#{artist} - #{song} "
     else
       "so... quiet... "
     end

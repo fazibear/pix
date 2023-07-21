@@ -39,7 +39,12 @@ defmodule Terminal do
   end
 
   defp process_pix(pix) do
-    [color(pix), "■ "]
+    [
+      color(pix),
+      # "██"
+      #  "■ "
+       "▀ "
+    ]
   end
 
   defp color(color) do
