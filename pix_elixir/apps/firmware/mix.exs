@@ -71,7 +71,7 @@ defmodule Firmware.MixProject do
       {:year_progress, in_umbrella: true},
       {:ip, in_umbrella: true},
       {:lastfm, in_umbrella: true},
-      {:display_ex, in_umbrella: true},
+      {:display_nif, in_umbrella: true},
 
       # {:random, in_umbrella: true},
       # {:game_of_life, in_umbrella: true},

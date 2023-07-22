@@ -25,7 +25,7 @@ void set_realtime()
 {
     struct sched_param sp;
     memset(&sp, 0, sizeof(sp));
-    sp.sched_priority = sched_get_priority_max(SCHED_FIFO); //40
+    sp.sched_priority = 40; //sched_get_priority_max(SCHED_FIFO); //40;
     sched_setscheduler(0, SCHED_FIFO, &sp);
     mlockall(MCL_CURRENT | MCL_FUTURE);
 }
