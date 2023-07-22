@@ -9,9 +9,9 @@ BUILD_DIRS = $(PREFIX) $(BUILD) $(BUILD)/src $(BUILD)/src/lib
 SRC = $(wildcard src/*.c src/lib/*.c)
 OBJ = $(SRC:%.c=$(BUILD)/%.o)
 
-DISPLAY_NIF = $(PREFIX)/display_nif
+DISPLAY_PORT = $(PREFIX)/display_port
 
-$(DISPLAY_NIF): $(BUILD_DIRS) $(OBJ)
+$(DISPLAY_PORT): $(BUILD_DIRS) $(OBJ)
 	$(CC) -o $@ $(OBJ) $(LDFLAGS)
 
 $(BUILD)/src/%.o: src/%.c
@@ -21,4 +21,4 @@ $(BUILD_DIRS):
 	mkdir -p $@
 
 clean:
-	rm -rf $(DISPLAY_NIF) $(OBJ) $(BUILD_DIRS)
+	rm -rf $(DISPLAY_PORT) $(OBJ) $(BUILD_DIRS)

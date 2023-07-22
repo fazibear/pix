@@ -1,6 +1,6 @@
-defmodule DisplayNif do
+defmodule DisplayPort do
   @moduledoc """
-  Takes data from display, and draw them on GPIO display_nif using port
+  Takes data from display, and draw them on GPIO display_port using port
   """
 
   use GenServer
@@ -33,8 +33,8 @@ defmodule DisplayNif do
   end
 
   def port_path do
-    :display_nif
-    |> Application.app_dir("priv/display_nif")
+    :display_port
+    |> Application.app_dir("priv/display_port")
     |> String.to_charlist()
   end
 end

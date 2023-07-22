@@ -1,9 +1,9 @@
-defmodule DisplayNif.Mixfile do
+defmodule DisplayPort.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :display_nif,
+      app: :display_port,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -21,7 +21,7 @@ defmodule DisplayNif.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {DisplayNif.Application, []}
+      mod: {DisplayPort.Application, []}
     ]
   end
 
@@ -29,6 +29,7 @@ defmodule DisplayNif.Mixfile do
   defp deps do
     [
       {:elixir_make, "~> 0.4", runtime: false},
+      {:rename, "~> 0.1.0", only: :dev}
     ]
   end
 end

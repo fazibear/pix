@@ -6,7 +6,7 @@ Application.start(:nerves_bootstrap)
 config :nerves, :firmware, rootfs_overlay: ["rootfs_overlay"]
 config :tzdata, :autoupdate, :disabled
 #config :display, output: DisplayEx
-config :display, output: DisplayNif
+config :display, output: DisplayPort
 
 # Add the RingLogger backend. This removes the
 # default :console backend.

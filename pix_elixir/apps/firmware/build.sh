@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-./mix_env.sh deps.clean --all
+#./mix_env.sh deps.clean --all
 ./mix_env.sh deps.update --all
 ./mix_env.sh deps.get
 ./mix_env.sh hex.outdated || true

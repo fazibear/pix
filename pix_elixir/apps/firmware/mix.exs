@@ -63,6 +63,9 @@ defmodule Firmware.MixProject do
       {:shoehorn, "~> 0.6"},
       {:toolshed, "~> 0.2"},
 
+      {:display, in_umbrella: true},
+      {:display_port, in_umbrella: true},
+
       {:binary_clock, in_umbrella: true},
       {:clock, in_umbrella: true},
       {:space_crab, in_umbrella: true},
@@ -71,7 +74,6 @@ defmodule Firmware.MixProject do
       {:year_progress, in_umbrella: true},
       {:ip, in_umbrella: true},
       {:lastfm, in_umbrella: true},
-      {:display_nif, in_umbrella: true},
 
       # {:random, in_umbrella: true},
       # {:game_of_life, in_umbrella: true},
