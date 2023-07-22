@@ -1,17 +1,17 @@
-defmodule Display.Mixfile do
+defmodule DisplayEx.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :display,
+      app: :display_ex,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.5",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
-      deps: deps(Mix.env())
+      deps: deps()
     ]
   end
 
@@ -19,15 +19,14 @@ defmodule Display.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Display.Application, []}
+      mod: {DisplayEx.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
-  defp deps(:dev) do
+  defp deps do
     [
-      {:display_term, in_umbrella: true},
+      {:circuits_gpio, "~> 1.0"},
     ]
   end
-  defp deps(_), do: []
 end

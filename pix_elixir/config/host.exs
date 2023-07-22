@@ -9,4 +9,4 @@ import Config
 #   path: "logs.log",
 #   level: :warn
 
-config :display, output: Terminal
+config :display, output: DisplayTerm

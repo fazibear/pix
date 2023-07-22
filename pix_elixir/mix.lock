@@ -71,6 +71,7 @@
   "poison": {:hex, :poison, "3.1.0", "d9eb636610e096f86f25d9a46f35a9facac35609a7591b3be3326e99a0484665", [:mix], [], "hexpm", "fec8660eb7733ee4117b85f55799fd3833eb769a6df71ccf8903e8dc5447cfce"},
   "property_table": {:hex, :property_table, "0.2.3", "675950a37dd8293e68c70e042371382bada56833fc12897b80b2745cb523f6de", [:mix], [], "hexpm", "9c3b143929ff5a98529fe44eae352e49b6f78c27701a3e7d2182c657ac433b7e"},
   "ranch": {:hex, :ranch, "1.8.0", "8c7a100a139fd57f17327b6413e4167ac559fbc04ca7448e9be9057311597a1d", [:make, :rebar3], [], "hexpm", "49fbcfd3682fab1f5d109351b61257676da1a2fdbe295904176d5e521a2ddfe5"},
+  "rename": {:hex, :rename, "0.1.0", "dc9727684c1000453b94aa7647abf6a715eb24c84a870a23751cf013f462655c", [:mix], [], "hexpm", "9ffc7c3363756c3ae0f60c082e95a1d6b8a352550be826f6220bc04b96e46fce"},
   "ring_logger": {:hex, :ring_logger, "0.10.2", "f6bd562759d793ffcbe90c45713afd672ad7dc82204ac1ae190d1e35beb313a4", [:mix], [{:circular_buffer, "~> 0.4.0", [hex: :circular_buffer, repo: "hexpm", optional: false]}], "hexpm", "9cadb7960973a3f930ca67aa22d4dd89b8ab67f07d6b8970eeb18580669b0ffd"},
   "shoehorn": {:hex, :shoehorn, "0.9.1", "8e12670024c2942e3c2fdd27cd5a034ee0337ee7c25c37b3ebc2ad482de67199", [:mix], [], "hexpm", "fccd040ac22de9b3cc111bbf78a363832c7210010a3fff4a550fbb2f10de0692"},
   "ssh_subsystem_fwup": {:hex, :ssh_subsystem_fwup, "0.6.1", "628f8e3795de5f1d0e7b3b55de4248ab0a77ab4c47e3cd282f1dda89d6354a9f", [:mix], [], "hexpm", "babdae337f2dc011ab5478662b4ec850650d7acfb165662ae47f6f0ce8892499"},

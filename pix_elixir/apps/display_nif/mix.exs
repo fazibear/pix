@@ -1,9 +1,9 @@
-defmodule Display.Mixfile do
+defmodule DisplayNif.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :display,
+      app: :display_nif,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -11,7 +11,9 @@ defmodule Display.Mixfile do
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
-      deps: deps(Mix.env())
+      deps: deps(),
+      compilers: [:elixir_make | Mix.compilers()],
+      make_clean: ["clean"]
     ]
   end
 
@@ -19,15 +21,14 @@ defmodule Display.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Display.Application, []}
+      mod: {DisplayNif.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
-  defp deps(:dev) do
+  defp deps do
     [
-      {:display_term, in_umbrella: true},
+      {:elixir_make, "~> 0.4", runtime: false},
     ]
   end
-  defp deps(_), do: []
 end
