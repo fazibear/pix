@@ -1,5 +1,4 @@
 #include "stdout.h"
-#include <Arduino.h>
 
 StdOut::StdOut() {}
 

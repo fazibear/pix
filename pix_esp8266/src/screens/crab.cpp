@@ -1,4 +1,4 @@
-#include "screens/crab.h"
+#include "crab.h"
 
 void Crab::update_state() {
   if (x <= 0 or x >= 16 - CRAB_WIDTH) {
