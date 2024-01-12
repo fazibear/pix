@@ -1,5 +1,6 @@
 #pragma once
 
+#include "output.h"
 #include <cstdint>
 
 #define A1 0
@@ -14,7 +15,7 @@
 #define LINES 8
 #define PER_LINE 12
 
-class Matrix {
+class Matrix : public Output {
 public:
   Matrix();
   ~Matrix();
