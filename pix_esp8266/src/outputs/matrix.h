@@ -1,6 +1,6 @@
 #pragma once
 
-#include "output.h"
+#include "../output.h"
 #include <cstdint>
 
 #define A1 0
