@@ -1,8 +1,8 @@
 ---
 
 CompileFlags:
-  Compiler: clang
-  #Remove: -*
+  Compiler: clang++
+  Remove: -*
   Add:
     # - -std=gnu17
     # - -Wpointer-arith
@@ -37,8 +37,11 @@ CompileFlags:
     #- -free
     #- -fipa-pta
     # -----------------------------------------
-    - -I/Users/fazibear/dev/pix_esp8266/include
-    - -I/Users/fazibear/dev/pix_esp8266/src
+    - -I/Users/fazibear/dev/pix_esp8266/pix
+    - -I/Users/fazibear/dev/pix_esp8266/pix/screens
+    - -I/Users/fazibear/dev/pix_esp8266/app
+    - -I/Users/fazibear/dev/pix_esp8266/firmware/include
+    - -I/Users/fazibear/dev/pix_esp8266/firmware/src
     - -I/Users/fazibear/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include
     - -I/Users/fazibear/.platformio/packages/framework-arduinoespressif8266/cores/esp8266
     - -I/Users/fazibear/.platformio/packages/toolchain-xtensa/include
@@ -86,23 +89,3 @@ CompileFlags:
     - -I/Users/fazibear/.platformio/packages/toolchain-xtensa/lib/gcc/xtensa-lx106-elf/10.3.0/include
     - -I/Users/fazibear/.platformio/packages/toolchain-xtensa/lib/gcc/xtensa-lx106-elf/10.3.0/include-fixed
     - -I/Users/fazibear/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include
-    - -DPLATFORMIO=60111
-    - -DESP8266
-    - -DARDUINO_ARCH_ESP8266
-    - -DARDUINO_ESP8266_WEMOS_D1MINILITE
-    - -DF_CPU=80000000L
-    - -D__ets__
-    - -DICACHE_FLASH
-    - -D_GNU_SOURCE
-    - -DARDUINO=10805
-    - -DARDUINO_BOARD="PLATFORMIO_D1_MINI_LITE"
-    - -DARDUINO_BOARD_ID="d1_mini_lite"
-    - -DFLASHMODE_DOUT
-    - -DLWIP_OPEN_SRC
-    - -DNONOSDK22x_190703=1
-    - -DTCP_MSS=536
-    - -DLWIP_FEATURES=1
-    - -DLWIP_IPV6=0
-    - -DVTABLES_IN_FLASH
-    - -DMMU_IRAM_SIZE=0x8000
-    - -DMMU_ICACHE_SIZE=0x8000

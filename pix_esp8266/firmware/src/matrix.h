@@ -1,5 +1,6 @@
 #pragma once
 
+#include "output.h"
 #include <cstdint>
 
 #define A1 0
@@ -14,13 +15,17 @@
 #define LINES 8
 #define PER_LINE 12
 
-class Output {
+class Matrix : public Output {
 public:
-  Output();
-  ~Output();
+  Matrix();
+  ~Matrix();
 
-  void clean();
+  void clear();
   void set_dot(uint_fast8_t x, uint_fast8_t y, uint_fast8_t r, uint_fast8_t g,
                uint_fast8_t b);
   void draw();
+
+private:
+  void set_line(uint_fast8_t row);
+  uint_fast8_t matrix[LINES][PER_LINE] = {{0}};
 };

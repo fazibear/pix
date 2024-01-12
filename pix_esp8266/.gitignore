@@ -1,7 +1,2 @@
+*.o
 .pio
-.ccls-cache
-.cache
-CMakeCache.txt
-CMakeFiles
-cmake_install.cmake
-Makefile
