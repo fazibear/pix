@@ -14,6 +14,7 @@ Pix::Pix(Output *output) {
 void Pix::step() {
   screens[current_screen]->update();
   output->set_dot(0, 0, 1, 1, 1);
+  output->set_dot(1, 1, 1, 0, 0);
   output->draw();
 }
 

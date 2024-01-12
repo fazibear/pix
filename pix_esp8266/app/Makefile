@@ -16,7 +16,7 @@ OBJ = $(SRC:.cpp=.o)
 CFLAGS = -std=gnu++17 -g -Wall $(INCLUDES)
 LDFLAGS =
 
-all: clean $(BIN)
+all: clean $(BIN) run
 
 %.o: %.cpp
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
@@ -25,6 +25,9 @@ $(BIN): $(OBJ)
 	$(CC) $(LDFLAGS) $^ -o $(BIN)
 
 .PHONY: clean
+
+run: $(BIN)
+	./$(BIN)
 
 clean:
 	rm -f $(OBJ) $(BIN)
