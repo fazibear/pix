@@ -10,26 +10,26 @@ using namespace std;
 #define pix "▀ "
 
 void StdOut::clear() {
-  for (uint_fast8_t x = 0; x < 16; x++) {
-    for (uint_fast8_t y = 0; y < 16; y++) {
-      pixel_data[x][y] = 0;
+  for (uint_fast8_t y = 0; y < 16; y++) {
+    for (uint_fast8_t x = 0; x < 16; x++) {
+      pixel_data[y][x] = 0;
     }
   }
 }
 
 void StdOut::set_dot(uint_fast8_t x, uint_fast8_t y, bool r, bool g, bool b) {
-  pixel_data[x][y] = b << 2 | g << 1 | r;
+  pixel_data[y][x] = b << 2 | g << 1 | r;
 }
 
 void StdOut::draw() {
   cout << CLS;
   for (uint_fast8_t y = 0; y < 16; y++) {
     for (uint_fast8_t x = 0; x < 16; x++) {
-      draw_pixel(pixel_data[x][y]);
+      draw_pixel(pixel_data[y][x]);
     }
     cout << endl;
   }
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::this_thread::sleep_for(std::chrono::microseconds(5000));
 }
 
 void StdOut::draw_pixel(char color) {

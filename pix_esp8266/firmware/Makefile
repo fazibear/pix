@@ -1,4 +1,4 @@
-all: clean run
+all: upload monitor
 
 run:
 	pio run
@@ -6,6 +6,8 @@ run:
 upload:
 	pio run -t upload
 
+monitor:
+	pio device monitor
+
 clean:
 	pio run -t clean
-	rm -rf .pio/libdeps/d1_mini/pix

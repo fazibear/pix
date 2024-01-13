@@ -13,6 +13,7 @@ private:
   void next_screen();
   PixelData *get_current_pixel_data();
   Screen *screens[MAX_SCREENS];
+  int frame;
 
 public:
   Pix(Output *);

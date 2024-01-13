@@ -1,7 +1,6 @@
 #include "pix.h"
 #include "screens/crab.h"
 #include "screens/random.h"
-#include <iostream>
 
 Pix::Pix(Output *out) {
   output = out;
@@ -11,15 +10,22 @@ Pix::Pix(Output *out) {
   nscreens = 0;
 
   add_screen(new Random());
+  add_screen(new Crab());
 }
 
 void Pix::step() {
+  frame++;
+  if (frame > 500) {
+    next_screen();
+    frame = 0;
+  }
+
   PixelData *data = screens[current_screen]->update();
 
-  for (int y = 0; y < 16; y++) {
-    for (int x = 0; x < 16; x++) {
-      output->set_dot(x, y, (*data[x][y])[0], (*data[x][y])[1],
-                      (*data[x][y])[2]);
+  for (int x = 0; x < 16; x++) {
+    for (int y = 0; y < 16; y++) {
+      output->set_dot(x, y, (*data[y][x])[0], (*data[y][x])[1],
+                      (*data[y][x])[2]);
     }
   }
   output->draw();
