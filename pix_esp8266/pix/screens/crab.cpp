@@ -8,7 +8,7 @@ Crab::Crab() {
   color = 0;
 };
 
-void Crab::update_state() {
+PixelData *Crab::update() {
   if (x <= 0 or x >= 16 - CRAB_WIDTH) {
     dir_x = !dir_x;
     // randomize color
@@ -20,8 +20,6 @@ void Crab::update_state() {
     // randomize color
   }
   dir_y ? y++ : y--;
-};
 
-void Crab::update_pixel_data(){
-
+  return pixel_data;
 };

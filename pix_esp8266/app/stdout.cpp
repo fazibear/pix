@@ -17,10 +17,10 @@ void StdOut::clear() {
   }
 }
 
-void StdOut::set_dot(uint_fast8_t x, uint_fast8_t y, uint_fast8_t r,
-                     uint_fast8_t g, uint_fast8_t b) {
-
-  pixel_data[x][y] = r << 2 | g << 1 | b;
+void StdOut::set_dot(uint_fast8_t x, uint_fast8_t y, Pixel pixel) {
+  uint color = pixel[2] << 2 | pixel[1] << 1 | pixel[0];
+  // cerr << "x: " << x << " y: " << y << " c:" << color << endl;
+  pixel_data[x][y] = color;
 }
 
 void StdOut::draw() {
@@ -31,7 +31,7 @@ void StdOut::draw() {
     }
     cout << endl;
   }
-  std::this_thread::sleep_for(std::chrono::milliseconds(200));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void StdOut::draw_pixel(char color) {

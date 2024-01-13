@@ -38,6 +38,5 @@ private:
 public:
   Crab();
   ~Crab();
-  void update_state();
-  void update_pixel_data();
+  PixelData *update();
 };

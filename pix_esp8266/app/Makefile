@@ -13,7 +13,7 @@ INCLUDES = $(foreach d, $(INC_DIRS), -I$d)
 SRC = $(APP_SRC) $(PIX_SRC)
 OBJ = $(SRC:.cpp=.o)
 
-CFLAGS = -std=gnu++17 -g -Wall $(INCLUDES)
+CFLAGS = -std=gnu++20 -g -Wall $(INCLUDES)
 LDFLAGS =
 
 all: clean $(BIN) run
@@ -27,7 +27,7 @@ $(BIN): $(OBJ)
 .PHONY: clean
 
 run: $(BIN)
-	./$(BIN)
+	./$(BIN) 2> log
 
 clean:
 	rm -f $(OBJ) $(BIN)

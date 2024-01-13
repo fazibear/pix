@@ -24,16 +24,16 @@
 #define CLS "\x1B[2J\x1B[1;1H"
 
 #include "output.h"
+#include "screen.h"
 #include <cstdint>
 
 class StdOut : public Output {
 public:
   void clear();
-  void set_dot(uint_fast8_t x, uint_fast8_t y, uint_fast8_t r, uint_fast8_t g,
-               uint_fast8_t b);
+  void set_dot(uint_fast8_t, uint_fast8_t, Pixel);
   void draw();
 
 private:
-  char pixel_data[16][16];
+  uint8_t pixel_data[16][16];
   void draw_pixel(char color);
 };

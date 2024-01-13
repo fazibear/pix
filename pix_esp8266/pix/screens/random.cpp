@@ -1,27 +1,14 @@
-#include "crab.h"
+#include "random.h"
+#include <cstdlib>
+#include <iostream>
 
-Random::Random() {
-  x = 0;
-  y = 0;
-  dir_x = true;
-  dir_y = true;
-  color = 0;
-};
+Random::Random() { pixel_data = new PixelData[16]{{{0}}}; };
 
-void Random::update_state() {
-  if (x <= 0 or x >= 16 - CRAB_WIDTH) {
-    dir_x = !dir_x;
-    // randomize color
-  }
-  dir_x ? x++ : x--;
+PixelData *Random::update() {
+  int x = rand() % 16;
+  int y = rand() % 16;
+  Pixel c(rand() % 8);
+  *pixel_data[x][y] = c;
 
-  if (y <= 0 or y >= 16 - CRAB_HEIGHT) {
-    dir_y = !dir_y;
-    // randomize color
-  }
-  dir_y ? y++ : y--;
-};
-
-void Random::update_pixel_data(){
-
+  return pixel_data;
 };
