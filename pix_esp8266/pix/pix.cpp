@@ -18,10 +18,8 @@ void Pix::step() {
 
   for (int y = 0; y < 16; y++) {
     for (int x = 0; x < 16; x++) {
-      // std::cerr << "x: " << x << " y: " << y << " c:" << data[x][y][0]
-      //           << data[x][y][1] << data[x][y][2] << std::endl;
-      // std::cerr << "pix_: " << *data[x][y] << std::endl;
-      output->set_dot(x, y, *data[x][y]);
+      output->set_dot(x, y, (*data[x][y])[0], (*data[x][y])[1],
+                      (*data[x][y])[2]);
     }
   }
   output->draw();

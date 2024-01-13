@@ -17,10 +17,8 @@ void StdOut::clear() {
   }
 }
 
-void StdOut::set_dot(uint_fast8_t x, uint_fast8_t y, Pixel pixel) {
-  uint color = pixel[2] << 2 | pixel[1] << 1 | pixel[0];
-  // cerr << "x: " << x << " y: " << y << " c:" << color << endl;
-  pixel_data[x][y] = color;
+void StdOut::set_dot(uint_fast8_t x, uint_fast8_t y, bool r, bool g, bool b) {
+  pixel_data[x][y] = b << 2 | g << 1 | r;
 }
 
 void StdOut::draw() {

@@ -30,7 +30,7 @@
 class StdOut : public Output {
 public:
   void clear();
-  void set_dot(uint_fast8_t, uint_fast8_t, Pixel);
+  void set_dot(uint_fast8_t, uint_fast8_t, bool, bool, bool);
   void draw();
 
 private:

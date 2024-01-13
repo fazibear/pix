@@ -15,7 +15,7 @@ Matrix::Matrix() {
 void Matrix::clear() {
   for (uint_fast8_t y = 0; y < LINES; y++) {
     for (uint_fast8_t x = 0; x < PER_LINE; x++) {
-      matrix[y][x] = 1;
+      matrix[y][x] = 0;
     }
   }
 }
