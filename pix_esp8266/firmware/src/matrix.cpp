@@ -15,13 +15,12 @@ Matrix::Matrix() {
 void Matrix::clear() {
   for (uint_fast8_t y = 0; y < LINES; y++) {
     for (uint_fast8_t x = 0; x < PER_LINE; x++) {
-      matrix[y][x] = 0;
+      matrix[y][x] = 255;
     }
   }
 }
 
-void Matrix::set_dot(uint_fast8_t x, uint_fast8_t y, uint_fast8_t r,
-                     uint_fast8_t g, uint_fast8_t b) {
+void Matrix::set_dot(uint_fast8_t x, uint_fast8_t y, bool r, bool g, bool b) {
   uint_fast8_t l, p, t;
 
   if (y % 2) {
@@ -81,7 +80,6 @@ void Matrix::draw() {
     digitalWrite(LE, 1);
     digitalWrite(LE, 0);
     digitalWrite(OE, 0);
-
-    delayMicroseconds(100);
   }
+  delayMicroseconds(100);
 }

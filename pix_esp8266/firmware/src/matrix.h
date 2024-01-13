@@ -21,11 +21,10 @@ public:
   ~Matrix();
 
   void clear();
-  void set_dot(uint_fast8_t x, uint_fast8_t y, uint_fast8_t r, uint_fast8_t g,
-               uint_fast8_t b);
+  void set_dot(uint_fast8_t x, uint_fast8_t y, bool r, bool g, bool b);
   void draw();
 
 private:
   void set_line(uint_fast8_t row);
-  uint_fast8_t matrix[LINES][PER_LINE] = {{0}};
+  uint_fast8_t matrix[LINES][PER_LINE] = {{255}};
 };
