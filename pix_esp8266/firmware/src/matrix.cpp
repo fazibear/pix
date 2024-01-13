@@ -15,7 +15,7 @@ Matrix::Matrix() {
 void Matrix::clear() {
   for (uint_fast8_t y = 0; y < LINES; y++) {
     for (uint_fast8_t x = 0; x < PER_LINE; x++) {
-      matrix[y][x] = 255;
+      matrix[y][x] = 0;
     }
   }
 }
@@ -80,6 +80,7 @@ void Matrix::draw() {
     digitalWrite(LE, 1);
     digitalWrite(LE, 0);
     digitalWrite(OE, 0);
+
+    delayMicroseconds(100);
   }
-  delayMicroseconds(100);
 }

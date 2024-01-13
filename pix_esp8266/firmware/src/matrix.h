@@ -26,5 +26,5 @@ public:
 
 private:
   void set_line(uint_fast8_t row);
-  uint_fast8_t matrix[LINES][PER_LINE] = {{255}};
+  uint_fast8_t matrix[LINES][PER_LINE] = {{0}};
 };
