@@ -81,7 +81,7 @@ void Matrix::draw() {
     digitalWrite(LE, 0);
     digitalWrite(OE, 0);
 
-    delayMicroseconds(100);
+    delayMicroseconds(200);
   }
 
   set_line(0);
