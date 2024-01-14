@@ -1,6 +1,5 @@
 #include "random.h"
 #include <cstdlib>
-#include <iostream>
 
 Random::Random() { pixel_data = new PixelData[16]{{{0}}}; };
 

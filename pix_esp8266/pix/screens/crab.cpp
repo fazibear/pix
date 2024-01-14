@@ -24,13 +24,17 @@ PixelData *Crab::update() {
   dir_y ? y++ : y--;
   if (y == 0 or y == 16 - CRAB_HEIGHT) {
     dir_y = !dir_y;
-    color = rand() % 7 + 1;
+    color++;
   }
 
   dir_x ? x++ : x--;
   if (x == 0 or x == 16 - CRAB_WIDTH) {
     dir_x = !dir_x;
-    color = rand() % 7 + 1;
+    color++;
+  }
+
+  if (color > 7) {
+    color = 1;
   }
 
   for (int sx = 0; sx < 16; sx++) {

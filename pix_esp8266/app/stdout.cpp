@@ -12,21 +12,21 @@ using namespace std;
 void StdOut::init() { cout << CLS; }
 
 void StdOut::clear() {
-  for (uint8 y = 0; y < 16; y++) {
-    for (uint8 x = 0; x < 16; x++) {
+  for (uint8_t y = 0; y < 16; y++) {
+    for (uint8_t x = 0; x < 16; x++) {
       pixel_data[y][x] = 0;
     }
   }
 }
 
-void StdOut::set_dot(uint8 x, uint8 y, bool r, bool g, bool b) {
+void StdOut::set_dot(uint8_t x, uint8_t y, bool r, bool g, bool b) {
   pixel_data[y][x] = b << 2 | g << 1 | r;
 }
 
 void StdOut::draw() {
   cout << CLS;
-  for (uint8 y = 0; y < 16; y++) {
-    for (uint8 x = 0; x < 16; x++) {
+  for (uint8_t y = 0; y < 16; y++) {
+    for (uint8_t x = 0; x < 16; x++) {
       draw_pixel(pixel_data[y][x]);
     }
     cout << endl;
