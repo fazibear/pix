@@ -4,11 +4,11 @@
 #include <iostream>
 
 Pix::Pix(Output *out, Network *net) {
-  output = out;
-  output->clear();
-
   network = net;
   network->init();
+
+  output = out;
+  output->init();
 
   current_screen = 0;
   nscreens = 0;
@@ -16,8 +16,8 @@ Pix::Pix(Output *out, Network *net) {
   add_screen(new Random());
   add_screen(new Crab());
 
-  string ip = network->fetch("https://ipinfo.io/ip");
-  cerr << "IP: " << ip << endl;
+  // string ip = network->fetch("https://ipinfo.io/ip");
+  // cerr << "IP: " << ip << endl;
 }
 
 void Pix::step() {

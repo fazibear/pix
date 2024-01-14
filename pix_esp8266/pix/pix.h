@@ -3,8 +3,6 @@
 #include "output.h"
 #include "screen.h"
 
-using namespace std;
-
 #define MAX_SCREENS 10
 
 class Pix {
