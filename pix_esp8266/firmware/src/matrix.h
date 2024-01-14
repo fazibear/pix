@@ -1,7 +1,8 @@
 #pragma once
 
 #include "output.h"
-#include <cstdint>
+#include <Arduino.h>
+#include <bitset>
 
 #define A1 0
 #define A2 4
@@ -14,6 +15,9 @@
 
 #define LINES 8
 #define PER_LINE 12
+#define BITS_PER_LINE 12 * 8
+
+using namespace std;
 
 class Matrix : public Output {
 public:
@@ -21,10 +25,11 @@ public:
   ~Matrix();
 
   void clear();
-  void set_dot(uint_fast8_t x, uint_fast8_t y, bool r, bool g, bool b);
+  void set_dot(uint8 x, uint8 y, bool r, bool g, bool b);
   void draw();
 
 private:
-  void set_line(uint_fast8_t row);
-  uint_fast8_t matrix[LINES][PER_LINE] = {{0}};
+  void set_line(uint8 row);
+  bitset<BITS_PER_LINE> matrix[LINES] = {{0}};
+  // uint8 matrix[LINES][PER_LINE] = {{0}};
 };
