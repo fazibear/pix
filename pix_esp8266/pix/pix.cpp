@@ -1,16 +1,23 @@
 #include "pix.h"
 #include "screens/crab.h"
 #include "screens/random.h"
+#include <iostream>
 
-Pix::Pix(Output *out) {
+Pix::Pix(Output *out, Network *net) {
   output = out;
   output->clear();
+
+  network = net;
+  network->init();
 
   current_screen = 0;
   nscreens = 0;
 
   add_screen(new Random());
   add_screen(new Crab());
+
+  string ip = network->fetch("https://ipinfo.io/ip");
+  cerr << "IP: " << ip << endl;
 }
 
 void Pix::step() {

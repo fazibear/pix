@@ -13,8 +13,8 @@ INCLUDES = $(foreach d, $(INC_DIRS), -I$d)
 SRC = $(APP_SRC) $(PIX_SRC)
 OBJ = $(SRC:.cpp=.o)
 
-CFLAGS = -std=gnu++20 -g -Wall $(INCLUDES)
-LDFLAGS =
+CFLAGS = -std=gnu++20 -g -Wextra -Wall -Wcpp $(INCLUDES)
+LDFLAGS = -lcurl
 
 all: clean $(BIN) run
 

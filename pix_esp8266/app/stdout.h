@@ -24,7 +24,6 @@
 #define CLS "\x1B[2J\x1B[1;1H"
 
 #include "output.h"
-#include "screen.h"
 #include <cstdint>
 
 class StdOut : public Output {

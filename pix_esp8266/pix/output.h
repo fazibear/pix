@@ -1,6 +1,5 @@
 #pragma once
 
-#include "screen.h"
 #include <cstdint>
 
 class Output {
