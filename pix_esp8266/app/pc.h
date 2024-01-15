@@ -1,5 +1,15 @@
 #pragma once
 
+#include "platform.h"
+#include <chrono>
+#include <curl/curl.h>
+#include <iostream>
+#include <thread>
+
+// #define pixel "██"
+// #define pixel "■ "
+#define pixel "▀ "
+
 #define RST "\x1B[0m"
 #define KBLK "\x1B[30m"
 #define KRED "\x1B[31m"
@@ -23,17 +33,17 @@
 #define UNDL(x) "\x1B[4m" x RST
 #define CLS "\x1B[2J\x1B[1;1H"
 
-#include "output.h"
-#include <cstdint>
+class PC : public Platform {
+private:
+  CURL *curl;
+  uint8_t pixel_data[16][16];
+  void draw_pixel(char color);
+  std::string fetch(std::string);
+  static size_t curl_write_f(char *, size_t, size_t, std::string *);
 
-class StdOut : public Output {
 public:
   void init();
   void clear();
   void set_dot(uint_fast8_t, uint_fast8_t, bool, bool, bool);
   void draw();
-
-private:
-  uint8_t pixel_data[16][16];
-  void draw_pixel(char color);
 };

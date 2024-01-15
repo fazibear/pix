@@ -1,11 +1,10 @@
-#include "curlnet.h"
+#include "pc.h"
 #include "pix.h"
-#include "stdout.h"
 
 Pix *pix;
 
 int main() {
-  pix = new Pix(new StdOut(), new CurlNet());
+  pix = new Pix(new PC());
   while (true) {
     pix->step();
   }

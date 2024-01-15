@@ -1,5 +1,4 @@
-#include "espwifi.h"
-#include "matrix.h"
+#include "esp.h"
 #include "pix.h"
 
 Pix *pix;
@@ -7,7 +6,7 @@ Pix *pix;
 void setup() {
   Serial.begin(115200);
   Serial.println("Booting..");
-  pix = new Pix(new Matrix(), new EspWifi());
+  pix = new Pix(new Esp());
 }
 
 void loop() { pix->step(); }

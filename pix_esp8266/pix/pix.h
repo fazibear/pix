@@ -1,14 +1,12 @@
 #pragma once
-#include "network.h"
-#include "output.h"
+#include "platform.h"
 #include "screen.h"
 
 #define MAX_SCREENS 10
 
 class Pix {
 private:
-  Output *output;
-  Network *network;
+  Platform *platform;
 
   Screen *screens[MAX_SCREENS];
 
@@ -22,7 +20,7 @@ private:
   PixelData *get_current_pixel_data();
 
 public:
-  Pix(Output *, Network *);
+  Pix(Platform *);
   ~Pix();
   void step();
 };

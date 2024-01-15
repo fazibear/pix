@@ -3,12 +3,10 @@
 #include "screens/random.h"
 #include <iostream>
 
-Pix::Pix(Output *out, Network *net) {
-  network = net;
-  network->init();
+Pix::Pix(Platform *p) {
 
-  output = out;
-  output->init();
+  platform = p;
+  platform->init();
 
   current_screen = 0;
   nscreens = 0;
@@ -16,8 +14,7 @@ Pix::Pix(Output *out, Network *net) {
   add_screen(new Random());
   add_screen(new Crab());
 
-  // string ip = network->fetch("https://ipinfo.io/ip");
-  // cerr << "IP: " << ip << endl;
+  string ip = platform->fetch("http://ipinfo.io/ip");
 }
 
 void Pix::step() {
@@ -31,11 +28,11 @@ void Pix::step() {
 
   for (int x = 0; x < 16; x++) {
     for (int y = 0; y < 16; y++) {
-      output->set_dot(x, y, (*data[y][x])[0], (*data[y][x])[1],
-                      (*data[y][x])[2]);
+      platform->set_dot(x, y, (*data[y][x])[0], (*data[y][x])[1],
+                        (*data[y][x])[2]);
     }
   }
-  output->draw();
+  platform->draw();
 }
 
 void Pix::add_screen(Screen *screen) {
