@@ -64,6 +64,8 @@ size_t PC::curl_write_f(char *bufptr, size_t size, size_t nitems, string *s) {
   return newLength;
 }
 
+string PC::get_time() { return ""; }
+
 string PC::fetch(string url) {
   CURLcode result = CURLE_OK;
   string response;

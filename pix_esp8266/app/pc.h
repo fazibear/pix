@@ -38,7 +38,6 @@ private:
   CURL *curl;
   uint8_t pixel_data[16][16];
   void draw_pixel(char color);
-  std::string fetch(std::string);
   static size_t curl_write_f(char *, size_t, size_t, std::string *);
 
 public:
@@ -46,4 +45,7 @@ public:
   void clear();
   void set_dot(uint_fast8_t, uint_fast8_t, bool, bool, bool);
   void draw();
+
+  std::string fetch(std::string);
+  std::string get_time() { return ""; };
 };
