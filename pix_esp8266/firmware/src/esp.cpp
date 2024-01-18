@@ -1,5 +1,4 @@
 #include "esp.h"
-#include <Arduino.h>
 
 void Esp::init() {
   // Wifi
@@ -77,8 +76,12 @@ void Esp::draw() {
 
 Time Esp::get_time() {
   time->update();
-  return {time->getYear(),  time->getMonth(),   time->getDay(),
-          time->getHours(), time->getMinutes(), time->getSeconds()};
+
+  time_t rawtime = time->getEpochTime();
+  struct tm *now = localtime(&rawtime);
+
+  return {now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+          now->tm_hour,        now->tm_min,     now->tm_sec};
 }
 
 std::string Esp::fetch(std::string url) {
