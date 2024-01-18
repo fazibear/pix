@@ -1,6 +1,5 @@
 #pragma once
 
-#include "network.h"
 #include "platform.h"
 #include <Arduino.h>
 #include <ESP8266HTTPClient.h>
@@ -34,7 +33,7 @@ public:
   void set_dot(uint8 x, uint8 y, bool r, bool g, bool b);
   void draw();
 
-  std::string get_time();
+  virtual inline std::array<uint8_t, 3> get_time();
   std::string fetch(std::string);
 
 private:

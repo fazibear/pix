@@ -16,7 +16,7 @@ void Esp::init() {
 
   // NTP
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, time_server.c_str(), 0);
+  time = new NTPClient(*udp, time_server.c_str(), 3600);
 
   time->begin();
   time->update();
@@ -68,16 +68,17 @@ void Esp::draw() {
     digitalWrite(LE, 0);
     digitalWrite(OE, 0);
 
-    delayMicroseconds(300);
+    delayMicroseconds(2000);
   }
 
   set_line(0);
   digitalWrite(OE, 1);
 }
 
-std::string Esp::get_time() {
+std::array<uint8_t, 3> Esp::get_time() {
   time->update();
-  return time->getFormattedTime().c_str();
+  return {(char)time->getHours(), (char)time->getMinutes(),
+          (char)time->getSeconds()};
 }
 
 std::string Esp::fetch(std::string url) {

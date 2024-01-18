@@ -1,5 +1,6 @@
 #pragma once
 
+#include "platform.h"
 #include <bitset>
 
 typedef std::bitset<3> Pixel;

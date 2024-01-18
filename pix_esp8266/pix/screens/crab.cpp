@@ -13,7 +13,7 @@ Crab::Crab() {
 PixelData *Crab::update() {
   frame_counter++;
 
-  if (frame_counter == 20) {
+  if (frame_counter == 10) {
     frame_counter = 0;
   } else {
     return pixel_data;

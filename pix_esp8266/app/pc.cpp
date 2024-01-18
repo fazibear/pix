@@ -1,4 +1,5 @@
 #include "pc.h"
+
 using namespace std;
 
 void PC::init() {
@@ -26,7 +27,7 @@ void PC::draw() {
     }
     cout << endl;
   }
-  std::this_thread::sleep_for(std::chrono::microseconds(5000));
+  std::this_thread::sleep_for(std::chrono::microseconds(15000));
 }
 
 void PC::draw_pixel(char color) {
@@ -64,7 +65,11 @@ size_t PC::curl_write_f(char *bufptr, size_t size, size_t nitems, string *s) {
   return newLength;
 }
 
-string PC::get_time() { return ""; }
+Time PC::get_time() {
+  time_t t = time(0);
+  std::tm *now = std::localtime(&t);
+  return {(uint8_t)now->tm_hour, (uint8_t)now->tm_min, (uint8_t)now->tm_sec};
+}
 
 string PC::fetch(string url) {
   CURLcode result = CURLE_OK;

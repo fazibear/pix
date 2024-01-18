@@ -1,7 +1,9 @@
 #pragma once
 
 #include "platform.h"
+#include <array>
 #include <chrono>
+#include <ctime>
 #include <curl/curl.h>
 #include <iostream>
 #include <thread>
@@ -47,5 +49,5 @@ public:
   void draw();
 
   std::string fetch(std::string);
-  std::string get_time() { return ""; };
+  Time get_time();
 };

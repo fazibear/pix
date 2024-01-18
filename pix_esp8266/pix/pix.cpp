@@ -1,7 +1,7 @@
 #include "pix.h"
+#include "screens/clock.h"
 #include "screens/crab.h"
 #include "screens/random.h"
-#include <iostream>
 
 Pix::Pix(Platform *p) {
 
@@ -11,15 +11,14 @@ Pix::Pix(Platform *p) {
   current_screen = 0;
   nscreens = 0;
 
-  add_screen(new Random());
+  //  add_screen(new Random());
   add_screen(new Crab());
-
-  string ip = platform->fetch("http://ipinfo.io/ip");
+  add_screen(new Clock(p));
 }
 
 void Pix::step() {
   frame++;
-  if (frame > 500) {
+  if (frame > 1000) {
     next_screen();
     frame = 0;
   }

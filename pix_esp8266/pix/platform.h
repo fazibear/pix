@@ -1,7 +1,10 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 #include <string>
+
+typedef std::array<uint8_t, 3> Time;
 
 class Platform {
 public:
@@ -16,5 +19,5 @@ public:
   virtual inline std::string fetch(std::string) { return ""; };
 
   // time
-  virtual inline std::string get_time() { return ""; };
+  virtual inline std::array<uint8_t, 3> get_time() { return {0, 0, 0}; };
 };
