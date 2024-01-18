@@ -75,10 +75,10 @@ void Esp::draw() {
   digitalWrite(OE, 1);
 }
 
-std::array<uint8_t, 3> Esp::get_time() {
+Time Esp::get_time() {
   time->update();
-  return {(char)time->getHours(), (char)time->getMinutes(),
-          (char)time->getSeconds()};
+  return {time->getYear(),  time->getMonth(),   time->getDay(),
+          time->getHours(), time->getMinutes(), time->getSeconds()};
 }
 
 std::string Esp::fetch(std::string url) {

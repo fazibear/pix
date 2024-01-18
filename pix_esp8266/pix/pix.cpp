@@ -18,7 +18,7 @@ Pix::Pix(Platform *p) {
 
 void Pix::step() {
   frame++;
-  if (frame > 1000) {
+  if (frame > 500) {
     next_screen();
     frame = 0;
   }

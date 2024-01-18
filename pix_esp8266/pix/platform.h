@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-typedef std::array<uint8_t, 3> Time;
+typedef std::array<int, 6> Time; // {year, month, day, hour, minute, second}
 
 class Platform {
 public:
@@ -19,5 +19,5 @@ public:
   virtual inline std::string fetch(std::string) { return ""; };
 
   // time
-  virtual inline std::array<uint8_t, 3> get_time() { return {0, 0, 0}; };
+  virtual inline Time get_time() { return {0, 0, 0, 0, 0, 0}; };
 };

@@ -8,9 +8,9 @@ Clock::Clock(Platform *p) {
 
 PixelData *Clock::update() {
   Time now = platform->get_time();
-  uint8_t hour = now[0];
-  uint8_t minute = now[1];
-  uint8_t second = now[2];
+  uint8_t hour = now[3];
+  uint8_t minute = now[4];
+  uint8_t second = now[5];
 
   for (uint8_t x = 0; x < 16; x++) {
     for (uint8_t y = 0; y < 16; y++) {
