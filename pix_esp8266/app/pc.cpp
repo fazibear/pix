@@ -16,6 +16,9 @@ void PC::clear() {
 }
 
 void PC::set_dot(uint8_t x, uint8_t y, uint8_t color) {
+  if (x < 0 || y < 0 || x > 15 || y > 15) {
+    throw "Invalid coordinates";
+  }
   pixel_data[y][x] = color;
 }
 

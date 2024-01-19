@@ -14,15 +14,15 @@ Pix::Pix(Platform *p) {
 
   add_screen(new Clock(p));
   // add_screen(new Random(p));
-  // add_screen(new Year(p));
-  // add_screen(new Crab(p));
+  add_screen(new Year(p));
+  add_screen(new Crab(p));
 }
 
 void Pix::step() {
   frame++;
   if (frame > screens[current_screen]->screen_frames) {
-    platform->clear();
     next_screen();
+    platform->clear();
     frame = 0;
   }
 

@@ -7,7 +7,8 @@ Crab::Crab(Platform *p) {
   frame = true;
   x = rand() % (16 - CRAB_WIDTH);
   y = rand() % (16 - CRAB_HEIGHT);
-  color = rand() % 7 + 1;
+  color = rand() % 6 + 1;
+  change_color = false;
 };
 
 void Crab::update() {
@@ -19,22 +20,26 @@ void Crab::update() {
     return;
   }
 
+  change_color = false;
   frame = !frame;
 
   dir_y ? y++ : y--;
   if (y == 0 or y == 16 - CRAB_HEIGHT) {
     dir_y = !dir_y;
-    color++;
+    change_color = true;
   }
 
   dir_x ? x++ : x--;
   if (x == 0 or x == 16 - CRAB_WIDTH) {
     dir_x = !dir_x;
-    color++;
+    change_color = true;
   }
 
-  if (color > 7) {
-    color = 1;
+  if (change_color) {
+    color++;
+    if (color > 7) {
+      color = 1;
+    }
   }
 
   for (int sx = 0; sx < 16; sx++) {
@@ -42,9 +47,9 @@ void Crab::update() {
       if (sx >= x and sx < x + CRAB_WIDTH and sy >= y and
           sy < y + CRAB_HEIGHT) {
         platform->set_dot(
-            sx, sy, (frame ? crab_0 : crab_1)[sy - y][sx - x] ? color : 0);
+            sx, sy, (frame ? crab_0 : crab_1)[sy - y][sx - x] ? color : BLACK);
       } else {
-        platform->set_dot(sx, sy, 0);
+        platform->set_dot(sx, sy, BLACK);
       }
     }
   }

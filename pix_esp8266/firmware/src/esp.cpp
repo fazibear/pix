@@ -3,7 +3,7 @@
 void Esp::init() {
   // Wifi
   Serial.println("Setting up wifi...");
-  WiFi.mode(WIFI_AP_STA);
+  WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.waitForConnectResult() != WL_CONNECTED) {
     Serial.print(".");
@@ -33,7 +33,7 @@ void Esp::init() {
 void Esp::clear() {
   for (uint8 y = 0; y < LINES; y++) {
     for (uint8 x = 0; x < BITS_PER_LINE; x++) {
-      matrix[y][y] = 0;
+      matrix[y][x] = 0;
     }
   }
 }
@@ -43,9 +43,9 @@ void Esp::set_dot(uint8 x, uint8 y, uint8 c) {
   }
   y = (y / 2) - ((y / 2) % 1);
 
-  matrix[y][x] = c & 1;
-  matrix[y][x + 32] = c & 2;
-  matrix[y][x + 64] = c & 4;
+  matrix[y][x] = c & 2;
+  matrix[y][x + 32] = c & 4;
+  matrix[y][x + 64] = c & 1;
 }
 
 void Esp::set_line(uint8 row) {

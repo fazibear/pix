@@ -19,6 +19,7 @@ private:
   bool frame;
   uint8_t frame_counter;
   Platform *platform;
+  bool change_color;
   bitset<CRAB_WIDTH> const crab_0[CRAB_HEIGHT]{
       bitset<CRAB_WIDTH>("00100000100"), // '  1     1  ',
       bitset<CRAB_WIDTH>("10010001001"), // '1  1   1  1',
