@@ -17,8 +17,6 @@ private:
   void add_screen(Screen *screen);
   void next_screen();
 
-  PixelData *get_current_pixel_data();
-
 public:
   Pix(Platform *);
   ~Pix();

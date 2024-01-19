@@ -4,7 +4,7 @@ namespace Chars {
 
 namespace {
 
-static const CharMap chars{
+const CharMap chars{
     {
         '0',
         {
@@ -550,12 +550,12 @@ static const CharMap chars{
 };
 };
 
-void put_char(PixelData *data, char c, int x, int y, uint8_t color) {
+void put_char(Platform *platform, char c, uint8_t x, uint8_t y, uint8_t color) {
   const Char &char_data = chars.at(c);
   for (int j = 0; j < CHAR_HEIGHT; j++) {
     for (int i = 0; i < CHAR_WIDTH; i++) {
       if (char_data[j][CHAR_WIDTH - i - 1]) {
-        *data[y + j][x + i] = color;
+        platform->set_dot(x + i, y + j, color);
       }
     }
   }

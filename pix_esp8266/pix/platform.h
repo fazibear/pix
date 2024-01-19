@@ -13,7 +13,7 @@ public:
   // output
   virtual inline void clear(){};
   virtual inline void draw(){};
-  virtual inline void set_dot(uint8_t, uint8_t, bool, bool, bool){};
+  virtual inline void set_dot(uint8_t, uint8_t, uint8_t){};
 
   // network
   virtual inline std::string fetch(std::string) { return ""; };

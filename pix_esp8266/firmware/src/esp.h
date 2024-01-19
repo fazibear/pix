@@ -31,7 +31,7 @@ class Esp : public Platform {
 public:
   void init();
   void clear();
-  void set_dot(uint8 x, uint8 y, bool r, bool g, bool b);
+  void set_dot(uint8, uint8, uint8);
   void draw();
 
   virtual Time get_time();

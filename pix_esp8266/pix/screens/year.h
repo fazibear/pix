@@ -14,5 +14,5 @@ private:
 public:
   Year(Platform *);
   ~Year();
-  PixelData *update();
+  void update();
 };

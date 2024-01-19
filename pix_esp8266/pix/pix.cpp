@@ -12,29 +12,21 @@ Pix::Pix(Platform *p) {
   current_screen = 0;
   nscreens = 0;
 
-  //  add_screen(new Random());
-  // add_screen(new Year(p));
-  add_screen(new Crab());
-  // add_screen(new Clock(p));
-  // add_screen(new Clock(p));
   add_screen(new Clock(p));
+  // add_screen(new Random(p));
+  // add_screen(new Year(p));
+  // add_screen(new Crab(p));
 }
 
 void Pix::step() {
   frame++;
   if (frame > screens[current_screen]->screen_frames) {
+    platform->clear();
     next_screen();
     frame = 0;
   }
 
-  PixelData *data = screens[current_screen]->update();
-
-  for (int x = 0; x < 16; x++) {
-    for (int y = 0; y < 16; y++) {
-      platform->set_dot(x, y, (*data[y][x])[0], (*data[y][x])[1],
-                        (*data[y][x])[2]);
-    }
-  }
+  screens[current_screen]->update();
   platform->draw();
 }
 

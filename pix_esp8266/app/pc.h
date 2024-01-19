@@ -45,7 +45,7 @@ private:
 public:
   void init();
   void clear();
-  void set_dot(uint_fast8_t, uint_fast8_t, bool, bool, bool);
+  void set_dot(uint8_t, uint8_t, uint8_t);
   void draw();
 
   std::string fetch(std::string);

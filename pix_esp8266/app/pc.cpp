@@ -15,8 +15,8 @@ void PC::clear() {
   }
 }
 
-void PC::set_dot(uint8_t x, uint8_t y, bool r, bool g, bool b) {
-  pixel_data[y][x] = b << 2 | g << 1 | r;
+void PC::set_dot(uint8_t x, uint8_t y, uint8_t color) {
+  pixel_data[y][x] = color;
 }
 
 void PC::draw() {

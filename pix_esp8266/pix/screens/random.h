@@ -4,8 +4,10 @@
 
 class Random : public Screen {
 private:
+  Platform *platform;
+
 public:
-  Random();
+  Random(Platform *);
   ~Random();
-  PixelData *update();
+  void update();
 };

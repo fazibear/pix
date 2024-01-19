@@ -37,15 +37,15 @@ void Esp::clear() {
     }
   }
 }
-void Esp::set_dot(uint8 x, uint8 y, bool r, bool g, bool b) {
+void Esp::set_dot(uint8 x, uint8 y, uint8 c) {
   if (y % 2) {
     x = x + 16;
   }
   y = (y / 2) - ((y / 2) % 1);
 
-  matrix[y][x] = g;
-  matrix[y][x + 32] = b;
-  matrix[y][x + 64] = r;
+  matrix[y][x] = c & 1;
+  matrix[y][x + 32] = c & 2;
+  matrix[y][x + 64] = c & 4;
 }
 
 void Esp::set_line(uint8 row) {

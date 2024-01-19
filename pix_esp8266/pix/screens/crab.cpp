@@ -1,7 +1,7 @@
 #include "crab.h"
 
-Crab::Crab() {
-  pixel_data = new PixelData[16]{{{0}}};
+Crab::Crab(Platform *p) {
+  platform = p;
   dir_x = true;
   dir_y = true;
   frame = true;
@@ -10,13 +10,13 @@ Crab::Crab() {
   color = rand() % 7 + 1;
 };
 
-PixelData *Crab::update() {
+void Crab::update() {
   frame_counter++;
 
   if (frame_counter == 10) {
     frame_counter = 0;
   } else {
-    return pixel_data;
+    return;
   }
 
   frame = !frame;
@@ -41,13 +41,11 @@ PixelData *Crab::update() {
     for (int sy = 0; sy < 16; sy++) {
       if (sx >= x and sx < x + CRAB_WIDTH and sy >= y and
           sy < y + CRAB_HEIGHT) {
-        *pixel_data[sy][sx] =
-            (frame ? crab_0 : crab_1)[sy - y][sx - x] ? color : 0;
+        platform->set_dot(
+            sx, sy, (frame ? crab_0 : crab_1)[sy - y][sx - x] ? color : 0);
       } else {
-        *pixel_data[sy][sx] = 0;
+        platform->set_dot(sx, sy, 0);
       }
     }
   }
-
-  return pixel_data;
 };

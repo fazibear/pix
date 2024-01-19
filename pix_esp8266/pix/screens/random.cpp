@@ -1,13 +1,12 @@
 #include "random.h"
 #include <cstdlib>
 
-Random::Random() { pixel_data = new PixelData[16]{{{0}}}; };
+Random::Random(Platform *p) { platform = p; };
 
-PixelData *Random::update() {
+void Random::update() {
   int x = rand() % 16;
   int y = rand() % 16;
-  Pixel c(rand() % 8);
-  *pixel_data[x][y] = c;
+  int c(rand() % 8);
 
-  return pixel_data;
+  platform->set_dot(x, y, c);
 };

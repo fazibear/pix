@@ -12,5 +12,5 @@ private:
 public:
   Clock(Platform *);
   ~Clock();
-  PixelData *update();
+  void update();
 };

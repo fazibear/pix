@@ -1,6 +1,7 @@
 #pragma once
 
 #include "screen.h"
+#include <bitset>
 #include <cstdint>
 
 #define CRAB_HEIGHT 8
@@ -17,6 +18,7 @@ private:
   char color;
   bool frame;
   uint8_t frame_counter;
+  Platform *platform;
   bitset<CRAB_WIDTH> const crab_0[CRAB_HEIGHT]{
       bitset<CRAB_WIDTH>("00100000100"), // '  1     1  ',
       bitset<CRAB_WIDTH>("10010001001"), // '1  1   1  1',
@@ -39,7 +41,7 @@ private:
   };
 
 public:
-  Crab();
+  Crab(Platform *p);
   ~Crab();
-  PixelData *update();
+  void update();
 };

@@ -11,5 +11,5 @@ void setup() {
 
 void loop() {
   pix->step();
-  yield();
+  // yield();
 }
