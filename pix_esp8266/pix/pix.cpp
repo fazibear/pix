@@ -2,7 +2,7 @@
 #include "screens/bin_clock.h"
 #include "screens/clock.h"
 #include "screens/crab.h"
-#include "screens/random.h"
+// #include "screens/random.h"
 #include "screens/year.h"
 
 Pix::Pix(Platform *p) {
@@ -16,7 +16,7 @@ Pix::Pix(Platform *p) {
 
   add_screen(new BinClock(p));
   add_screen(new Clock(p));
-  add_screen(new Random(p));
+  // add_screen(new Random(p));
   add_screen(new Year(p));
   add_screen(new Crab(p));
 }
@@ -25,7 +25,7 @@ void Pix::step() {
   frame++;
   if (frame > screens[current_screen]->screen_frames) {
     next_screen();
-    platform->clear();
+    // platform->clear();
     frame = 0;
   }
 
