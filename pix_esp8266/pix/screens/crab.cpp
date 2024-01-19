@@ -36,13 +36,6 @@ void Crab::update() {
     change_color = true;
   }
 
-  if (change_color) {
-    color++;
-    if (color > 7) {
-      color = 1;
-    }
-  }
-
   for (int sx = 0; sx < 16; sx++) {
     for (int sy = 0; sy < 16; sy++) {
       if (sx >= x and sx < x + CRAB_WIDTH and sy >= y and
@@ -52,6 +45,13 @@ void Crab::update() {
       } else {
         platform->set_dot(sx, sy, BLACK);
       }
+    }
+  }
+
+  if (change_color) {
+    color++;
+    if (color > 6) {
+      color = 1;
     }
   }
 };
