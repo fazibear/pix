@@ -1,11 +1,20 @@
 #include "year.h"
 
-Year::Year(Platform *p) { platform = p; }
-void Year::update() {
-  Time now = platform->get_time();
-  struct tm *tm = localtime(&now);
+Year::Year(Platform *p) {
+  platform = p;
+  frame_counter = 254;
+  percent = 0;
+  screen_frames = 100;
+}
 
-  int percent = (tm->tm_yday * 100) / 365;
+void Year::update() {
+  frame_counter++;
+
+  if (frame_counter > 254) {
+    frame_counter = 0;
+    Time now = platform->get_time();
+    percent = (now->tm_yday * 100) / 365;
+  }
 
   platform->clear();
   platform->set_dot(0, 12, WHITE);

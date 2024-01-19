@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-typedef time_t Time;
+typedef struct tm *Time;
 
 class Platform {
 public:
@@ -19,5 +19,8 @@ public:
   virtual inline std::string fetch(std::string) { return ""; };
 
   // time
-  virtual inline Time get_time() { return 0; };
+  virtual inline Time get_time() { return nullptr; };
+
+  // debug
+  virtual inline void debug(char *, ...){};
 };

@@ -34,8 +34,9 @@ public:
   void set_dot(uint8, uint8, uint8);
   void draw();
 
-  virtual Time get_time();
-  virtual std::string fetch(std::string);
+  Time get_time();
+  std::string fetch(std::string);
+  void debug(const char *, ...);
 
 private:
   void set_line(uint8 row);

@@ -15,7 +15,7 @@ void Esp::init() {
 
   // NTP
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, time_server.c_str(), 3600);
+  time = new NTPClient(*udp, time_server.c_str(), 3600, 60000);
 
   time->begin();
   time->update();
@@ -76,7 +76,8 @@ void Esp::draw() {
 
 Time Esp::get_time() {
   time->update();
-  return time->getEpochTime();
+  time_t now = time->getEpochTime();
+  return localtime(&now);
 }
 
 std::string Esp::fetch(std::string url) {
@@ -97,4 +98,11 @@ std::string Esp::fetch(std::string url) {
     Serial.println(response.c_str());
   }
   return response;
+}
+
+void Esp::debug(const char *msg, ...) {
+  va_list args;
+  va_start(args, msg);
+  Serial.printf(msg, args);
+  va_end(args);
 }

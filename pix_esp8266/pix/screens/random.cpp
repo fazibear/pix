@@ -1,7 +1,10 @@
 #include "random.h"
 #include <cstdlib>
 
-Random::Random(Platform *p) { platform = p; };
+Random::Random(Platform *p) {
+  screen_frames = 50;
+  platform = p;
+};
 
 void Random::update() {
   int x = rand() % 16;

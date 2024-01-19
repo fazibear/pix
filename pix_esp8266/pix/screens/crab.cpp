@@ -9,6 +9,7 @@ Crab::Crab(Platform *p) {
   y = rand() % (16 - CRAB_HEIGHT);
   color = rand() % 6 + 1;
   change_color = false;
+  frame_counter = 0;
 };
 
 void Crab::update() {

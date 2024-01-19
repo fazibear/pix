@@ -1,6 +1,7 @@
 #pragma once
 
 #include "platform.h"
+#include "time.h"
 #include <array>
 #include <chrono>
 #include <ctime>
@@ -50,4 +51,5 @@ public:
 
   std::string fetch(std::string);
   Time get_time();
+  void debug(std::string, ...);
 };
