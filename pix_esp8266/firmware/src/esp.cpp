@@ -76,12 +76,7 @@ void Esp::draw() {
 
 Time Esp::get_time() {
   time->update();
-
-  time_t rawtime = time->getEpochTime();
-  struct tm *now = localtime(&rawtime);
-
-  return {now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
-          now->tm_hour,        now->tm_min,     now->tm_sec};
+  return time->getEpochTime();
 }
 
 std::string Esp::fetch(std::string url) {

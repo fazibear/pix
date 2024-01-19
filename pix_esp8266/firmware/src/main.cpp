@@ -9,4 +9,7 @@ void setup() {
   pix = new Pix(new Esp());
 }
 
-void loop() { pix->step(); }
+void loop() {
+  pix->step();
+  yield();
+}

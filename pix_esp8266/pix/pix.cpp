@@ -2,6 +2,7 @@
 #include "screens/clock.h"
 #include "screens/crab.h"
 #include "screens/random.h"
+#include "screens/year.h"
 
 Pix::Pix(Platform *p) {
 
@@ -12,7 +13,10 @@ Pix::Pix(Platform *p) {
   nscreens = 0;
 
   //  add_screen(new Random());
+  // add_screen(new Year(p));
   add_screen(new Crab());
+  // add_screen(new Clock(p));
+  // add_screen(new Clock(p));
   add_screen(new Clock(p));
 }
 

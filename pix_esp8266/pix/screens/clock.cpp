@@ -8,9 +8,7 @@ Clock::Clock(Platform *p) {
 
 PixelData *Clock::update() {
   Time now = platform->get_time();
-  uint8_t hour = now[3];
-  uint8_t minute = now[4];
-  uint8_t second = now[5];
+  struct tm *tm = localtime(&now);
 
   for (uint8_t x = 0; x < 16; x++) {
     for (uint8_t y = 0; y < 16; y++) {
@@ -18,13 +16,13 @@ PixelData *Clock::update() {
     }
   }
 
-  Chars::put_char(pixel_data, '0' + (hour / 10), 1, 1, 2);
-  Chars::put_char(pixel_data, '0' + (hour % 10), 5, 1, 2);
+  Chars::put_char(pixel_data, '0' + (tm->tm_hour / 10), 1, 1, 2);
+  Chars::put_char(pixel_data, '0' + (tm->tm_hour % 10), 5, 1, 2);
 
-  Chars::put_char(pixel_data, '0' + (minute / 10), 8, 8, 2);
-  Chars::put_char(pixel_data, '0' + (minute % 10), 12, 8, 2);
+  Chars::put_char(pixel_data, '0' + (tm->tm_min / 10), 8, 8, 2);
+  Chars::put_char(pixel_data, '0' + (tm->tm_min % 10), 12, 8, 2);
 
-  if (second % 2 == 0) {
+  if (tm->tm_sec % 2 == 0) {
     *pixel_data[3][11] = 3;
     *pixel_data[4][12] = 3;
 

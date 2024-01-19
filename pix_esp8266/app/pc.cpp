@@ -65,12 +65,7 @@ size_t PC::curl_write_f(char *bufptr, size_t size, size_t nitems, string *s) {
   return newLength;
 }
 
-Time PC::get_time() {
-  time_t t = time(0);
-  std::tm *now = std::localtime(&t);
-  return {now->tm_year, now->tm_mon, now->tm_mday,
-          now->tm_hour, now->tm_min, now->tm_sec};
-}
+Time PC::get_time() { return time(0); }
 
 string PC::fetch(string url) {
   CURLcode result = CURLE_OK;

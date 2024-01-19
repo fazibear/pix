@@ -1,16 +1,18 @@
 #pragma once
 
+#include "chars.h"
+#include "cmath"
 #include "screen.h"
 #include "time.h"
 
 using namespace std;
 
-class Clock : public Screen {
+class Year : public Screen {
 private:
   Platform *platform;
 
 public:
-  Clock(Platform *);
-  ~Clock();
+  Year(Platform *);
+  ~Year();
   PixelData *update();
 };

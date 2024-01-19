@@ -12,9 +12,7 @@
 #include <WifiUdp.h>
 #include <Wire.h>
 #include <bitset>
-#include <chrono>
 #include <string>
-#include <sys/time.h>
 
 #define A1 0
 #define A2 4

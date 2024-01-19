@@ -124,7 +124,7 @@ static const CharMap chars{
             bitset<CHAR_WIDTH>("111"),
             bitset<CHAR_WIDTH>("001"),
             bitset<CHAR_WIDTH>("001"),
-            bitset<CHAR_WIDTH>("111"),
+            bitset<CHAR_WIDTH>("011"),
         },
     },
     {
@@ -518,7 +518,7 @@ static const CharMap chars{
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("000"),
-            bitset<CHAR_WIDTH>("000"),
+            bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
         },
@@ -530,13 +530,24 @@ static const CharMap chars{
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("000"),
-            bitset<CHAR_WIDTH>("000"),
+            bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("100"),
         },
     },
+    {
+        '%',
+        {
+            bitset<CHAR_WIDTH>("101"),
+            bitset<CHAR_WIDTH>("001"),
+            bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("100"),
+            bitset<CHAR_WIDTH>("101"),
+        },
+    },
 };
-
 };
 
 void put_char(PixelData *data, char c, int x, int y, uint8_t color) {
