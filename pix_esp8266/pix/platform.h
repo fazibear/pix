@@ -22,5 +22,5 @@ public:
   virtual inline Time get_time() { return nullptr; };
 
   // debug
-  virtual inline void debug(char *, ...){};
+  virtual inline void debug(std::string, ...){};
 };

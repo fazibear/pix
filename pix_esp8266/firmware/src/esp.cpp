@@ -100,9 +100,9 @@ std::string Esp::fetch(std::string url) {
   return response;
 }
 
-void Esp::debug(const char *msg, ...) {
+void Esp::debug(std::string msg, ...) {
   va_list args;
   va_start(args, msg);
-  Serial.printf(msg, args);
+  Serial.printf(msg.c_str(), args);
   va_end(args);
 }
