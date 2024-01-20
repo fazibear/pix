@@ -32,7 +32,6 @@ void Pix::step() {
     int now = platform->get_time();
     if (now - screens[current_screen]->refreshed_at >
         screens[current_screen]->refresh_every) {
-      platform->debug("refreshing");
       screens[current_screen]->refreshed_at = now;
       screens[current_screen]->refresh();
     }
