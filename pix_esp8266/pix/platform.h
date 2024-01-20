@@ -19,7 +19,8 @@ public:
   virtual inline std::string fetch(std::string) { return ""; };
 
   // time
-  virtual inline Time get_time() { return nullptr; };
+  virtual inline time_t get_time() { return 0; };
+  virtual inline Time get_datetime() { return nullptr; };
 
   // debug
   virtual inline void debug(std::string, ...){};

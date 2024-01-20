@@ -34,7 +34,8 @@ public:
   void set_dot(uint8, uint8, uint8);
   void draw();
 
-  Time get_time();
+  time_t get_time();
+  Time get_datetime();
   std::string fetch(std::string);
   void debug(std::string, ...);
 

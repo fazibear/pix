@@ -5,7 +5,7 @@
 Clock::Clock(Platform *p) { platform = p; }
 
 void Clock::update() {
-  Time now = platform->get_time();
+  Time now = platform->get_datetime();
 
   char sec = now->tm_sec;
 

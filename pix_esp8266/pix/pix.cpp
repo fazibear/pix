@@ -15,18 +15,27 @@ Pix::Pix(Platform *p) {
   nscreens = 0;
 
   add_screen(new BinClock(p));
-  add_screen(new Ip(p));
   add_screen(new Clock(p));
   add_screen(new Year(p));
   add_screen(new Crab(p));
+  add_screen(new Ip(p));
 }
 
 void Pix::step() {
   frame++;
   if (frame > screens[current_screen]->screen_frames) {
     next_screen();
-    // platform->clear();
     frame = 0;
+  }
+
+  if (screens[current_screen]->refresh_every != 0) {
+    int now = platform->get_time();
+    if (now - screens[current_screen]->refreshed_at >
+        screens[current_screen]->refresh_every) {
+      platform->debug("refreshing");
+      screens[current_screen]->refreshed_at = now;
+      screens[current_screen]->refresh();
+    }
   }
 
   if (frame % screens[current_screen]->throttle == 0) {

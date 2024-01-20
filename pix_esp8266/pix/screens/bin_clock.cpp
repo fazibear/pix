@@ -4,7 +4,7 @@
 BinClock::BinClock(Platform *p) { platform = p; }
 
 void BinClock::update() {
-  Time now = platform->get_time();
+  Time now = platform->get_datetime();
 
   platform->clear();
 

@@ -2,20 +2,17 @@
 
 Year::Year(Platform *p) {
   platform = p;
-  frame_counter = 254;
   percent = 0;
   screen_frames = 100;
+  refresh_every = 60 * 60 * 24;
+}
+
+void Year::refresh() {
+  Time now = platform->get_datetime();
+  percent = (now->tm_yday * 100) / 365;
 }
 
 void Year::update() {
-  frame_counter++;
-
-  if (frame_counter > 254) {
-    frame_counter = 0;
-    Time now = platform->get_time();
-    percent = (now->tm_yday * 100) / 365;
-  }
-
   platform->clear();
   platform->set_dot(0, 12, WHITE);
   platform->set_dot(0, 13, WHITE);

@@ -74,9 +74,13 @@ void Esp::draw() {
   digitalWrite(OE, 1);
 }
 
-Time Esp::get_time() {
+time_t Esp::get_time() {
   time->update();
-  time_t now = time->getEpochTime();
+  return time->getEpochTime();
+}
+
+Time Esp::get_datetime() {
+  time_t now = get_time();
   return localtime(&now);
 }
 

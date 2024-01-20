@@ -9,10 +9,10 @@ private:
   std::string ip;
   int position;
   int len;
-  int frame_counter;
 
 public:
   Ip(Platform *);
   ~Ip();
   void update();
+  void refresh();
 };

@@ -50,6 +50,7 @@ public:
   void draw();
 
   std::string fetch(std::string);
-  Time get_time();
+  time_t get_time();
+  Time get_datetime();
   void debug(std::string, ...);
 };

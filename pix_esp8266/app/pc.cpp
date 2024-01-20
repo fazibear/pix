@@ -68,8 +68,13 @@ size_t PC::curl_write_f(char *bufptr, size_t size, size_t nitems, string *s) {
   return newLength;
 }
 
-Time PC::get_time() {
+time_t PC::get_time() {
   time_t now = time(0);
+  return now;
+}
+
+Time PC::get_datetime() {
+  time_t now = get_time();
   return localtime(&now);
 }
 
