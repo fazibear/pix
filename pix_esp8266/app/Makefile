@@ -1,4 +1,4 @@
-CC = clang++
+CC = zig c++
 
 BIN = pix
 

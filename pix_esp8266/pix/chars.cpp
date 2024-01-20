@@ -459,7 +459,7 @@ const CharMap chars{
             bitset<CHAR_WIDTH>("000"),
             bitset<CHAR_WIDTH>("000"),
             bitset<CHAR_WIDTH>("000"),
-            bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("000"),
             bitset<CHAR_WIDTH>("010"),
         },
     },
@@ -472,7 +472,7 @@ const CharMap chars{
             bitset<CHAR_WIDTH>("000"),
             bitset<CHAR_WIDTH>("000"),
             bitset<CHAR_WIDTH>("010"),
-            bitset<CHAR_WIDTH>("100"),
+            bitset<CHAR_WIDTH>("010"),
         },
     },
     {
@@ -494,9 +494,9 @@ const CharMap chars{
             bitset<CHAR_WIDTH>("100"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("001"),
             bitset<CHAR_WIDTH>("001"),
-            bitset<CHAR_WIDTH>("000"),
         },
     },
     {
@@ -506,9 +506,9 @@ const CharMap chars{
             bitset<CHAR_WIDTH>("001"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("100"),
             bitset<CHAR_WIDTH>("100"),
-            bitset<CHAR_WIDTH>("000"),
         },
     },
     {
@@ -520,7 +520,7 @@ const CharMap chars{
             bitset<CHAR_WIDTH>("000"),
             bitset<CHAR_WIDTH>("010"),
             bitset<CHAR_WIDTH>("010"),
-            bitset<CHAR_WIDTH>("010"),
+            bitset<CHAR_WIDTH>("000"),
         },
     },
     {
@@ -550,15 +550,16 @@ const CharMap chars{
 };
 };
 
-void put_char(Platform *platform, char c, uint8_t x, uint8_t y, uint8_t color) {
+void put_char(Platform *platform, char c, int8_t x, int8_t y, int8_t color) {
   const Char &char_data = chars.at(c);
   for (int j = 0; j < CHAR_HEIGHT; j++) {
     for (int i = 0; i < CHAR_WIDTH; i++) {
       if (char_data[j][CHAR_WIDTH - i - 1]) {
-        platform->set_dot(x + i, y + j, color);
+        if (x + i >= 0 && x + i <= 15 && y + j >= 0 && y + j <= 15) {
+          platform->set_dot(x + i, y + j, color);
+        }
       }
     }
   }
 }
-
 }; // namespace Chars

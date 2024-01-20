@@ -15,6 +15,8 @@ class Screen {
 
 public:
   int screen_frames = 500;
+  int throttle = 1;
+  Platform *platform;
 
   virtual inline void update(){};
 };

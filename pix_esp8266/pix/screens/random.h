@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../screen.h"
+#include "screen.h"
 
 class Random : public Screen {
 private:

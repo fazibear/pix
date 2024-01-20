@@ -17,7 +17,6 @@ private:
   bool dir_y;
   char color;
   bool frame;
-  uint8_t frame_counter;
   Platform *platform;
   bool change_color;
   bitset<CRAB_WIDTH> const crab_0[CRAB_HEIGHT]{

@@ -1,6 +1,7 @@
 #include "crab.h"
 
 Crab::Crab(Platform *p) {
+  throttle = 10;
   platform = p;
   dir_x = true;
   dir_y = true;
@@ -9,18 +10,9 @@ Crab::Crab(Platform *p) {
   y = rand() % (16 - CRAB_HEIGHT);
   color = rand() % 6 + 1;
   change_color = false;
-  frame_counter = 0;
 };
 
 void Crab::update() {
-  frame_counter++;
-
-  if (frame_counter == 10) {
-    frame_counter = 0;
-  } else {
-    return;
-  }
-
   change_color = false;
   frame = !frame;
 

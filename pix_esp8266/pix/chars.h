@@ -13,6 +13,6 @@ using namespace std;
 typedef array<bitset<CHAR_WIDTH>, CHAR_HEIGHT> Char;
 typedef unordered_map<char, Char> const CharMap;
 
-void put_char(Platform *, char, uint8_t, uint8_t, uint8_t);
+void put_char(Platform *, char, int8_t, int8_t, int8_t);
 
 } // namespace Chars

@@ -95,4 +95,4 @@ string PC::fetch(string url) {
   return response;
 }
 
-void PC::debug(string msg, ...) { cout << msg << endl; }
+void PC::debug(string msg, ...) { cerr << msg << endl; }
