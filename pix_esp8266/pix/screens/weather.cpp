@@ -8,6 +8,7 @@ Weather::Weather(Platform *p) {
   platform = p;
   throttle = 10;
   refresh_every = 60 * 60;
+  screen_frames = 100;
 };
 
 void Weather::refresh() {
