@@ -15,18 +15,28 @@ void Weather::refresh() {
       platform->fetch("http://api.openweathermap.org/data/2.5/weather"
                       "?q=Warsaw&units=metric&appid=" OWM_KEY);
 
-  std::regex regexp("\"icon\":\"([^\"]+)\".*\"temp\":([0-9-]+)");
+  auto icon_at = data.find("\"icon\"");
+  auto temp_at = data.find("\"temp\"");
 
-  std::smatch sm;
+  icon = data.substr(icon_at + 8, 2);
+  day = data.substr(icon_at + 10, 1) == "d";
 
-  if (std::regex_search(data, sm, regexp)) {
-    temp = sm[2].str();
-    temp = "    " + temp;
+  cerr << "icon: " << icon << endl;
+  cerr << "day: " << day << endl;
 
-    icon = sm[1].str();
-    day = icon[2] == 'd';
-    icon = icon.substr(0, 2);
+  temp = data.substr(temp_at + 7, 4);
+
+  auto temp_dot = temp.find(".");
+  if (temp_dot != string::npos) {
+    temp = temp.substr(0, temp_dot);
   }
+
+  auto temp_q = temp.find("\"");
+  if (temp_q != string::npos) {
+    temp = temp.substr(0, temp_q);
+  }
+
+  temp = "    " + temp;
 };
 
 void Weather::update() {

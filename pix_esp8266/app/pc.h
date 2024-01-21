@@ -6,7 +6,6 @@
 #include <ctime>
 #include <curl/curl.h>
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <thread>
 
 // #define pixel "██"

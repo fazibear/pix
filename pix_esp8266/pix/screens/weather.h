@@ -3,7 +3,6 @@
 #include "chars.h"
 #include "screen.h"
 #include <bitset>
-#include <regex>
 
 using namespace std;
 
