@@ -1,8 +1,10 @@
-CC = zig c++
+CC = clang++
 
 BIN = pix
 
 PIX_LIB = ../pix
+
+DEPS_DIR = ../deps
 
 PIX_SRC = $(shell find $(PIX_LIB) -name "*.cpp")
 APP_SRC = $(shell find . -name "*.cpp")
@@ -13,7 +15,9 @@ INCLUDES = $(foreach d, $(INC_DIRS), -I$d)
 SRC = $(APP_SRC) $(PIX_SRC)
 OBJ = $(SRC:.cpp=.o)
 
-CFLAGS = -std=gnu++20 -g -Wextra -Wall -Wcpp $(INCLUDES)
+ENVS = -DOWM_KEY="\"${OWM_KEY}\""
+
+CFLAGS = -std=gnu++20 -g -Wextra -Wall -Wcpp $(INCLUDES) $(ENVS)
 LDFLAGS = -lcurl
 
 all: clean $(BIN) run

@@ -37,6 +37,8 @@ CompileFlags:
     #- -free
     #- -fipa-pta
     # -----------------------------------------
+    - -I/Users/fazibear/dev/pix_esp8266/deps/json/include
+    - -I/Users/fazibear/dev/pix_esp8266/deps/ArduinoJson
     - -I/Users/fazibear/dev/pix_esp8266/pix
     - -I/Users/fazibear/dev/pix_esp8266/pix/screens
     - -I/Users/fazibear/dev/pix_esp8266/app

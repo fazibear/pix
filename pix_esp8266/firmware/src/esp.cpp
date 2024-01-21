@@ -38,6 +38,9 @@ void Esp::clear() {
   }
 }
 void Esp::set_dot(uint8 x, uint8 y, uint8 c) {
+  if (x > 15 or y > 15) {
+    return;
+  }
   if (y % 2) {
     x = x + 16;
   }

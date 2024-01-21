@@ -1,5 +1,4 @@
 #pragma once
-
 #include "platform.h"
 #include "time.h"
 #include <array>
@@ -7,6 +6,7 @@
 #include <ctime>
 #include <curl/curl.h>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <thread>
 
 // #define pixel "██"
@@ -50,6 +50,7 @@ public:
   void draw();
 
   std::string fetch(std::string);
+
   time_t get_time();
   Time get_datetime();
   void debug(std::string, ...);

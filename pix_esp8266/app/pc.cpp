@@ -80,12 +80,12 @@ Time PC::get_datetime() {
 
 string PC::fetch(string url) {
   CURLcode result = CURLE_OK;
-  string response;
+  string response = "";
 
   if (curl) {
     cerr << "Fetching " << url << endl;
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_f);
-    curl_easy_setopt(curl, CURLOPT_URL, &url);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
     curl_easy_perform(curl);
   }
@@ -97,6 +97,8 @@ string PC::fetch(string url) {
 
   // Fetch the content of the url
   // ...
+
+  cerr << "Response: " << response << endl;
   return response;
 }
 

@@ -4,7 +4,7 @@
 Ip::Ip(Platform *p) {
   platform = p;
   throttle = 4;
-  refresh_every = 1000;
+  refresh_every = 60 * 60 * 24;
   position = 16;
 };
 

@@ -1,12 +1,15 @@
 #pragma once
 
 #include <array>
+#include <bitset>
 #include <cstdint>
 #include <string>
+#include <unordered_map>
 
 typedef struct tm *Time;
 
 class Platform {
+
 public:
   virtual inline void init(){};
 
@@ -14,7 +17,6 @@ public:
   virtual inline void clear(){};
   virtual inline void draw(){};
   virtual inline void set_dot(uint8_t, uint8_t, uint8_t){};
-
   // network
   virtual inline std::string fetch(std::string) { return ""; };
 
