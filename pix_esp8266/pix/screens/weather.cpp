@@ -119,6 +119,6 @@ void Weather::update() {
 
   int temp_len = temp.length() - 4;
   for (int i = 0; i < 4; i++) {
-    Chars::put_char(platform, temp[temp_len + i], i * 4 + 1, 9, YELLOW);
+    Chars::put_char(platform, temp[temp_len + i], i * 4 + 1, 9, GREEN);
   }
 };

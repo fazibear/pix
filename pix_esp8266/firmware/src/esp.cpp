@@ -15,7 +15,7 @@ void Esp::init() {
 
   // NTP
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, time_server.c_str(), 3600, 60000);
+  time = new NTPClient(*udp, time_server.c_str(), 3600, 24 * 60 * 60 * 1000);
 
   time->begin();
   time->update();
