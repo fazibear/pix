@@ -2,7 +2,7 @@
 
 Year::Year(Platform *p) {
   platform = p;
-  percent = 0;
+  dots = 0;
   screen_frames = 100;
   refresh_every = 60 * 60 * 24;
 }
@@ -10,6 +10,7 @@ Year::Year(Platform *p) {
 void Year::refresh() {
   Time now = platform->get_datetime();
   percent = (now->tm_yday * 100) / 365;
+  dots = (14 * percent) / 100;
 }
 
 void Year::update() {
@@ -50,7 +51,7 @@ void Year::update() {
   platform->set_dot(13, 14, WHITE);
   platform->set_dot(14, 14, WHITE);
 
-  for (uint8_t x = 0; x < 14 / percent; x++) {
+  for (uint8_t x = 0; x < dots; x++) {
     platform->set_dot(x + 1, 12, 3);
     platform->set_dot(x + 1, 13, 3);
   }

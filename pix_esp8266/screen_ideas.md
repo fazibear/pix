@@ -4,3 +4,4 @@ zodiac -> show zodiac sign for today
 last-fm -> show last played song on last.fm
 176/133 -> bus arrives in
 sun -> time to sun set/sun rasie
+wakatime -> dayly coding time

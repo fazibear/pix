@@ -9,6 +9,7 @@ using namespace std;
 
 class Year : public Screen {
 private:
+  int dots;
   int percent;
   Platform *platform;
 

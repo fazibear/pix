@@ -9,6 +9,7 @@ Weather::Weather(Platform *p) {
   throttle = 10;
   refresh_every = 60 * 60;
   screen_frames = 100;
+  frame = false;
 };
 
 void Weather::refresh() {
@@ -42,6 +43,7 @@ void Weather::refresh() {
 
 void Weather::update() {
   frame = !frame;
+
   platform->clear();
 
   auto sun_or_moon = day ? (frame ? sun_0 : sun_1) : (frame ? moon_0 : moon_1);
@@ -60,7 +62,7 @@ void Weather::update() {
     for (size_t y = 0; y < 7; y++) {
       for (size_t x = 0; x < 10; x++) {
         if (cloud[y][9 - x]) {
-          platform->set_dot(x, y, BLUE);
+          platform->set_dot(x + 6, y + 1, BLUE);
         }
       }
     }
@@ -71,7 +73,7 @@ void Weather::update() {
     for (size_t y = 0; y < 7; y++) {
       for (size_t x = 0; x < 10; x++) {
         if (cloud[y][9 - x]) {
-          platform->set_dot(x + 2, y + 1, WHITE);
+          platform->set_dot(x, y, WHITE);
         }
       }
     }
@@ -81,7 +83,7 @@ void Weather::update() {
     for (size_t y = 0; y < 6; y++) {
       for (size_t x = 0; x < 8; x++) {
         if ((frame ? rain_0 : rain_1)[y][x]) {
-          platform->set_dot(x + 1, y + 7, BLUE);
+          platform->set_dot(x + 1, y + 6, BLUE);
         }
       }
     }
@@ -91,7 +93,7 @@ void Weather::update() {
     for (size_t y = 0; y < 5; y++) {
       for (size_t x = 0; x < 6; x++) {
         if (thunder[y][x]) {
-          platform->set_dot(x + 2, y + 7, RED);
+          platform->set_dot(x + 2, y + 6, RED);
         }
       }
     }
@@ -101,7 +103,7 @@ void Weather::update() {
     for (size_t y = 0; y < 4; y++) {
       for (size_t x = 0; x < 8; x++) {
         if ((frame ? snow_0 : snow_1)[y][x]) {
-          platform->set_dot(x + 3, y + 7, WHITE);
+          platform->set_dot(x + 3, y + 6, WHITE);
         }
       }
     }

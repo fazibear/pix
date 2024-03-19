@@ -9,7 +9,7 @@ DEPS_DIR = ../deps
 PIX_SRC = $(shell find $(PIX_LIB) -name "*.cpp")
 APP_SRC = $(shell find . -name "*.cpp")
 
-INC_DIRS = . $(PIX_LIB) $(PIX_LIB)/screens
+INC_DIRS = . $(PIX_LIB)
 INCLUDES = $(foreach d, $(INC_DIRS), -I$d)
 
 SRC = $(APP_SRC) $(PIX_SRC)
