@@ -1,6 +1,6 @@
 *.o
 .pio
-app/pix
+pix_app
 log
 .mise.toml
 deps
