@@ -3,6 +3,7 @@
 #include "screens/clock.h"
 #include "screens/crab.h"
 #include "screens/ip.h"
+#include "screens/poo.h"
 #include "screens/weather.h"
 #include "screens/year.h"
 
@@ -15,6 +16,7 @@ Pix::Pix(Platform *p) {
   current_screen = 0;
   nscreens = 0;
 
+  add_screen(new Poo(p));
   add_screen(new Year(p));
   add_screen(new Weather(p));
   add_screen(new BinClock(p));

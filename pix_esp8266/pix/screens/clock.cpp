@@ -1,5 +1,4 @@
 #include "clock.h"
-// #include "Arduino.h"
 #include "chars.h"
 
 Clock::Clock(Platform *p) { platform = p; }
