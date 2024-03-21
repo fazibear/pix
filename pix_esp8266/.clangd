@@ -37,13 +37,9 @@ CompileFlags:
     #- -free
     #- -fipa-pta
     # -----------------------------------------
-    - -I/Users/fazibear/dev/pix_esp8266/deps/json/include
-    - -I/Users/fazibear/dev/pix_esp8266/deps/ArduinoJson
-    - -I/Users/fazibear/dev/pix_esp8266/pix
-    - -I/Users/fazibear/dev/pix_esp8266/pix/screens
-    - -I/Users/fazibear/dev/pix_esp8266/app
-    - -I/Users/fazibear/dev/pix_esp8266/firmware/include
-    - -I/Users/fazibear/dev/pix_esp8266/firmware/src
+    - -I/Users/fazibear/dev/pix_esp8266/lib/pix
+    - -I/Users/fazibear/dev/pix_esp8266/src/app
+    - -I/Users/fazibear/dev/pix_esp8266/src/esp
     - -I/Users/fazibear/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include
     - -I/Users/fazibear/.platformio/packages/framework-arduinoespressif8266/cores/esp8266
     - -I/Users/fazibear/.platformio/packages/toolchain-xtensa/include
