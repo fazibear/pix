@@ -1,5 +1,5 @@
 .pio
 build
-log
+log.txt
 .mise.toml
 .cache

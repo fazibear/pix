@@ -5,7 +5,7 @@
 ETH::ETH(Platform *p) {
   platform = p;
   throttle = 4;
-  refresh_every = 60;
+  refresh_every = 60 * 60;
   position = 16;
 };
 

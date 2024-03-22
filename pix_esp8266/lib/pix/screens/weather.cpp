@@ -12,18 +12,14 @@ Weather::Weather(Platform *p) {
 
 void Weather::refresh() {
   std::string data =
-      platform->fetch("http://api.openweathermap.org/data/2.5/weather"
-                      "?q=Warsaw&units=metric&appid=" OWM_KEY);
+      platform->fetch("https://api.openweathermap.org/data/2.5/"
+                      "weather?q=Warsaw&units=metric&appid=" OWM_KEY);
 
   auto icon_at = data.find("\"icon\"");
   auto temp_at = data.find("\"temp\"");
 
   icon = data.substr(icon_at + 8, 2);
   day = data.substr(icon_at + 10, 1) == "d";
-
-  std::cerr << "icon: " << icon << std::endl;
-  std::cerr << "day: " << day << std::endl;
-
   temp = data.substr(temp_at + 7, 4);
 
   auto temp_dot = temp.find(".");

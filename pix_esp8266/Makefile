@@ -1,16 +1,19 @@
 
 BIN = .pio/build/app/program
 
-all: clean $(BIN)
+all: $(BIN)
 
-$(BIN): $(wildcard src/**/*) $(wildcard lib/**/*)
+$(BIN): clean
 	platformio run -e app
 
 run: $(BIN)
-	./$(BIN)
+	./$(BIN) 2> log.txt
 
-upload:  clean
+upload: clean
 	platformio run -e d1_mini -t upload
+
+monitor:
+	platformio device monitor -e d1_mini
 
 clean:
 	platformio run -t clean
