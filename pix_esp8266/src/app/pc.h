@@ -1,4 +1,6 @@
 #pragma once
+
+#include "pix.h"
 #include "platform.h"
 #include "time.h"
 #include <array>

@@ -1,5 +1,4 @@
 #include "pc.h"
-#include "pix.h"
 
 Pix *pix;
 

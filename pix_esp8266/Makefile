@@ -1,15 +1,18 @@
 
 BIN = .pio/build/app/program
 
-all: $(BIN)
+all: rm $(BIN)
 
-$(BIN): clean
+rm:
+	rm -f $(BIN)
+
+$(BIN): rm
 	platformio run -e app
 
 run: $(BIN)
 	./$(BIN) 2> log.txt
 
-upload: clean
+upload:
 	platformio run -e d1_mini -t upload
 
 monitor:
