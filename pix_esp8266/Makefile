@@ -1,7 +1,7 @@
 
 BIN = .pio/build/app/program
 
-all: rm $(BIN)
+all: $(BIN) run
 
 rm:
 	rm -f $(BIN)
