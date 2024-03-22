@@ -1,7 +1,9 @@
 #include "pix.h"
 #include "screens/bin_clock.h"
+#include "screens/btc.h"
 #include "screens/clock.h"
 #include "screens/crab.h"
+#include "screens/eth.h"
 #include "screens/ip.h"
 #include "screens/poo.h"
 #include "screens/weather.h"
@@ -16,6 +18,8 @@ Pix::Pix(Platform *p) {
   current_screen = 0;
   nscreens = 0;
 
+  add_screen(new ETH(p));
+  add_screen(new BTC(p));
   add_screen(new Poo(p));
   add_screen(new Year(p));
   add_screen(new Weather(p));

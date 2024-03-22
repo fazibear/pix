@@ -2,8 +2,6 @@
 #include "chars.h"
 #include <iostream>
 
-using namespace std;
-
 Weather::Weather(Platform *p) {
   platform = p;
   throttle = 10;
@@ -23,18 +21,18 @@ void Weather::refresh() {
   icon = data.substr(icon_at + 8, 2);
   day = data.substr(icon_at + 10, 1) == "d";
 
-  cerr << "icon: " << icon << endl;
-  cerr << "day: " << day << endl;
+  std::cerr << "icon: " << icon << std::endl;
+  std::cerr << "day: " << day << std::endl;
 
   temp = data.substr(temp_at + 7, 4);
 
   auto temp_dot = temp.find(".");
-  if (temp_dot != string::npos) {
+  if (temp_dot != std::string::npos) {
     temp = temp.substr(0, temp_dot);
   }
 
   auto temp_q = temp.find("\"");
-  if (temp_q != string::npos) {
+  if (temp_q != std::string::npos) {
     temp = temp.substr(0, temp_q);
   }
 

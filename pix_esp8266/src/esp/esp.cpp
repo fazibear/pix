@@ -90,10 +90,12 @@ Time Esp::get_datetime() {
 std::string Esp::fetch(std::string url) {
   std::string response = "";
   if (WiFi.status() == WL_CONNECTED) {
-    WiFiClient client;
+    std::unique_ptr<BearSSL::WiFiClientSecure> client(
+        new BearSSL::WiFiClientSecure);
+    client->setInsecure();
     HTTPClient http;
 
-    if (http.begin(client, url.c_str())) {
+    if (http.begin(*client, url.c_str())) {
       int http_code = http.GET();
       Serial.println(http_code);
       if (http_code == HTTP_CODE_OK) {

@@ -1,19 +1,19 @@
 #pragma once
 
+#include "ArduinoJson.h"
 #include "chars.h"
-#include "cmath"
 #include "screen.h"
-#include "time.h"
 
-class Year : public Screen {
+class ETH : public Screen {
 private:
-  int dots;
-  int percent;
   Platform *platform;
+  std::string info;
+  int position;
+  int len;
 
 public:
-  Year(Platform *);
-  ~Year();
+  ETH(Platform *);
+  ~ETH();
   void update();
   void refresh();
 };

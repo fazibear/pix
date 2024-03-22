@@ -4,16 +4,16 @@
 #include "chars.h"
 #include "screen.h"
 
-class Crypto : public Screen {
+class BTC : public Screen {
 private:
   Platform *platform;
-  std::string ip;
+  std::string info;
   int position;
   int len;
 
 public:
-  Crypto(Platform *);
-  ~Crypto();
+  BTC(Platform *);
+  ~BTC();
   void update();
   void refresh();
 };

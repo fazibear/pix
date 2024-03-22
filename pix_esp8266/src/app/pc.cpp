@@ -1,9 +1,7 @@
 #include "pc.h"
 
-using namespace std;
-
 void PC::init() {
-  cout << CLS;
+  std::cout << CLS;
   curl = curl_easy_init();
 }
 
@@ -23,12 +21,12 @@ void PC::set_dot(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void PC::draw() {
-  cout << CLS;
+  std::cout << CLS;
   for (uint8_t y = 0; y < 16; y++) {
     for (uint8_t x = 0; x < 16; x++) {
       draw_pixel(pixel_data[y][x]);
     }
-    cout << endl;
+    std::cout << std::endl;
   }
   std::this_thread::sleep_for(std::chrono::microseconds(15000));
 }
@@ -36,33 +34,34 @@ void PC::draw() {
 void PC::draw_pixel(char color) {
   switch (color) {
   case 1:
-    cout << FRED(pixel);
+    std::cout << FRED(pixel);
     break;
   case 2:
-    cout << FGRN(pixel);
+    std::cout << FGRN(pixel);
     break;
   case 3:
-    cout << FYEL(pixel);
+    std::cout << FYEL(pixel);
     break;
   case 4:
-    cout << FBLU(pixel);
+    std::cout << FBLU(pixel);
     break;
   case 5:
-    cout << FMAG(pixel);
+    std::cout << FMAG(pixel);
     break;
   case 6:
-    cout << FCYN(pixel);
+    std::cout << FCYN(pixel);
     break;
   case 7:
-    cout << FWHT(pixel);
+    std::cout << FWHT(pixel);
     break;
   default:
-    cout << FBLK(pixel);
+    std::cout << FBLK(pixel);
     break;
   }
 }
 
-size_t PC::curl_write_f(char *bufptr, size_t size, size_t nitems, string *s) {
+size_t PC::curl_write_f(char *bufptr, size_t size, size_t nitems,
+                        std::string *s) {
   size_t newLength = size * nitems;
   s->append((char *)bufptr, newLength);
   return newLength;
@@ -78,12 +77,12 @@ Time PC::get_datetime() {
   return localtime(&now);
 }
 
-string PC::fetch(string url) {
+std::string PC::fetch(std::string url) {
   CURLcode result = CURLE_OK;
-  string response = "";
+  std::string response = "";
 
   if (curl) {
-    cerr << "Fetching " << url << endl;
+    std::cerr << "Fetching " << url << std::endl;
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_f);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
@@ -91,15 +90,15 @@ string PC::fetch(string url) {
   }
 
   if (result != CURLE_OK) {
-    cerr << "Error: " << curl_easy_strerror(result) << endl;
+    std::cerr << "Error: " << curl_easy_strerror(result) << std::endl;
     return "error";
   }
 
   // Fetch the content of the url
   // ...
 
-  cerr << "Response: " << response << endl;
+  std::cerr << "Response: " << response << std::endl;
   return response;
 }
 
-void PC::debug(string msg, ...) { cerr << msg << endl; }
+void PC::debug(std::string msg, ...) { std::cerr << msg << std::endl; }

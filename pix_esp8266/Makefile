@@ -1,7 +1,7 @@
 
 BIN = .pio/build/app/program
 
-all: $(BIN) run
+all: clean $(BIN)
 
 $(BIN): $(wildcard src/**/*) $(wildcard lib/**/*)
 	platformio run -e app
@@ -9,7 +9,7 @@ $(BIN): $(wildcard src/**/*) $(wildcard lib/**/*)
 run: $(BIN)
 	./$(BIN)
 
-upload:
+upload:  clean
 	platformio run -e d1_mini -t upload
 
 clean:

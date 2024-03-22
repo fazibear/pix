@@ -9,7 +9,7 @@ Ip::Ip(Platform *p) {
 };
 
 void Ip::refresh() {
-  ip = platform->fetch("http://ipinfo.io/ip");
+  ip = platform->fetch("https://ipinfo.io/ip");
   len = ip.length() * 4;
   screen_frames = len * throttle + 64;
 };
