@@ -1,26 +1,6 @@
 #include "esp.h"
 
-void Esp::init() {
-  Serial.begin(115200);
-  Serial.println("Setting up wifi...");
-  // Wifi
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(2000);
-  }
-  Serial.println("done!");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
-
-  // NTP
-  udp = new WiFiUDP();
-  time = new NTPClient(*udp, time_server.c_str(), 3600, 24 * 60 * 60 * 1000);
-
-  time->begin();
-  time->update();
-
+Esp::Esp() {
   // GPIO
   pinMode(A1, OUTPUT);
   pinMode(A2, OUTPUT);
@@ -29,6 +9,32 @@ void Esp::init() {
   pinMode(LE, OUTPUT);
   pinMode(SDI, OUTPUT);
   pinMode(CLK, OUTPUT);
+
+  // Buttons
+  pinMode(BTN1, INPUT_PULLUP);
+  pinMode(BTN2, INPUT_PULLUP);
+  pinMode(BTN3, INPUT_PULLUP);
+  pinMode(BTN4, INPUT_PULLUP);
+
+  Serial.begin(115200);
+
+  // Wifi
+  debug("Connecting to wifi..");
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    delay(2000);
+  }
+  debug("IP address:");
+  debug(WiFi.localIP().toString().c_str());
+
+  // NTP
+  debug("Setting time...");
+  udp = new WiFiUDP();
+  time = new NTPClient(*udp, time_server.c_str(), 3600, 24 * 60 * 60 * 1000);
+
+  time->begin();
+  time->update();
 }
 
 void Esp::clear() {
@@ -78,6 +84,26 @@ void Esp::draw() {
   digitalWrite(OE, 1);
 }
 
+int8_t Esp::read_buttons() {
+  int8 state = 0;
+
+  if (!digitalRead(BTN1)) {
+    state |= 1;
+  }
+  if (!digitalRead(BTN2)) {
+    state |= 2;
+  }
+
+  // if (!digitalRead(BTN3)) {
+  //   state |= 4;
+  // }
+  // if (!digitalRead(BTN4)) {
+  //   state |= 8;
+  // }
+
+  return state;
+}
+
 time_t Esp::get_time() {
   time->update();
   return time->getEpochTime();
@@ -97,21 +123,17 @@ std::string Esp::fetch(std::string url) {
 
     if (http.begin(client, url.c_str())) {
       int http_code = http.GET();
-      Serial.println(http_code);
+      debug("HTTP code:");
+      debug(std::to_string(http_code).c_str());
       if (http_code == HTTP_CODE_OK) {
         response = http.getString().c_str();
       }
     }
     http.end();
-    Serial.print("Response: ");
-    Serial.println(response.c_str());
+    debug("Response: ");
+    debug(response.c_str());
   }
   return response;
 }
 
-void Esp::debug(std::string msg, ...) {
-  va_list args;
-  va_start(args, msg);
-  Serial.printf(msg.c_str(), args);
-  va_end(args);
-}
+void Esp::debug(const char *s) { Serial.println(s); }

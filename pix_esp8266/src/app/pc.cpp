@@ -1,6 +1,6 @@
 #include "pc.h"
 
-void PC::init() {
+PC::PC() {
   std::cout << CLS;
   curl = curl_easy_init();
 }
@@ -29,6 +29,25 @@ void PC::draw() {
     std::cout << std::endl;
   }
   std::this_thread::sleep_for(std::chrono::microseconds(15000));
+}
+
+int8_t PC::read_buttons() {
+  int8_t state = 0;
+  // char c = getchar();
+  //
+  // if (c == '1') {
+  //   state |= 1;
+  // }
+  // if (c == '2') {
+  //   state |= 2;
+  // }
+  // if (c == '3') {
+  //   state |= 3;
+  // }
+  // if (c == '4') {
+  //   state |= 4;
+  // }
+  return state;
 }
 
 void PC::draw_pixel(char color) {

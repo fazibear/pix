@@ -45,10 +45,12 @@ private:
   static size_t curl_write_f(char *, size_t, size_t, std::string *);
 
 public:
-  void init();
+  PC();
   void clear();
   void set_dot(uint8_t, uint8_t, uint8_t);
   void draw();
+
+  int8_t read_buttons();
 
   std::string fetch(std::string);
 

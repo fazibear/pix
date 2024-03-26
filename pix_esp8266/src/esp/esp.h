@@ -23,21 +23,28 @@
 #define SDI 13
 #define CLK 15
 
+#define BTN1 16
+#define BTN2 2
+#define BTN3 1
+#define BTN4 3
+
 #define LINES 8
 // #define PER_LINE 12
 #define BITS_PER_LINE 16 * 2 * 3
 
 class Esp : public Platform {
 public:
-  void init();
+  Esp();
   void clear();
   void set_dot(uint8, uint8, uint8);
   void draw();
 
+  int8_t read_buttons();
+
   time_t get_time();
   Time get_datetime();
   std::string fetch(std::string);
-  void debug(std::string, ...);
+  void debug(const char *);
 
 private:
   void set_line(uint8 row);
@@ -45,4 +52,5 @@ private:
   std::string time_server = "time.nist.gov";
   WiFiUDP *udp;
   NTPClient *time;
+  bool button_pressed = false;
 };

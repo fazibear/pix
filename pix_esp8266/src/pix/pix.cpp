@@ -13,7 +13,6 @@ Pix::Pix(Platform *p) {
   frame = 0;
 
   platform = p;
-  platform->init();
 
   current_screen = 0;
   nscreens = 0;
@@ -30,10 +29,11 @@ Pix::Pix(Platform *p) {
 }
 
 void Pix::step() {
+  platform->debug("step");
+  check_buttons();
   frame++;
   if (frame > screens[current_screen]->screen_frames) {
     next_screen();
-    frame = 0;
   }
 
   if (screens[current_screen]->refresh_every != 0) {
@@ -61,7 +61,36 @@ void Pix::add_screen(Screen *screen) {
 
 void Pix::next_screen() {
   current_screen++;
+  frame = 0;
   if (current_screen >= nscreens) {
     current_screen = 0;
+  }
+}
+
+void Pix::prev_screen() {
+  current_screen--;
+  frame = 0;
+  if (current_screen < 0) {
+    current_screen = nscreens - 1;
+  }
+}
+
+void Pix::check_buttons() {
+  int8_t buttons = platform->read_buttons();
+
+  if (buttons == 0 && button_pressed > 0) {
+    if (button_pressed == 1) {
+      next_screen();
+    }
+    if (button_pressed == 2) {
+      prev_screen();
+    }
+    // if (buttons & 4) {}
+    // if (buttons & 8) {}
+    button_pressed = 0;
+  }
+
+  if (buttons > 0) {
+    button_pressed = buttons;
   }
 }

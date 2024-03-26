@@ -11,12 +11,14 @@ typedef struct tm *Time;
 class Platform {
 
 public:
-  virtual inline void init(){};
-
   // output
   virtual inline void clear(){};
   virtual inline void draw(){};
   virtual inline void set_dot(uint8_t, uint8_t, uint8_t){};
+
+  // butons
+  virtual inline int8_t read_buttons() { return 0; };
+
   // network
   virtual inline std::string fetch(std::string) { return ""; };
 

@@ -13,9 +13,12 @@ private:
   int current_screen;
   int nscreens;
   int frame;
+  int button_pressed;
 
   void add_screen(Screen *screen);
   void next_screen();
+  void prev_screen();
+  void check_buttons();
 
 public:
   Pix(Platform *);
