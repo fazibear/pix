@@ -16,7 +16,10 @@ upload:
 	platformio run -e d1_mini -t upload
 
 monitor:
-	platformio device monitor -e d1_mini --raw
+	platformio device monitor -e d1_mini
 
 clean:
 	platformio run -t clean
+
+compiledb:
+	platformio run -t compiledb

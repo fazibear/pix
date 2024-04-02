@@ -3,3 +3,4 @@ build
 log.txt
 .mise.toml
 .cache
+compile_commands.json

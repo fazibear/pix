@@ -49,7 +49,6 @@ public:
 private:
   void set_line(uint8 row);
   std::bitset<BITS_PER_LINE> matrix[LINES] = {{0}};
-  std::string time_server = "pl.pool.ntp.org";
   WiFiUDP *udp;
   NTPClient *time;
   bool button_pressed = false;

@@ -24,14 +24,22 @@ Esp::Esp() {
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.waitForConnectResult() != WL_CONNECTED) {
     delay(2000);
+    Serial.printf(".");
   }
   debug("IP address:");
   debug(WiFi.localIP().toString().c_str());
 
   // NTP
   debug("Setting time...");
+
+  const long utc_offset_summer = 3600 * 2;
+  const long utc_offset_winter = 3600 * 1;
+  const String time_server = "pool.ntp.org";
+  const int refresh_interval = 24 * 60 * 60 * 1000;
+
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, time_server.c_str(), 3600, 24 * 60 * 60 * 1000);
+  time = new NTPClient(*udp, time_server.c_str(), utc_offset_summer,
+                       refresh_interval);
 
   time->begin();
   time->update();
