@@ -32,14 +32,8 @@ Esp::Esp() {
   // NTP
   debug("Setting time...");
 
-  const long utc_offset_summer = 3600 * 2;
-  const long utc_offset_winter = 3600 * 1;
-  const String time_server = "pool.ntp.org";
-  const int refresh_interval = 24 * 60 * 60 * 1000;
-
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, time_server.c_str(), utc_offset_summer,
-                       refresh_interval);
+  time = new NTPClient(*udp, TIME_SERVER, TIME_OFFSET_SUMMER, TIME_REFRESH);
 
   time->begin();
   time->update();

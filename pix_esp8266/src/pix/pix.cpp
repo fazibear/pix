@@ -5,6 +5,7 @@
 #include "screens/crab.h"
 #include "screens/eth.h"
 #include "screens/ip.h"
+#include "screens/lastfm.h"
 #include "screens/poo.h"
 #include "screens/weather.h"
 #include "screens/year.h"
@@ -17,6 +18,7 @@ Pix::Pix(Platform *p) {
   current_screen = 0;
   nscreens = 0;
 
+  add_screen(new LastFM(p));
   add_screen(new ETH(p));
   add_screen(new BTC(p));
   add_screen(new Poo(p));
@@ -29,7 +31,6 @@ Pix::Pix(Platform *p) {
 }
 
 void Pix::step() {
-  platform->debug("step");
   check_buttons();
   frame++;
   if (frame > screens[current_screen]->screen_frames) {

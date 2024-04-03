@@ -551,7 +551,7 @@ const CharMap chars{
 };
 
 void put_char(Platform *platform, char c, int8_t x, int8_t y, int8_t color) {
-  const Char &char_data = chars.at(c);
+  const Char &char_data = chars.at(std::toupper(c));
   for (int j = 0; j < CHAR_HEIGHT; j++) {
     for (int i = 0; i < CHAR_WIDTH; i++) {
       if (char_data[j][CHAR_WIDTH - i - 1]) {

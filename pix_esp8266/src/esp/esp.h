@@ -14,6 +14,11 @@
 #include <bitset>
 #include <string>
 
+#define TIME_SERVER "pool.ntp.org"
+#define TIME_REFRESH 24 * 60 * 60 * 1000
+#define TIME_OFFSET_WINTER 3600
+#define TIME_OFFSET_SUMMER 7200
+
 #define A1 0
 #define A2 4
 #define A3 5
