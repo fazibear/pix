@@ -11,7 +11,7 @@ LastFM::LastFM(Platform *p) {
 
 void LastFM::refresh() {
   std::string json =
-      platform->fetch("http://ws.audioscrobbler.com/2.0/"
+      platform->fetch("https://ws.audioscrobbler.com/2.0/"
                       "?method=user.getrecenttracks"
                       "&limit=1&format=json"
                       "&user=" LASTFM_USER "&api_key=" LASTFM_KEY);
