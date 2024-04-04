@@ -117,25 +117,36 @@ Time Esp::get_datetime() {
 }
 
 std::string Esp::fetch(std::string url) {
-  std::string response = "";
-  if (WiFi.status() == WL_CONNECTED) {
-    WiFiClientSecure client;
-    client.setInsecure();
-    HTTPClient http;
+  std::string response = "error";
 
-    if (http.begin(client, url.c_str())) {
-      int http_code = http.GET();
-      debug("HTTP code:");
-      debug(std::to_string(http_code).c_str());
-      if (http_code == HTTP_CODE_OK) {
-        response = http.getString().c_str();
-      }
-    }
-    http.end();
-    debug("Response: ");
-    debug(response.c_str());
+  if (WiFi.status() != WL_CONNECTED) {
+    debug("Not connected to wifi");
+    return response;
   }
-  return response;
+
+  WiFiClientSecure client;
+  client.setInsecure();
+  HTTPClient http;
+
+  if (!http.begin(client, url.c_str())) {
+    debug("Failed to connect ");
+    return response;
+  }
+
+  debug("Fetching: ");
+
+  int http_code = http.GET();
+  if (http_code != HTTP_CODE_OK) {
+    debug("Error http code: ");
+    debug(std::to_string(http_code).c_str());
+    return response;
+  }
+
+  response = http.getString().c_str();
+  debug("Response: ");
+  debug(response.c_str());
+  http.end();
+  return response.c_str();
 }
 
-void Esp::debug(const char *s) { Serial.println(s); }
+void Esp::debug(std::string s, ...) { Serial.println(s.c_str()); }

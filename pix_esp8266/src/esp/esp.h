@@ -49,7 +49,7 @@ public:
   time_t get_time();
   Time get_datetime();
   std::string fetch(std::string);
-  void debug(const char *);
+  void debug(std::string, ...);
 
 private:
   void set_line(uint8 row);

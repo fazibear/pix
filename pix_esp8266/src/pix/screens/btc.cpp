@@ -13,14 +13,18 @@ void BTC::refresh() {
   std::string json = platform->fetch(
       "https://production.api.coindesk.com/v2/tb/price/ticker?assets=BTC");
 
-  JsonDocument doc;
-  deserializeJson(doc, json);
+  if (json != "error") {
+    JsonDocument doc;
+    deserializeJson(doc, json);
 
-  float price_f = doc["data"]["BTC"]["ohlc"]["c"].as<float>();
-  float change_f = doc["data"]["BTC"]["change"]["percent"].as<float>();
+    float price_f = doc["data"]["BTC"]["ohlc"]["c"].as<float>();
+    float change_f = doc["data"]["BTC"]["change"]["percent"].as<float>();
 
-  info = "BTC: " + std::to_string((int)std::round(price_f)) + " USD " +
-         std::to_string((int)std::round(change_f)) + "% ";
+    info = "BTC: " + std::to_string((int)std::round(price_f)) + " USD " +
+           std::to_string((int)std::round(change_f)) + "% ";
+  } else {
+    info = "Error fetching data";
+  }
 
   len = info.length() * 4;
 

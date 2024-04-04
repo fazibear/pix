@@ -101,23 +101,24 @@ std::string PC::fetch(std::string url) {
   std::string response = "";
 
   if (curl) {
-    std::cerr << "Fetching " << url << std::endl;
+    debug("Fetching:");
+    debug(url);
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_f);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_easy_perform(curl);
   }
 
   if (result != CURLE_OK) {
-    std::cerr << "Error: " << curl_easy_strerror(result) << std::endl;
+    debug("Error:");
+    debug(curl_easy_strerror(result));
     return "error";
   }
 
-  // Fetch the content of the url
-  // ...
-
-  std::cerr << "Response: " << response << std::endl;
-  return response;
+  debug("Response:");
+  debug(response.c_str());
+  return response.c_str();
 }
 
 void PC::debug(std::string msg, ...) { std::cerr << msg << std::endl; }

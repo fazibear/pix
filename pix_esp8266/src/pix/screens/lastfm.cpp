@@ -11,23 +11,24 @@ LastFM::LastFM(Platform *p) {
 
 void LastFM::refresh() {
   std::string json =
-      platform->fetch("https://ws.audioscrobbler.com/2.0/"
+      platform->fetch("http://ws.audioscrobbler.com/2.0/"
                       "?method=user.getrecenttracks"
                       "&limit=1&format=json"
                       "&user=" LASTFM_USER "&api_key=" LASTFM_KEY);
-  // {"recenttracks":{"track":[{"artist":{"mbid":"","#text":"The Ultimate
-  // System"},"streamable":"0","image":[{"size":"small","#text":""},{"size":"medium","#text":""},{"size":"large","#text":""},{"size":"extralarge","#text":""}],"mbid":"","album":{"mbid":"","#text":""},"name":"Overview","url":"https:\/\/www.last.fm\/music\/The+Ultimate+System\/_\/Overview","date":{"uts":"1712135044","#text":"03
-  // Apr 2024,
-  // 09:04"}}],"@attr":{"user":"FaziBear","totalPages":"99604","page":"1","perPage":"1","total":"99604"}}}
-  JsonDocument doc;
-  deserializeJson(doc, json);
-  JsonVariant track = doc["recenttracks"]["track"][0];
 
-  std::string name = track["name"].as<std::string>();
-  std::string artist = track["artist"]["#text"].as<std::string>();
-  now = track["@attr"]["nowplaying"];
+  if (json != "error") {
+    JsonDocument doc;
+    deserializeJson(doc, json);
+    JsonVariant track = doc["recenttracks"]["track"][0];
 
-  info = " " + artist + " - " + name;
+    std::string name = track["name"].as<std::string>();
+    std::string artist = track["artist"]["#text"].as<std::string>();
+    now = track["@attr"]["nowplaying"];
+
+    info = " " + artist + " - " + name;
+  } else {
+    info = "Error fetching data";
+  }
 
   len = info.length() * 4;
 

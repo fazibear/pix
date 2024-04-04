@@ -1,6 +1,5 @@
 #include "weather.h"
 #include "chars.h"
-#include <iostream>
 
 Weather::Weather(Platform *p) {
   platform = p;
@@ -15,24 +14,30 @@ void Weather::refresh() {
       platform->fetch("https://api.openweathermap.org/data/2.5/"
                       "weather?q=Warsaw&units=metric&appid=" OWM_KEY);
 
-  auto icon_at = data.find("\"icon\"");
-  auto temp_at = data.find("\"temp\"");
+  if (data != "error") {
+    auto icon_at = data.find("\"icon\"");
+    auto temp_at = data.find("\"temp\"");
 
-  icon = data.substr(icon_at + 8, 2);
-  day = data.substr(icon_at + 10, 1) == "d";
-  temp = data.substr(temp_at + 7, 4);
+    icon = data.substr(icon_at + 8, 2);
+    day = data.substr(icon_at + 10, 1) == "d";
+    temp = data.substr(temp_at + 7, 4);
 
-  auto temp_dot = temp.find(".");
-  if (temp_dot != std::string::npos) {
-    temp = temp.substr(0, temp_dot);
+    auto temp_dot = temp.find(".");
+    if (temp_dot != std::string::npos) {
+      temp = temp.substr(0, temp_dot);
+    }
+
+    auto temp_q = temp.find("\"");
+    if (temp_q != std::string::npos) {
+      temp = temp.substr(0, temp_q);
+    }
+
+    temp = "    " + temp;
+  } else {
+    icon = "01";
+    day = true;
+    temp = " err";
   }
-
-  auto temp_q = temp.find("\"");
-  if (temp_q != std::string::npos) {
-    temp = temp.substr(0, temp_q);
-  }
-
-  temp = "    " + temp;
 };
 
 void Weather::update() {
