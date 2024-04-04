@@ -15,6 +15,9 @@ run: $(BIN)
 upload:
 	platformio run -e d1_mini -t upload
 
+debug:
+	platformio run -e d1_mini -t upload
+
 monitor:
 	platformio device monitor -e d1_mini
 

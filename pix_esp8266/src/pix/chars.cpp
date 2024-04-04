@@ -547,11 +547,33 @@ const CharMap chars{
             std::bitset<CHAR_WIDTH>("101"),
         },
     },
-};
+    {
+        -1,
+        {
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("111"),
+        },
+    },
 };
 
+}; // namespace
+
+Char getChar(char c) {
+  char up = std::toupper(c);
+  if (chars.find(up) != chars.end()) {
+    return chars.at(up);
+  } else {
+    return chars.at(-1);
+  }
+}
+
 void put_char(Platform *platform, char c, int8_t x, int8_t y, int8_t color) {
-  const Char &char_data = chars.at(std::toupper(c));
+  const Char &char_data = getChar(c);
   for (int j = 0; j < CHAR_HEIGHT; j++) {
     for (int i = 0; i < CHAR_WIDTH; i++) {
       if (char_data[j][CHAR_WIDTH - i - 1]) {
