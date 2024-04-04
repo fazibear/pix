@@ -112,6 +112,7 @@ time_t Esp::get_time() {
 }
 
 Time Esp::get_datetime() {
+  time->update();
   time_t now = get_time();
   return localtime(&now);
 }

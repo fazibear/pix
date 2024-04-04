@@ -5,7 +5,7 @@
 LastFM::LastFM(Platform *p) {
   platform = p;
   throttle = 4;
-  refresh_every = 60 * 60;
+  refresh_every = 3 * 60;
   position = 16;
 };
 
