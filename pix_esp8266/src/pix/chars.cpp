@@ -548,6 +548,18 @@ const CharMap chars{
         },
     },
     {
+        '\'',
+        {
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+        },
+    },
+    {
         -1,
         {
             std::bitset<CHAR_WIDTH>("111"),
