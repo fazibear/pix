@@ -18,14 +18,14 @@ Pix::Pix(Platform *p) {
   current_screen = 0;
   nscreens = 0;
 
+  add_screen(new Clock(p));
+  add_screen(new Poo(p));
   add_screen(new LastFM(p));
   add_screen(new ETH(p));
   add_screen(new BTC(p));
-  add_screen(new Poo(p));
   add_screen(new Year(p));
   add_screen(new Weather(p));
   add_screen(new BinClock(p));
-  add_screen(new Clock(p));
   add_screen(new Crab(p));
   add_screen(new Ip(p));
 }

@@ -25,4 +25,4 @@ clean:
 	platformio run -t clean
 
 compiledb:
-	platformio run -t compiledb
+	platformio run -e app -t compiledb

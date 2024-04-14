@@ -13,8 +13,7 @@
 class Poo : public Screen {
 private:
   char poo_color;
-  char smell_color_0;
-  char smell_color_1;
+  char smell_color;
   bool frame;
   Platform *platform;
   std::bitset<POO_WIDTH> const poo[POO_HEIGHT]{
