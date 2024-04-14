@@ -15,17 +15,22 @@ void Clock::update() {
   Chars::put_char(platform, '0' + (now->tm_min % 10), 12, 8, GREEN);
 
   if (now->tm_sec % 2 == 0) {
-    platform->set_dot(3, 11, YELLOW);
-    platform->set_dot(4, 12, YELLOW);
+    platform->set_dot(3, 10, YELLOW);
+    platform->set_dot(4, 11, YELLOW);
+    platform->set_dot(5, 12, YELLOW);
 
-    platform->set_dot(11, 3, YELLOW);
-    platform->set_dot(12, 4, YELLOW);
+    platform->set_dot(10, 5, YELLOW);
+    platform->set_dot(11, 4, YELLOW);
+    platform->set_dot(12, 3, YELLOW);
+
   } else {
     platform->set_dot(3, 12, YELLOW);
     platform->set_dot(4, 11, YELLOW);
+    platform->set_dot(5, 10, YELLOW);
 
+    platform->set_dot(10, 3, YELLOW);
     platform->set_dot(11, 4, YELLOW);
-    platform->set_dot(12, 3, YELLOW);
+    platform->set_dot(12, 5, YELLOW);
   }
 
   for (int i = 0; i < now->tm_sec; i++) {
