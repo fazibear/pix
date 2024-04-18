@@ -1,7 +1,10 @@
 #include "clock.h"
 #include "chars.h"
 
-Clock::Clock(Platform *p) { platform = p; }
+Clock::Clock(Platform *p) {
+  platform = p;
+  screen_frames = 60 * 5;
+}
 
 void Clock::update() {
   Time now = platform->get_datetime();

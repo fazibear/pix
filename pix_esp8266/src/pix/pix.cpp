@@ -15,55 +15,55 @@ Pix::Pix(Platform *p) {
 
   platform = p;
 
-  current_screen = 0;
-  nscreens = 0;
+  screens = {
+      {"clock", new Clock(p)},     {"poo", new Poo(p)},
+      {"lastfm", new LastFM(p)},   {"eth", new ETH(p)},
+      {"btc", new BTC(p)},         {"year", new Year(p)},
+      {"weather", new Weather(p)}, {"binclock", new BinClock(p)},
+      {"crab", new Crab(p)},       {"ip", new Ip(p)},
+  };
 
-  add_screen(new Clock(p));
-  add_screen(new Poo(p));
-  add_screen(new LastFM(p));
-  add_screen(new ETH(p));
-  add_screen(new BTC(p));
-  add_screen(new Year(p));
-  add_screen(new Weather(p));
-  add_screen(new BinClock(p));
-  add_screen(new Crab(p));
-  add_screen(new Ip(p));
+  screens_order = {
+      "clock", "poo",      "clock", "lastfm", "clock", "eth",
+      "clock", "btc",      "clock", "year",   "clock", "weather",
+      "clock", "binclock", "clock", "crab",   "clock", "ip",
+  };
+
+  current_screen = 0;
 }
 
 void Pix::step() {
   check_buttons();
   frame++;
-  if (frame > screens[current_screen]->screen_frames) {
+  if (frame > screens[screens_order[current_screen]]->screen_frames) {
     next_screen();
   }
 
-  if (screens[current_screen]->refresh_every != 0) {
+  Screen *current_screen = get_current_screen();
+
+  if (current_screen->refresh_every != 0) {
     int now = platform->get_time();
-    if (now - screens[current_screen]->refreshed_at >
-        screens[current_screen]->refresh_every) {
-      screens[current_screen]->refreshed_at = now;
-      screens[current_screen]->refresh();
+    if (now - current_screen->refreshed_at > current_screen->refresh_every) {
+      current_screen->refreshed_at = now;
+      current_screen->refresh();
     }
   }
 
-  if (frame % screens[current_screen]->throttle == 0) {
-    screens[current_screen]->update();
+  if (frame % current_screen->throttle == 0) {
+    current_screen->update();
   }
 
   platform->draw();
 }
 
-void Pix::add_screen(Screen *screen) {
-  if (nscreens < MAX_SCREENS) {
-    screens[nscreens] = screen;
-    nscreens++;
-  }
+Screen *Pix::get_current_screen() {
+  return screens[screens_order[current_screen]];
 }
 
 void Pix::next_screen() {
   current_screen++;
   frame = 0;
-  if (current_screen >= nscreens) {
+  if (current_screen >= screens_order.size()) {
     current_screen = 0;
   }
 }
@@ -72,7 +72,7 @@ void Pix::prev_screen() {
   current_screen--;
   frame = 0;
   if (current_screen < 0) {
-    current_screen = nscreens - 1;
+    current_screen = screens_order.size() - 1;
   }
 }
 

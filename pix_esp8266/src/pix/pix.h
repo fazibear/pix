@@ -1,21 +1,21 @@
 #pragma once
 #include "platform.h"
 #include "screen.h"
-
-#define MAX_SCREENS 10
+#include <unordered_map>
+#include <vector>
 
 class Pix {
 private:
   Platform *platform;
 
-  Screen *screens[MAX_SCREENS];
+  std::unordered_map<std::string, Screen *> screens;
+  std::vector<std::string> screens_order;
 
   int current_screen;
-  int nscreens;
   int frame;
   int button_pressed;
 
-  void add_screen(Screen *screen);
+  Screen *get_current_screen();
   void next_screen();
   void prev_screen();
   void check_buttons();
