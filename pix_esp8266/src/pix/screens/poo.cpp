@@ -3,8 +3,9 @@
 Poo::Poo(Platform *p) {
   platform = p;
   refresh_every = 60;
-  throttle = 5;
+  throttle = 10;
   screen_frames = 100;
+  refreshed_at = 0;
 };
 
 void Poo::refresh() {

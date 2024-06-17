@@ -21,7 +21,7 @@ void PC::set_dot(uint8_t x, uint8_t y, uint8_t color) {
 }
 
 void PC::draw() {
-  std::cout << CLS;
+  std::cout << HOME;
   for (uint8_t y = 0; y < 16; y++) {
     for (uint8_t x = 0; x < 16; x++) {
       draw_pixel(pixel_data[y][x]);
@@ -52,30 +52,30 @@ int8_t PC::read_buttons() {
 
 void PC::draw_pixel(char color) {
   switch (color) {
-  case 1:
-    std::cout << FRED(pixel);
-    break;
-  case 2:
-    std::cout << FGRN(pixel);
-    break;
-  case 3:
-    std::cout << FYEL(pixel);
-    break;
-  case 4:
-    std::cout << FBLU(pixel);
-    break;
-  case 5:
-    std::cout << FMAG(pixel);
-    break;
-  case 6:
-    std::cout << FCYN(pixel);
-    break;
-  case 7:
-    std::cout << FWHT(pixel);
-    break;
-  default:
-    std::cout << FBLK(pixel);
-    break;
+    case 1:
+      std::cout << FRED(pixel);
+      break;
+    case 2:
+      std::cout << FGRN(pixel);
+      break;
+    case 3:
+      std::cout << FYEL(pixel);
+      break;
+    case 4:
+      std::cout << FBLU(pixel);
+      break;
+    case 5:
+      std::cout << FMAG(pixel);
+      break;
+    case 6:
+      std::cout << FCYN(pixel);
+      break;
+    case 7:
+      std::cout << FWHT(pixel);
+      break;
+    default:
+      std::cout << FBLK(pixel);
+      break;
   }
 }
 

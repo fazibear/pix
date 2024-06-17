@@ -35,18 +35,12 @@ Pix::Pix(Platform *p) {
 void Pix::step() {
   check_buttons();
   frame++;
-  if (frame > screens[screens_order[current_screen]]->screen_frames) {
-    next_screen();
-  }
 
   Screen *current_screen = get_current_screen();
 
-  if (current_screen->refresh_every != 0) {
-    int now = platform->get_time();
-    if (now - current_screen->refreshed_at > current_screen->refresh_every) {
-      current_screen->refreshed_at = now;
-      current_screen->refresh();
-    }
+  if (frame > current_screen->screen_frames) {
+    next_screen();
+    refresh();
   }
 
   if (frame % current_screen->throttle == 0) {
@@ -58,6 +52,18 @@ void Pix::step() {
 
 Screen *Pix::get_current_screen() {
   return screens[screens_order[current_screen]];
+}
+
+void Pix::refresh() {
+  Screen *current_screen = get_current_screen();
+
+  if (current_screen->refresh_every != 0) {
+    int now = platform->get_time();
+    if (now - current_screen->refreshed_at > current_screen->refresh_every) {
+      current_screen->refreshed_at = now;
+      current_screen->refresh();
+    }
+  }
 }
 
 void Pix::next_screen() {

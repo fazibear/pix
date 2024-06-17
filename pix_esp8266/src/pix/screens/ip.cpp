@@ -6,6 +6,7 @@ Ip::Ip(Platform *p) {
   throttle = 4;
   refresh_every = 60 * 60 * 24;
   position = 16;
+  refreshed_at = 0;
 };
 
 void Ip::refresh() {

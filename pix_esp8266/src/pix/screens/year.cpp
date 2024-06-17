@@ -5,6 +5,7 @@ Year::Year(Platform *p) {
   dots = 0;
   screen_frames = 100;
   refresh_every = 60 * 60 * 24;
+  refreshed_at = 0;
 }
 
 void Year::refresh() {

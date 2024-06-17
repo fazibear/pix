@@ -560,6 +560,54 @@ const CharMap chars{
         },
     },
     {
+        '[',
+        {
+            std::bitset<CHAR_WIDTH>("011"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("011"),
+        },
+    },
+    {
+        ']',
+        {
+            std::bitset<CHAR_WIDTH>("110"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("110"),
+        },
+    },
+    {
+        '(',
+        {
+            std::bitset<CHAR_WIDTH>("001"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("001"),
+        },
+    },
+    {
+        ')',
+        {
+            std::bitset<CHAR_WIDTH>("100"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("010"),
+            std::bitset<CHAR_WIDTH>("100"),
+        },
+    },
+    {
         -1,
         {
             std::bitset<CHAR_WIDTH>("111"),

@@ -7,6 +7,7 @@ BTC::BTC(Platform *p) {
   throttle = 4;
   refresh_every = 60 * 60;
   position = 16;
+  refreshed_at = 0;
 };
 
 void BTC::refresh() {
@@ -26,8 +27,8 @@ void BTC::refresh() {
     info = "Error fetching data";
   }
 
+  position = 16;
   len = info.length() * 4;
-
   screen_frames = len * throttle + 64;
 };
 

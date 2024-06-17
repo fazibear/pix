@@ -35,7 +35,8 @@
 
 #define BOLD(x) "\x1B[1m" x RST
 #define UNDL(x) "\x1B[4m" x RST
-#define CLS "\x1B[2J\x1B[1;1H"
+#define CLS "\x1B[2J"
+#define HOME "\x1B[1H"
 
 class PC : public Platform {
 private:

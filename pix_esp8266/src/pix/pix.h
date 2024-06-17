@@ -19,6 +19,7 @@ private:
   void next_screen();
   void prev_screen();
   void check_buttons();
+  void refresh();
 
 public:
   Pix(Platform *);

@@ -7,6 +7,7 @@ Weather::Weather(Platform *p) {
   refresh_every = 60 * 60;
   screen_frames = 100;
   frame = false;
+  refreshed_at = 0;
 };
 
 void Weather::refresh() {

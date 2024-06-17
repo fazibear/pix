@@ -5,8 +5,9 @@
 LastFM::LastFM(Platform *p) {
   platform = p;
   throttle = 4;
-  refresh_every = 3 * 60;
+  refresh_every = 2 * 60;
   position = 16;
+  refreshed_at = 0;
 };
 
 void LastFM::refresh() {
@@ -30,8 +31,8 @@ void LastFM::refresh() {
     info = "Error fetching data";
   }
 
+  position = 16;
   len = info.length() * 4;
-
   screen_frames = len * throttle + 64;
 };
 
