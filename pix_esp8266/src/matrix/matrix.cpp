@@ -1,6 +1,6 @@
-#include "esp.h"
+#include "matrix.h"
 
-Esp::Esp() {
+Matrix::Matrix() {
   // GPIO
   pinMode(A1, OUTPUT);
   pinMode(A2, OUTPUT);
@@ -39,14 +39,14 @@ Esp::Esp() {
   time->update();
 }
 
-void Esp::clear() {
+void Matrix::clear() {
   for (uint8 y = 0; y < LINES; y++) {
     for (uint8 x = 0; x < BITS_PER_LINE; x++) {
       matrix[y][x] = 0;
     }
   }
 }
-void Esp::set_dot(uint8 x, uint8 y, uint8 c) {
+void Matrix::set_dot(uint8 x, uint8 y, uint8 c) {
   if (x > 15 or y > 15) {
     return;
   }
@@ -60,13 +60,13 @@ void Esp::set_dot(uint8 x, uint8 y, uint8 c) {
   matrix[y][x + 64] = c & 1;
 }
 
-void Esp::set_line(uint8 row) {
+void Matrix::set_line(uint8 row) {
   digitalWrite(A1, !(row & 1));
   digitalWrite(A2, !(row & 2));
   digitalWrite(A3, !(row & 4));
 }
 
-void Esp::draw() {
+void Matrix::draw() {
   for (uint8 line = 0; line < LINES; line++) {
     set_line(line);
     digitalWrite(OE, 1);
@@ -86,7 +86,7 @@ void Esp::draw() {
   digitalWrite(OE, 1);
 }
 
-int8_t Esp::read_buttons() {
+int8_t Matrix::read_buttons() {
   int8 state = 0;
 
   if (!digitalRead(BTN1)) {
@@ -106,18 +106,18 @@ int8_t Esp::read_buttons() {
   return state;
 }
 
-time_t Esp::get_time() {
+time_t Matrix::get_time() {
   time->update();
   return time->getEpochTime();
 }
 
-Time Esp::get_datetime() {
+Time Matrix::get_datetime() {
   time->update();
   time_t now = get_time();
   return localtime(&now);
 }
 
-std::string Esp::fetch(std::string url) {
+std::string Matrix::fetch(std::string url) {
   std::string response = "error";
 
   if (WiFi.status() != WL_CONNECTED) {
@@ -142,4 +142,4 @@ std::string Esp::fetch(std::string url) {
   return response.c_str();
 }
 
-void Esp::debug(std::string s, ...) { Serial.println(s.c_str()); }
+void Matrix::debug(std::string s, ...) { Serial.println(s.c_str()); }

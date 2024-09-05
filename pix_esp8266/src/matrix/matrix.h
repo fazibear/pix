@@ -37,9 +37,9 @@
 // #define PER_LINE 12
 #define BITS_PER_LINE 16 * 2 * 3
 
-class Esp : public Platform {
+class Matrix : public Platform {
 public:
-  Esp();
+  Matrix();
   void clear();
   void set_dot(uint8, uint8, uint8);
   void draw();
