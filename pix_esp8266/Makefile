@@ -12,14 +12,17 @@ $(BIN): rm
 run: $(BIN)
 	./$(BIN) 2> log.txt
 
-upload:
-	platformio run -e d1_mini -t upload
+matrix:
+	platformio run -e matrix -t upload
 
-debug:
-	platformio run -e d1_mini -t upload
+matrix_monitor:
+	platformio device monitor -e matrix
 
-monitor:
-	platformio device monitor -e d1_mini
+tft:
+	platformio run -e tft -t upload
+
+tft_monitor:
+	platformio device monitor -e tft
 
 clean:
 	platformio run -t clean

@@ -5,35 +5,28 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
 #include <NTPClient.h>
-#include <WifiUdp.h>
-#include <bitset>
+#include <TFT_eSPI.h>
+#include <WiFiClient.h>
+#include <WiFiServer.h>
+#include <string>
+
+#include <ArduinoOTA.h>
 
 #define TIME_SERVER "pool.ntp.org"
 #define TIME_REFRESH 24 * 60 * 60 * 1000
 #define TIME_OFFSET_WINTER 3600
 #define TIME_OFFSET_SUMMER 7200
 
-#define A1 0
-#define A2 4
-#define A3 5
+#define TFT_CLK 14
+#define TFT_MOSI 13
+#define TFT_DC 0
+#define TFT_RST 2
+#define TFT_CS 15
+#define TFT_BACKLIGHT 5
 
-#define OE 14
-#define LE 12
-#define SDI 13
-#define CLK 15
-
-#define BTN1 16
-#define BTN2 2
-#define BTN3 1
-#define BTN4 3
-
-#define LINES 8
-// #define PER_LINE 12
-#define BITS_PER_LINE 16 * 2 * 3
-
-class Matrix : public Platform {
+class TFT : public Platform {
 public:
-  Matrix();
+  TFT();
   void clear();
   void set_dot(uint8, uint8, uint8);
   void draw();
@@ -46,9 +39,12 @@ public:
   void debug(std::string, ...);
 
 private:
-  void set_line(uint8 row);
-  std::bitset<BITS_PER_LINE> matrix[LINES] = {{0}};
   WiFiUDP *udp;
   NTPClient *time;
+  TFT_eSPI *tft;
   bool button_pressed = false;
+  void setup_ota();
+  void setup_tft();
+  void setup_wifi();
+  void setup_time();
 };
