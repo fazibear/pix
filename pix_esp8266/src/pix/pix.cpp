@@ -46,7 +46,6 @@ void Pix::step() {
   if (frame % current_screen->throttle == 0) {
     current_screen->update();
   }
-
   platform->draw();
 }
 

@@ -8,18 +8,38 @@ TFT::TFT() {
   setup_ota();
 }
 
-void TFT::clear() {}
+void TFT::clear() {
+  for (uint8_t y = 0; y < 16; y++) {
+    for (uint8_t x = 0; x < 16; x++) {
+      pixel_data[y][x] = 0;
+    }
+  }
+}
 
-void TFT::set_dot(uint8 x, uint8 y, uint8 c) {}
+void TFT::set_dot(uint8 x, uint8 y, uint8 c) {
+  if (x < 0 || y < 0 || x > 15 || y > 15) {
+    return;
+  }
+  pixel_data[y][x] = c;
+}
 
 void TFT::draw() {
+  auto start_time = millis();
+  uint32_t colors[8] = {0x0,      0xFF0000, 0x00FF00, 0xFFFF00,
+                        0x0000FF, 0xFF00FF, 0x00FFFF, 0xFFFFFF};
+  for (uint8_t y = 0; y < 16; y++) {
+    for (uint8_t x = 0; x < 16; x++) {
+      if (pixel_data[y][x] != pixel_data_old[y][x]) {
+        tft->fillRect(x * 15, y * 15, 14, 14, colors[pixel_data[y][x]]);
+        pixel_data_old[y][x] = pixel_data[y][x];
+      }
+    }
+  }
+  auto delay_ms = 20 - (millis() - start_time);
+  if (delay_ms > 0) {
+    delay(delay_ms);
+  };
   ArduinoOTA.handle();
-  tft->fillScreen(TFT_BLACK);
-  tft->fillScreen(TFT_WHITE);
-  tft->fillScreen(TFT_YELLOW);
-  tft->fillScreen(TFT_GREEN);
-  tft->fillScreen(TFT_BLUE);
-  tft->fillScreen(TFT_RED);
 }
 
 int8_t TFT::read_buttons() { return 0; }

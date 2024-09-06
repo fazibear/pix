@@ -9,7 +9,7 @@ rm:
 $(BIN): rm
 	platformio run -e app
 
-run: $(BIN)
+app: $(BIN)
 	./$(BIN) 2> log.txt
 
 matrix:

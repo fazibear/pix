@@ -42,6 +42,8 @@ private:
   WiFiUDP *udp;
   NTPClient *time;
   TFT_eSPI *tft;
+  uint8_t pixel_data_old[16][16];
+  uint8_t pixel_data[16][16];
   bool button_pressed = false;
   void setup_ota();
   void setup_tft();

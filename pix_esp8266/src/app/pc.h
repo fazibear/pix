@@ -39,12 +39,6 @@
 #define HOME "\x1B[1H"
 
 class PC : public Platform {
-private:
-  CURL *curl;
-  uint8_t pixel_data[16][16];
-  void draw_pixel(char color);
-  static size_t curl_write_f(char *, size_t, size_t, std::string *);
-
 public:
   PC();
   void clear();
@@ -58,4 +52,10 @@ public:
   time_t get_time();
   Time get_datetime();
   void debug(std::string, ...);
+
+private:
+  CURL *curl;
+  uint8_t pixel_data[16][16];
+  void draw_pixel(char color);
+  static size_t curl_write_f(char *, size_t, size_t, std::string *);
 };
