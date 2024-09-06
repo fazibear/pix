@@ -45,6 +45,7 @@ private:
   uint8_t pixel_data_old[16][16];
   uint8_t pixel_data[16][16];
   bool button_pressed = false;
+  uint32_t to_rgb(uint8_t);
   void setup_ota();
   void setup_tft();
   void setup_wifi();

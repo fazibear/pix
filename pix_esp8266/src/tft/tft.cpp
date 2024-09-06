@@ -1,4 +1,5 @@
 #include "tft.h"
+
 TFT::TFT() {
   Serial.begin(115200);
 
@@ -23,14 +24,36 @@ void TFT::set_dot(uint8 x, uint8 y, uint8 c) {
   pixel_data[y][x] = c;
 }
 
+uint32_t TFT::to_rgb(uint8_t color) {
+  switch (color) {
+  case 1:
+    return TFT_RED;
+  case 2:
+    return TFT_GREEN;
+  case 3:
+    return TFT_YELLOW;
+  case 4:
+    return TFT_BLUE;
+  case 5:
+    return TFT_PURPLE;
+  case 6:
+    return TFT_CYAN;
+  case 7:
+    return TFT_WHITE;
+  default:
+    return TFT_BLACK;
+  }
+}
+
 void TFT::draw() {
   auto start_time = millis();
-  uint32_t colors[8] = {0x0,      0xFF0000, 0x00FF00, 0xFFFF00,
-                        0x0000FF, 0xFF00FF, 0x00FFFF, 0xFFFFFF};
+
+  ArduinoOTA.handle();
+
   for (uint8_t y = 0; y < 16; y++) {
     for (uint8_t x = 0; x < 16; x++) {
       if (pixel_data[y][x] != pixel_data_old[y][x]) {
-        tft->fillRect(x * 15, y * 15, 14, 14, colors[pixel_data[y][x]]);
+        tft->fillRect(x * 15, y * 15, 14, 14, to_rgb(pixel_data[y][x]));
         pixel_data_old[y][x] = pixel_data[y][x];
       }
     }
@@ -39,7 +62,6 @@ void TFT::draw() {
   if (delay_ms > 0) {
     delay(delay_ms);
   };
-  ArduinoOTA.handle();
 }
 
 int8_t TFT::read_buttons() { return 0; }
