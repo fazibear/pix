@@ -6,6 +6,7 @@
 #include <ESP8266WiFi.h>
 #include <NTPClient.h>
 #include <TFT_eSPI.h>
+#include <Timezone.h>
 #include <WiFiClient.h>
 #include <WiFiServer.h>
 #include <string>
@@ -14,8 +15,6 @@
 
 #define TIME_SERVER "pool.ntp.org"
 #define TIME_REFRESH 24 * 60 * 60 * 1000
-#define TIME_OFFSET_WINTER 3600
-#define TIME_OFFSET_SUMMER 7200
 
 #define TFT_CLK 14
 #define TFT_MOSI 13
@@ -41,6 +40,7 @@ public:
 private:
   WiFiUDP *udp;
   NTPClient *time;
+  Timezone *tz;
   TFT_eSPI *tft;
   uint8_t pixel_data_old[16][16];
   uint8_t pixel_data[16][16];

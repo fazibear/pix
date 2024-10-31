@@ -68,7 +68,7 @@ int8_t TFT::read_buttons() { return 0; }
 
 time_t TFT::get_time() {
   time->update();
-  return time->getEpochTime();
+  return tz->toLocal(time->getEpochTime());
 }
 
 Time TFT::get_datetime() {
@@ -119,8 +119,12 @@ void TFT::setup_wifi() {
 
 void TFT::setup_time() {
   debug("Setting time...");
+
+  TimeChangeRule dstRule = {"CEST", Last, Sun, Mar, 2, 120};
+  TimeChangeRule stdRule = {"CET", Last, Sun, Oct, 2, 60};
+  tz = new Timezone(dstRule, stdRule);
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, TIME_SERVER, TIME_OFFSET_SUMMER, TIME_REFRESH);
+  time = new NTPClient(*udp, TIME_SERVER, 0, TIME_REFRESH);
   time->begin();
   time->update();
 }

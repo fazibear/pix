@@ -33,7 +33,10 @@ Matrix::Matrix() {
   debug("Setting time...");
 
   udp = new WiFiUDP();
-  time = new NTPClient(*udp, TIME_SERVER, TIME_OFFSET_SUMMER, TIME_REFRESH);
+  TimeChangeRule dstRule = {"CEST", Last, Sun, Mar, 2, 120};
+  TimeChangeRule stdRule = {"CET", Last, Sun, Oct, 2, 60};
+  tz = new Timezone(dstRule, stdRule);
+  time = new NTPClient(*udp, TIME_SERVER, 0, TIME_REFRESH);
 
   time->begin();
   time->update();
@@ -108,7 +111,7 @@ int8_t Matrix::read_buttons() {
 
 time_t Matrix::get_time() {
   time->update();
-  return time->getEpochTime();
+  return tz->toLocal(time->getEpochTime());
 }
 
 Time Matrix::get_datetime() {

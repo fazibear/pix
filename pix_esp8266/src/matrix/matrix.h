@@ -5,13 +5,12 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
 #include <NTPClient.h>
+#include <Timezone.h>
 #include <WifiUdp.h>
 #include <bitset>
 
 #define TIME_SERVER "pool.ntp.org"
 #define TIME_REFRESH 24 * 60 * 60 * 1000
-#define TIME_OFFSET_WINTER 3600
-#define TIME_OFFSET_SUMMER 7200
 
 #define A1 0
 #define A2 4
@@ -50,5 +49,6 @@ private:
   std::bitset<BITS_PER_LINE> matrix[LINES] = {{0}};
   WiFiUDP *udp;
   NTPClient *time;
+  Timezone *tz;
   bool button_pressed = false;
 };
