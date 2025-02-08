@@ -2,10 +2,11 @@
 
 Year::Year(Platform *p) {
   platform = p;
-  dots = 0;
   screen_frames = 100;
   refresh_every = 60 * 60 * 24;
   refreshed_at = 0;
+  percent = 0;
+  dots = 0;
 }
 
 void Year::refresh() {
@@ -59,7 +60,7 @@ void Year::update() {
 
   Chars::put_char(platform, 'Y', 0, 2, BLUE);
   Chars::put_char(platform, '%', 13, 2, YELLOW);
-  if (percent > 10) {
+  if (percent > 9) {
     Chars::put_char(platform, '0' + percent / 10, 5, 2, YELLOW);
   }
   Chars::put_char(platform, '0' + percent % 10, 9, 2, YELLOW);
