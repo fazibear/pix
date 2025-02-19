@@ -10,16 +10,23 @@ ETH::ETH(Platform *p) {
   refreshed_at = 0;
 };
 
+// #define URL "https://api.coindesk.com/v2/tb/price/ticker?assets=ETH"
+// #define PRICE "data"]["BTC"]["ohlc"]["c"
+// #define CHANGE "data"]["BTC"]["change"]["percent"
+
+#define URL "https://api.coincap.io/v2/assets/ethereum"
+#define PRICE "data"]["priceUsd"
+#define CHANGE "data"]["changePercent24Hr"
+
 void ETH::refresh() {
-  std::string json = platform->fetch(
-      "https://production.api.coindesk.com/v2/tb/price/ticker?assets=ETH");
+  std::string json = platform->fetch(URL);
 
   if (json != "error") {
     JsonDocument doc;
     deserializeJson(doc, json);
 
-    float price_f = doc["data"]["ETH"]["ohlc"]["c"].as<float>();
-    float change_f = doc["data"]["ETH"]["change"]["percent"].as<float>();
+    float price_f = doc[PRICE].as<float>();
+    float change_f = doc[CHANGE].as<float>();
 
     info = "ETH: " + std::to_string((int)std::round(price_f)) + " USD " +
            std::to_string((int)std::round(change_f)) + "% ";
