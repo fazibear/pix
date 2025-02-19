@@ -14,22 +14,22 @@ ETH::ETH(Platform *p) {
 // #define PRICE "data"]["BTC"]["ohlc"]["c"
 // #define CHANGE "data"]["BTC"]["change"]["percent"
 
-#define URL "https://api.coincap.io/v2/assets/ethereum"
-#define PRICE "data"]["priceUsd"
-#define CHANGE "data"]["changePercent24Hr"
+#define ETH_URL "https://api.coincap.io/v2/assets/ethereum"
+#define ETH_PRICE "data"]["priceUsd"
+#define ETH_CHANGE "data"]["changePercent24Hr"
 
 void ETH::refresh() {
-  std::string json = platform->fetch(URL);
+  std::string json = platform->fetch(ETH_URL);
 
   if (json != "error") {
     JsonDocument doc;
     deserializeJson(doc, json);
 
-    float price_f = doc[PRICE].as<float>();
-    float change_f = doc[CHANGE].as<float>();
+    float price_f = doc[ETH_PRICE].as<float>();
+    float change_f = doc[ETH_CHANGE].as<float>();
 
     info = "ETH: " + std::to_string((int)std::round(price_f)) + " USD " +
-           std::to_string((int)std::round(change_f)) + "% ";
+           (change_f > 0 ? "+" : "") + std::to_string((int)std::round(change_f)) + "% ";
   } else {
     info = "Error fetching data";
   }

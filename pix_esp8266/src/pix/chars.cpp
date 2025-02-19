@@ -4,7 +4,7 @@ namespace Chars {
 
 namespace {
 
-const CharMap chars{
+const CharMap* chars = new CharMap {
     {
         '0',
         {
@@ -488,6 +488,18 @@ const CharMap chars{
         },
     },
     {
+        '+',
+        {
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("111"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+            std::bitset<CHAR_WIDTH>("000"),
+        },
+    },
+    {
         '\\',
         {
             std::bitset<CHAR_WIDTH>("100"),
@@ -607,29 +619,26 @@ const CharMap chars{
             std::bitset<CHAR_WIDTH>("100"),
         },
     },
-    {
-        -1,
-        {
-            std::bitset<CHAR_WIDTH>("111"),
-            std::bitset<CHAR_WIDTH>("111"),
-            std::bitset<CHAR_WIDTH>("111"),
-            std::bitset<CHAR_WIDTH>("111"),
-            std::bitset<CHAR_WIDTH>("111"),
-            std::bitset<CHAR_WIDTH>("111"),
-            std::bitset<CHAR_WIDTH>("111"),
-        },
-    },
 };
 
 }; // namespace
 
 Char getChar(char c) {
   char up = std::toupper(c);
-  if (chars.find(up) != chars.end()) {
-    return chars.at(up);
+  auto char_it = chars->find(up);
+  if (char_it != chars->end()) {
+    return char_it->second;
   } else {
-    return chars.at(-1);
-  }
+    return {
+      std::bitset<CHAR_WIDTH>("111"),
+      std::bitset<CHAR_WIDTH>("111"),
+      std::bitset<CHAR_WIDTH>("111"),
+      std::bitset<CHAR_WIDTH>("111"),
+      std::bitset<CHAR_WIDTH>("111"),
+      std::bitset<CHAR_WIDTH>("111"),
+      std::bitset<CHAR_WIDTH>("111"),
+    };
+  };
 }
 
 void put_char(Platform *platform, char c, int8_t x, int8_t y, int8_t color) {

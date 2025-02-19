@@ -14,22 +14,22 @@ BTC::BTC(Platform *p) {
 // #define PRICE "data"]["BTC"]["ohlc"]["c"
 // #define CHANGE "data"]["BTC"]["change"]["percent"
 
-#define URL "https://api.coincap.io/v2/assets/bitcoin"
-#define PRICE "data"]["priceUsd"
-#define CHANGE "data"]["changePercent24Hr"
+#define BTC_URL "https://api.coincap.io/v2/assets/bitcoin"
+#define BTC_PRICE "data"]["priceUsd"
+#define BTC_CHANGE "data"]["changePercent24Hr"
 
 void BTC::refresh() {
-  std::string json = platform->fetch(URL);
+  std::string json = platform->fetch(BTC_URL);
 
   if (json != "error") {
     JsonDocument doc;
     deserializeJson(doc, json);
 
-    float price_f = doc[PRICE].as<float>();
-    float change_f = doc[CHANGE].as<float>();
+    float price_f = doc[BTC_PRICE].as<float>();
+    float change_f = doc[BTC_CHANGE].as<float>();
 
     info = "BTC: " + std::to_string((int)std::round(price_f)) + " USD " +
-           std::to_string((int)std::round(change_f)) + "% ";
+            (change_f > 0 ? "+" : "") + std::to_string((int)std::round(change_f)) + "% ";
   } else {
     info = "Error fetching data";
   }
